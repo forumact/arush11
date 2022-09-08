@@ -1,0 +1,133 @@
+diff --git a/logs/server.log b/logs/server.log
+index 61e1891..00c0fd6 100644
+--- a/logs/server.log
++++ b/logs/server.log
+@@ -44,3 +44,21 @@ info: Jul-06-2022 14:07:27: 	Server Sent A Hello World!
+ info: Jul-06-2022 14:07:32: 	Server Sent A Hello World!
+ info: Jul-06-2022 14:07:38: 	Server Sent A Hello World!
+ info: Jul-06-2022 14:08:00: 	Server Sent A Hello World!
++info: Jul-06-2022 14:14:06: 	Server Sent A Hello World!
++info: Jul-06-2022 14:16:11: 	Server Sent A Hello World!
++info: Jul-06-2022 14:16:23: 	Server Sent A Hello World!
++info: Jul-06-2022 14:16:24: 	Server Sent A Hello World!
++info: Jul-06-2022 14:50:30: 	Server Sent A Hello World!
++info: Jul-06-2022 14:51:55: 	Server Sent A Hello World!
++info: Jul-06-2022 17:09:40: 	Server Sent A Hello World!
++info: Jul-06-2022 17:20:03: 	Server Sent A Hello World!
++info: Jul-06-2022 17:28:37: 	Server Sent A Hello World!
++info: Jul-06-2022 17:28:54: 	Server Sent A Hello World!
++info: Jul-06-2022 17:42:51: 	Server Sent A Hello World!
++info: Jul-06-2022 18:06:45: 	Server Sent A Hello World!
++info: Jul-06-2022 18:21:24: 	Server Sent A Hello World!
++info: Jul-06-2022 18:23:16: 	Server Sent A Hello World!
++info: Jul-06-2022 19:38:36: 	Server Sent A Hello World!
++info: Jul-06-2022 20:08:45: 	Server Sent A Hello World!
++info: Jul-06-2022 20:49:00: 	Server Sent A Hello World!
++info: Jul-06-2022 21:30:36: 	Server Sent A Hello World!
+diff --git a/utlis/dream-team-utils.js b/utlis/dream-team-utils.js
+index a977889..d1d89ab 100644
+--- a/utlis/dream-team-utils.js
++++ b/utlis/dream-team-utils.js
+@@ -377,9 +377,7 @@ const captainfix = async (
+     );
+     findCap = need.findCap;
+     clonedTeam = need.updated;
+-  }
+-
+-  else if (findCap !== "find" && passdata.wp == "both") {
++  } else if (findCap !== "find" && passdata.wp == "both") {
+     let need = await _select_captains_formula(
+       passdata,
+       clonedTeam,
+@@ -435,33 +433,15 @@ const viceCaptainfix = async (
+   let vcaptainRole = [];
+   clonedTeam = _.shuffle(sampledTeam);
+   let availableVCaptains = _.filter(captains.data, ["vcaptain", "active"]);
+-  let availableVCaptainsArrRand = _.shuffle(availableVCaptains);
+-
+   if (availableVCaptains.length) {
+-    let currentCaptains = _.filter(clonedTeam, ["captain", "active"]);
+-
+-    let removedCaptains = _.difference(
+-      availableVCaptainsArrRand,
+-      currentCaptains
++    let need = await _select_vice_captains_from_selection(
++      availableVCaptains,
++      clonedTeam,
++      findVCap
+     );
+-    let pickvc = await _.sample(removedCaptains);
+-    let pickC = _.get(currentCaptains, ["0", "name"]);
+-    //Fix for same captain and VC issue
+-    if (pickvc.name == pickC) {
+-      pickvc = await _.sample(removedCaptains);
+-    }
+-    // let pickvc = await _.sample(availableVCaptainsArrRand);
+-
+-    for await (let [key, value] of Object.entries(clonedTeam)) {
+-      clonedTeam[key].vcaptain = "inactive";
+-      if (pickvc.name == clonedTeam[key].name && findVCap != "find") {
+-        console.info("vc", selected, clonedTeam[key].name);
+-        findVCap = "find";
+-        clonedTeam[key].vcaptain = "active";
+-      }
+-    }
+-  }
+-  else if (findVCap !== "find" && passdata.wp == "both") {
++    findCap = need.findCap;
++    clonedTeam = need.updated;
++  } else if (findVCap !== "find" && passdata.wp == "both") {
+     vcaptainRole = await helper.fetchViceCaptainRole(passdata, recursive);
+     let winnigTeam = _.sample([passdata.team1, passdata.team2]);
+     let wpteamplayers = _.filter(clonedTeam, {
+@@ -479,8 +459,7 @@ const viceCaptainfix = async (
+         }
+       }
+     }
+-  }
+-  else if (findVCap !== "find" && passdata.wp != "both") {
++  } else if (findVCap !== "find" && passdata.wp != "both") {
+     vcaptainRole = await helper.fetchViceCaptainRole(passdata, recursive);
+     let wpteamplayers = _.filter(clonedTeam, {
+       team: passdata.wp,
+@@ -710,6 +689,40 @@ async function _select_captains_from_selection(
+   return results;
+ }
+ 
++async function _select_vice_captains_from_selection(
++  availableVCaptains,
++  clonedTeam,
++  findVCap
++) {
++  var results = new Object();
++  let availableVCaptainsArrRand = _.shuffle(availableVCaptains);
++  let currentCaptains = _.filter(clonedTeam, ["captain", "active"]);
++
++  let removedCaptains = _.difference(availableVCaptainsArrRand,
++    currentCaptains
++  );
++  let pickvc = await _.sample(removedCaptains);
++  let pickC = _.get(currentCaptains, ["0", "name"]);
++  //Fix for same captain and VC issue
++  if (pickvc.name == pickC) {
++    pickvc = await _.sample(removedCaptains);
++  }
++  // let pickvc = await _.sample(availableVCaptainsArrRand);
++
++  for await (let [key, value] of Object.entries(clonedTeam)) {
++    clonedTeam[key].vcaptain = "inactive";
++    if (pickvc.name == clonedTeam[key].name && findVCap != "find") {
++      console.info("vc", selected, clonedTeam[key].name);
++      // findVCap = "find";
++      results["findVCap"] = "find";
++      clonedTeam[key].vcaptain = "active";
++    }
++  }
++
++  results["updated"] = clonedTeam;
++  return results;
++}
++
+ async function _select_captains_formula(
+   passdata,
+   clonedTeam,

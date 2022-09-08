@@ -1,0 +1,64 @@
+<div class="container-fluid">
+  <div class="row">
+    <% matchList.forEach(function(match, index){ %>
+      <div class="col-md-4">
+        <div class="d-flex">
+          <div class="card bg-dark text-yellow mt-xxl-3 rounded-20">
+            <div class="card-header border-success text-center">Contest - <%= index + 1 %></div>
+            <div class="card-horizontal">
+              <div class="img-square-wrapper p-xxl-3" style="width: 30%;">
+                <div>
+                  <img src="<%= match.team1img %>"  class="me-xxl-1 flag-css" />
+                  <span class="card-text fw-bold f14 ">
+                    <%= match.team1.toUpperCase() %>
+                  </span>
+                </div>
+                <div>
+                  <img src="<%= match.team2img %>"  class="me-xxl-1 flag-css mt-1"/>
+                  <span class="card-text fw-bold f14">
+                    <%= match.team2.toUpperCase() %>
+                  </span>
+                </div>
+                <p class="card-text f14 fw-bold">
+                  <%= match.createdAt.substring(0, 10) %>
+                </p>
+              </div>
+              <div class="card-body" style="width: 70%;">
+                <button class="<%= match.status == 'C' ? 'btn btn-success' : 'btn btn-warning' %> mt-2 f14 fw-bold">
+                  Status: <%= match.status %>
+                </button>
+                <button class="btn btn-warning mt-2 f14 fw-bold">
+                  PR: <%= match.pitchreport.toUpperCase() %>
+                </button>
+                <button class="btn btn-warning mt-2 f14 fw-bold">
+                  WP: <%= match.winningposibility.toUpperCase() %>
+                </button>
+                <button class="btn btn-warning mt-2 f14 fw-bold">
+                  C: <%= match.captainchoice.toUpperCase() %>
+                </button>
+                <button class="btn btn-warning mt-2 f14 fw-bold">
+                  VC: <%= match.vcaptainchoice.toUpperCase() %>
+                </button>
+                <button class="btn btn-warning mt-2 f14 fw-bold">
+                  #: <%= match.teamcount ? match.teamcount : 'NA' %>
+                </button>
+              </div>
+            </div>
+            <div class="card-footer text-center justify-content-around d-flex p-xxl-3 border-success">
+              <a href="/analytics/<%= match.matchid %>?team1=<%= match.team1 %>&team2=<%= match.team2 %>"><i
+                  class="fas fa-analytics"></i></a>
+              <a
+                href="/points_update/<%= match.matchid %>?team1=<%= match.team1 %>&team2=<%= match.team2 %>&matchid=<%= match.matchid %>"><i
+                  class="fa-solid fa-pencil"></i></a>
+              <a href="/result?team1=<%= match.team1 %>&team2=<%= match.team2 %>&matchid=<%= match.matchid %>"><i
+                  class="fa-solid fa-browsers"></i></a>
+              <a class="arul-modal" href="#" redirect-url="/delete_mymatches?matchid=<%= match.matchid %>">
+                <i class="fa-solid fa-trash-xmark"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }); %>
+  </div>
+</div>

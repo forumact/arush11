@@ -1,0 +1,30 @@
+<div class="container-fluid mt-3 mb-4">
+  <div class="col-lg-12 mt-4 mt-lg-0">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="d-flex flex-wrap justify-content-center text-dark text-center">
+          <% analyticsTeam.forEach(function(team, index){ %>
+            <div class="card mb-3 col-3 mx-2 bg-dark text-yellow analytics-card">
+              <div class="card-body">
+                <h5 class="card-title">Team Number: <%= team.teamnumber %>
+                </h5>
+                <%- include('functions') %>
+                <%- analyticsPrintCaptan(team.players, team1, team2) %>
+                <%- analyticsPrintVCaptan(team.players, team1, team2) %>
+                <div><h5 class="card-title"><%- playerTeamCount(team.players, team1, team2) %></h5></div>
+                <div><h5 class="card-title">Points: <%= team.Total1 %></h5></div>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-dark1 text-yellow1">
+                  <%- include('functions'); %>
+                  <%- playerRoleCount(team.players)%>
+                </li>
+              </ul>
+              <input id="teamid" type="hidden" value="<%= team._id %>" />
+            </div>
+            <% }); %>            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

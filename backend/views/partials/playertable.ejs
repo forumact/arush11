@@ -1,0 +1,33 @@
+<table
+  class="team1 table table-dark bg-dark text-yellow table-hover text-center mb-0"
+>
+  <thead>
+    <tr>
+      <th colspan="8"><img src="" alt="" width="120" /></th>
+    </tr>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Players</th>
+      <th scope="col">Credits</th>
+      <th scope="col">Role</th>
+      <th scope="col">Bat</th>
+      <th scope="col">Bowl</th>
+      <th scope="col">Bowl Order</th>
+      <th scope="col">Playing 11</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% team.forEach(function(user, index){ %>
+    <tr>
+      <th scope="row"><%= index + 1 %></th>
+      <td><%= user.name %></td>
+      <td><%= user.credits %></td>
+      <td><%= user.role %></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td><input type="checkbox" class="playing11" value="" name="" /></td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>

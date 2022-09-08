@@ -1,0 +1,84 @@
+diff --git a/helpers/index.js b/helpers/index.js
+index 67accb3..107637d 100644
+--- a/helpers/index.js
++++ b/helpers/index.js
+@@ -155,7 +155,7 @@ async function _updateSelectedTeams(Player, sampledTeam, selectedTeams, selected
+     //         selectedTeams, selected
+     //     ];
+     // }
+-    let uniqueTeamCriteria = await checkUniqueTeamCriteria(sampledTeamNew2, selectedTeams, selected);
++    let [uniqueTeamCriteria, sampledTeamNew3] = await checkUniqueTeamCriteria(sampledTeamNew2, selectedTeams, selected, passdata);
+     if (!uniqueTeamCriteria) {
+         log(chalk.cyan('Rejected due to uniqueTeamCriteria'));
+         return [
+@@ -165,9 +165,9 @@ async function _updateSelectedTeams(Player, sampledTeam, selectedTeams, selected
+     if (maxPointsCriteria && uniqueTeamCriteria && minPointsCriteria && minPlayersCriteria) {
+         selected = selected + 1;
+         if (save == 'save') {
+-            let dbsave = await teamSave(sampledTeamNew, selected, matchid, userid);
++            let dbsave = await teamSave(sampledTeamNew3, selected, matchid, userid);
+         }
+-        let needuser = _.sortBy(sampledTeamNew, [function(o) {
++        let needuser = _.sortBy(sampledTeamNew3, [function(o) {
+             return o.user;
+         }]);
+         selectedTeams = selectedTeams.concat([needuser]);
+@@ -304,17 +304,24 @@ async function checkMinPlayersTeamCriteria(Player, sampledTeamNew, passdata) {
+  * @param {number} n The power, must be a natural number.
+  * @return {number} x raised to the n-th power.
+  */
+-async function checkUniqueTeamCriteria(sampledTeam, selectedTeams, selected) {
++async function checkUniqueTeamCriteria(sampledTeam, selectedTeams, selected, passdata, recursive = 0) {
+     let result = true;
+     if (selectedTeams.length > 0) {
+         for (const team of selectedTeams) {
+             let dd = isArrayEqual(team, sampledTeam);
+             if (dd) {
+-                // let teamsort =  _.sortBy(team, ['name']);
+-                // let sampledTeamsort =  _.sortBy(sampledTeam, ['name']);
+-                //  console.table(teamsort, ['name', 'captain', 'vcaptain']);
+-                //  console.table(sampledTeamsort, ['name', 'captain', 'vcaptain']);
+-                return false;
++                result = false;
++                console.log('----------------------------------------')
++                let teamsort = _.sortBy(team, ['name']);
++                let sampledTeamsort = _.sortBy(sampledTeam, ['name']);
++                console.table(teamsort, ['name', 'captain', 'vcaptain']);
++                console.table(sampledTeamsort, ['name', 'captain', 'vcaptain']);
++                console.log('----------------------------------------')
++                if (!result && recursive < 5) {
++                    selectedTeams = await _swapcaptains(selectedTeams, passdata);
++                    checkUniqueTeamCriteria(sampledTeam, selectedTeams, selected, passdata, recursive++)
++                }
++                return [result, selectedTeams];
+             } else {
+                 // console.log(selected);
+                 // let teamsort = _.sortBy(team, ['name']);
+@@ -325,7 +332,9 @@ async function checkUniqueTeamCriteria(sampledTeam, selectedTeams, selected) {
+             }
+         }
+     }
+-    return result;
++    // console.log('result', result)
++    // console.log('selectedTeams', selectedTeams)
++    return [result, selectedTeams];
+ }
+ /**
+  * Returns x raised to the n-th power.
+@@ -629,7 +638,16 @@ async function _playersalter(Player, sampledTeamNew, tDemography, sourceteam, ta
+     }
+     return sampledTeamNew;
+ }
++async function _swapcaptains(selectedTeams, passdata) {
++
++   let currentTeamCaptain =  _.filter(users, ['captain', 'active']); 
++   console.log(currentTeamCaptain);   
++    if (passdata.wp != 'both') {
++        for (let inc =0; inc < selectedTeams.length; inc++) {
+ 
++        }
++    }
++}
+ // Meethod export to use other modules
+ module.exports.teamGenerator = teamGenerator;
+ module.exports.groupByKey = groupByKey;

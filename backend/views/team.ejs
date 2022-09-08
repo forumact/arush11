@@ -1,0 +1,114 @@
+<div class="container-fluid bg-dark mt-3 text-yellow">
+  <div class="row">
+    <form
+      class="row gx-3 gy-2 align-items-center p-3"
+      method="POST"
+      action="/admin/team/update"
+    >
+      <div class="col-sm-3">
+        <label class="visually-hidden" for="specificSizeInputGroupUsername"
+          >Username</label
+        >
+        <div class="input-group">
+          <div class="input-group-text">@</div>
+          <select class="form-select" name="tournament_name" id="specificSizeSelect">
+            <option selected>Tournament</option>
+            <% for(var i = 0; i < tournamentsList.length; i++){ %>
+              <option value="<%= tournamentsList[i].machine_name %>" <%= tournamentsList[i].machine_name == selectedTeam.tournament_name ? 'selected=selected' : '' %>>
+                 <%= tournamentsList[i].name.toUpperCase() %>
+              </option>
+            <% } %>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <label class="visually-hidden" for="specificSizeInputGroupUsername"
+          >Picture</label
+        >
+        <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-people-group"></i></div>
+          <input
+            type="text"
+            name="teamname"
+            class="form-control"
+            id="specificSizeInputGroupUsername"
+            placeholder="Team Name"
+            value="<%= selectedTeam.teamname %>"
+          />
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <label class="visually-hidden" for="specificSizeInputGroupUsername"
+          >Picture</label
+        >
+        <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-flag"></i></div>
+          <input
+            type="text"
+            name="image"
+            class="form-control"
+            id="specificSizeInputGroupUsername"
+            placeholder="Image Url"
+            value="<%= selectedTeam.image %>"
+          />
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="status"
+            id="autoSizingCheck1"
+            value="active"
+            <%= selectedTeam.status == 'active' ? 'checked=checked' : '' %>
+          />
+          <label class="form-check-label" for="autoSizingCheck1">
+            Status
+          </label>
+        </div>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-warning float-center text-dark">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<%# List Section %>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-12 mt-3 mb-3">
+      <table class="team1 table table-dark bg-dark text-yellow table-hover text-center mb-0">
+        <thead>
+          <tr>
+            <th colspan="8"></th>
+          </tr>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tournament Name</th>
+            <th scope="col">Team Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% teamsList.forEach(function(team, index){ %>
+          <tr>
+            <th scope="row"><%= index+1 %></th>
+            <td><%= team.tournament_name.toUpperCase() %></td>
+            <td><%= team.teamname.toUpperCase() %> <img src="<%= team.image %>"  class="flag-css"/></td>
+            <td><%= team.createdAt %></td>
+            <td><i class="<%= (team.status == 'active') ? 'fas': 'fal' %> fa-heart"></i></td>
+            <td><a href="/admin/team/<%= team._id %>"><i class="fa-solid fa-pencil"></i></a></td>
+            <td><a class="arul-modal" redirect-url="/admin/team/delete/<%= team._id %>?tid=<%= team._id %>&team=<%= team.teamname %>">
+                <i class="fa-solid fa-trash-xmark"></i>
+            </a></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

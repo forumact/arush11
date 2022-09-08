@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <% multiteams.forEach(function(teams, inc){ %>
+    <div class="col-auto mt-4">
+      <section class="team-bg">
+        <div class="d-flex justify-content-between bg-dark">
+          <div class="p-2">
+            <%- include('functions'); %>
+            <div class="d-inline-block team-name-1"><%= team1.toUpperCase() %></div>
+            <span class="text-bold text-white">
+              <%= teamPlayercount(teams, team1) %>:<%= teamPlayercount(teams, team2) %>
+            </span>
+            <div class="d-inline-block team-name-2"><%= team2.toUpperCase() %></div>
+          </div>
+          <div class="text-bold text-white mt-1">Team - <%= teams['WK'][0].teamnumber %> </div>
+          <div class="p-2">
+            <%- include('functions'); %>
+            <div class="d-inline-block team-name-2">Credits</div>
+            <span class="text-bold text-white"><%= credits(teams)%></span>
+            <div class="d-inline-block team-name-1">Points</div>
+            <span class="text-bold text-white"><%= points(teams)%></span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <% for (const teamswk of teams['WK']) { %>
+           <%- include('partials/resultplayer', {teams: teamswk, inc:inc}); %>
+          <% } %>
+        </div>
+        <div class="d-flex justify-content-center">
+          <% for (const teamsbat of teams['BAT']) { %>
+             <%- include('partials/resultplayer', {teams: teamsbat, inc:inc}); %>
+          <% } %>
+        </div>
+        <div class="d-flex justify-content-center">
+          <% for (const teamsar of teams['AR']) { %>
+            <%- include('partials/resultplayer', {teams: teamsar, inc:inc}); %>
+          <% } %>
+        </div>
+        <div class="d-flex justify-content-center">
+          <% for (const teamsbowl of teams['BOWL']) { %>
+            <%- include('partials/resultplayer', {teams: teamsbowl, inc:inc}); %>
+          <% } %>
+        </div>
+      </section>
+    </div>
+    <% }); %>
+  </div>
+</div>

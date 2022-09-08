@@ -1,0 +1,98 @@
+<div class="container-fluid">
+   <form action="/captain">
+      <div class="row justify-content-center">
+         <div class="col-md-6 mt-3 mb-3">
+            <% teamrole1.forEach(function(teams, inc){ %>
+            <section class="team-bg">
+               <div class="d-flex justify-content-between bg-transparent">
+                  <div class="p-2">
+                     <%- include('functions'); %>
+                        <div class="d-inline-block team-name-1 f13 fw-600">
+                           <%= team1.toUpperCase() %>
+                        </div>          
+                  </div>
+                  <div class="text-white f13 fw-600 align-self-center bg-light p-0-5"><%- playerRoleCount2(teams) %></div>
+                  <div class="p-2">
+                     <%- include('functions'); %>
+                        <div class="d-inline-block team-name-1 f13 fw-600">Credits</div>
+                        <span class="text-bold text-white">
+                           <%= credits(teams)%>
+                        </span>
+                  </div>
+               </div> 
+               <div class="d-flex justify-content-center">
+                  <% for (const teamswk of teams['WK'] || []) { %>
+                     <%- include('partials/dreamplayer', {teams: teamswk, inc:inc}); %>
+                        <% } %>
+               </div>
+               <div class="d-flex justify-content-center">
+                  <% for (const teamsbat of teams['BAT']||[]) { %>
+                     <%- include('partials/dreamplayer', {teams: teamsbat, inc:inc}); %>
+                        <% } %>
+               </div>
+               <div class="d-flex justify-content-center">
+                  <% for (const teamsar of teams['AR']||[]) { %>
+                     <%- include('partials/dreamplayer', {teams: teamsar, inc:inc}); %>
+                        <% } %>
+               </div>
+               <div class="d-flex justify-content-center">
+                  <% for (const teamsbowl of teams['BOWL']||[]) { %>
+                     <%- include('partials/dreamplayer', {teams: teamsbowl, inc:inc}); %>
+                        <% } %>
+               </div>
+            </section>
+            <% }); %>
+            <input type="hidden" name="team1" class="team1" value="<%= team1 %>" />
+         </div>
+         <div class="col-md-6 mt-3 mb-3">
+            <% teamrole2.forEach(function(teams, inc){ %>
+               <section class="team-bg">
+                  <div class="d-flex justify-content-between bg-transparent">
+                     <div class="p-2">
+                        <%- include('functions'); %>       
+                           <div class="d-inline-block team-name-2 f13 fw-600">
+                              <%= team2.toUpperCase() %>
+                           </div>
+                     </div>
+                     <div class="text-white f13 fw-600 align-self-center bg-light p-0-5"><%- playerRoleCount2(teams) %></div>
+                     <div class="p-2">
+                        <%- include('functions'); %>
+                           <div class="d-inline-block team-name-2 f13 fw-600">Credits</div>
+                           <span class="text-bold text-white">
+                              <%= credits(teams)%>
+                           </span>
+                     </div>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                     <% for (const teamswk of teams['WK'] || []) { %>
+                        <%- include('partials/dreamplayer', {teams: teamswk, inc:inc}); %>
+                           <% } %>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                     <% for (const teamsbat of teams['BAT']|| []) { %>
+                        <%- include('partials/dreamplayer', {teams: teamsbat, inc:inc}); %>
+                           <% } %>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                     <% for (const teamsar of teams['AR']|| []) { %>
+                        <%- include('partials/dreamplayer', {teams: teamsar, inc:inc}); %>
+                           <% } %>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                     <% for (const teamsbowl of teams['BOWL']|| []) { %>
+                        <%- include('partials/dreamplayer', {teams: teamsbowl, inc:inc}); %>
+                           <% } %>
+                  </div>
+               </section>
+               <% }); %>
+            
+            <input type="hidden" name="team2" class="team2" value="<%= team2 %>" />
+         </div>
+         <div class="bg-dark p-3 d-flex justify-content-center">
+            <input type="hidden" name="matchid" value="<%= matchid %>" />
+            <button type="submit" class="btn btn-warning float-center text-dark teampartition">Next</button>
+         </div>
+
+      </div>
+   </form>
+</div>

@@ -1,0 +1,45 @@
+<div class="container-fluid mt-3 mb-4">
+  <div class="row justify-content-center">
+    <% for (const [key, value] of Object.entries(series)) { %>
+      <div class="col-sm-5 mx-1 mt-3 mb-4 bg-dark rounded-20">
+        <form class="row justify-content-center" id="today-match" action="/squads">
+          <div class="card text-center bg-dark text-yellow rounded-20">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= (key) ? key.toUpperCase().replaceAll('_', ' ' ) : '' %>
+              </h5>
+              <div class="card-body">
+                <select id="team1-new" name="team1" class="p-2 team-selection team1">
+                  <option value="Team1">Team 1</option>
+                  <% value.forEach(function(val) { %>
+                      <option value="<%= val.teamname %>" data-img="<%= val.image %>">
+                        <%= val.teamname.toUpperCase() %>
+                      </option>
+                  <% }); %>
+                </select>
+                <span class="alert-link">&nbsp;VS&nbsp;</span>
+                <select id="team2-new" name="team2" class="p-2 team-selection team2">
+                  <option value="Team2">Team 2</option>
+                  <% value.forEach(function(val) { %>
+                    <option value="<%= val.teamname %>">
+                      <%= val.teamname.toUpperCase() %>
+                    </option>
+                <% }); %>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-warning mb-2 today-match disabled">
+                Create Team
+              </button>
+            </div>
+          </div>
+          <% value.forEach(function(val) { %>
+              <input type="hidden" placeholder="Match Id" name="<%= val.teamname %>" value="<%= val.image %>" />
+          <% }); %>          
+          <input type="hidden" placeholder="Match Id" name="tournament" value="<%= key %>" />
+          <%- include('functions'); %>
+            <input type="hidden" placeholder="Match Id" name="matchid" value="<%= makeid(15) %>" />
+        </form>
+      </div>
+      <% } %>
+  </div>
+</div>

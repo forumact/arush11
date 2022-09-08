@@ -1,0 +1,670 @@
+    const dreamteam = await DreamTeam.aggregate([{
+        $group: {
+            _id: "$teamnumber",
+            players: {
+                $push: "$$ROOT"
+            }
+        }
+    }]);
+
+    
+
+const playersFinal = await DreamTeam.aggregate(
+[
+    // First Stage
+    {
+        $group: {
+            _id: "$teamnumber",
+            players: {
+                $push: "$$ROOT"
+            }
+        }
+    },
+    // Second Stage
+    {
+        $match: {
+            "matchid": 4262
+        }
+    }
+]);
+
+-----------
+    const dreamteam = await DreamTeam.aggregate([{
+        $group: {
+            _id: "$name",
+            count: {
+                $sum: 1
+            }
+        },
+    }]);
+----------------
+let result = await DreamTeam.aggregate(
+    [{
+        $match: {
+            matchid: req.query.matchid
+        }
+    }, {
+        $group: {
+            _id: "$teamnumber",
+            players: {
+                $push: "$$ROOT"
+            }
+        }
+    }, {
+        $sort: {
+            _id: 1
+        }
+    }, ])
+    ---------------------
+
+        let result = await DreamTeam.aggregate(
+        [{
+            $match: {
+                matchid: req.query.matchid
+            }
+        }, {
+            $group: {
+                _id: {
+                    name: "$name",
+                    points: "$points"
+                },
+                count: {
+                    $sum: 1
+                }
+            }
+        }, {
+            $sort: {
+                _id: 1
+            }
+        }, ]);
+
+
+        let result = await DreamTeam.aggregate(
+        [{
+            $match: {
+                matchid: req.query.matchid
+            }
+        }, {
+            $group: {
+                _id: {
+                    teamnumber: "$teamnumber",
+                    players: "$players"
+                }
+            }
+        }, {
+            $sort: {
+                _id: 1
+            }
+        }, ]);
+    let result = await MyMatch.find({
+        matchid: "djVYY2"
+    }, {
+        players: 1
+    }).sort({
+        players: -1
+    });
+    const teamdelete = DreamTeam.deleteMany({
+        matchid: req.query.matchid
+    }, function(err) {
+        if (err) console.error(err);
+        req.flash('success', 'Dream Team deleted for the match -' + req.query.matchid);
+    });
+    let result = await DreamTeam.aggregate(
+        [{
+            $match: {
+                matchid: req.query.matchid
+            }
+        }, {
+            $group: {
+                _id: {
+                    name: "$name",
+                    points: "$points"
+                },
+                count: {
+                    $sum: 1
+                }
+            }
+        }, {
+            $sort: {
+                _id: 1
+            }
+        }, ]);
+    res.status(200).send({
+        res: count
+    });
+
+    --------------------
+        let updates = await DreamTeam.updateMany(
+        // query
+        {
+            "matchid": req.query.matchid,
+            "players.name": "Sanju Samson"
+        },
+        // update
+        {
+            $set: {
+                "players.$.points": 56,
+            }
+        },
+        // Update options (Optional)
+        {});
+
+----------------------------------------
+Group By Match and Sort Points:
+----------------------------------------
+let result = await DreamTeam.aggregate([{
+        $group: {
+            _id: {
+                "player": "$players",
+                "points": "$players.points"
+            },
+            Total: {
+                $sum: "$players.points"
+            },
+            "Count": {
+                "$sum": 1
+            },
+        }
+    }, {
+        "$project": {
+            "Total1": {
+                "$sum": "$_id.points"
+            }
+        }
+    }, {
+        $sort: {
+            "Total1": -1
+        }
+    }]);
+    -------------------
+aggregate( [
+    { $unwind: "$PlayerDetails" },
+    { $group: {
+       _id: '$_id',
+       sum: { $sum: '$PlayerDetails.PlayerScore' }
+    } }
+ ] ).pretty();
+
+-------
+
+db.collection.aggregate([
+  {
+    $unwind: "$players"
+  },
+  {
+    $group: {
+      _id: "$_id",
+      sum: {
+        $sum: {
+          "$switch": {
+            "branches": [
+              {
+                "case": {
+                  "$eq": [
+                    "$players.captain",
+                    "active"
+                  ]
+                },
+                "then": {
+                  $multiply: [
+                    "$players.points",
+                    2
+                  ]
+                }
+              },
+              {
+                "case": {
+                  "$eq": [
+                    "$players.vcaptain",
+                    "active"
+                  ]
+                },
+                "then": {
+                  $multiply: [
+                    "$players.points",
+                    1.5
+                  ]
+                }
+              }
+            ],
+            "default": "$players.points"
+          }
+        },        
+      }
+    }
+  }
+])
+
+
+-----
+
+ db.collection.aggregate([
+  {
+    "$addFields": {
+      "totalHomework": {
+        $sum: "$totalpoints"
+      },
+      "players": {
+        "$map": {
+          "input": "$players",
+          "as": "row",
+          "in": {
+            "name": "$$row.name",
+            "totalHomework": {
+              $sum: "$$row.totalpoints"
+            },
+            "totalpoints": {
+              "$switch": {
+                "branches": [
+                  {
+                    "case": {
+                      "$eq": [
+                        "$$row.captain",
+                        "active"
+                      ]
+                    },
+                    "then": {
+                      $multiply: [
+                        "$$row.points",
+                        2
+                      ]
+                    }
+                  },
+                  {
+                    "case": {
+                      "$eq": [
+                        "$$row.vcaptain",
+                        "active"
+                      ]
+                    },
+                    "then": {
+                      $multiply: [
+                        "$$row.points",
+                        1.5
+                      ]
+                    }
+                  }
+                ],
+                "default": "$$row.points"
+              }
+            },
+            
+          }
+        }
+      }
+    }
+  }
+])
+
+
+https://mongoplayground.net/p/0jpYgw7PazM
+
+    // let playersFinal = await DreamTeam.aggregate([{
+    //     $match: {
+    //         matchid: req.query.matchid
+    //     }
+    // }, {
+    //     $group: {
+    //         _id: {
+    //             "teamnumber": "$teamnumber",
+    //             "player": "$players",
+    //             "points": "$players.points"
+    //         },
+    //     }
+    // }, {
+    //     "$project": {
+    //         _id: 0,
+    //         "teamnumber": "$_id.teamnumber",
+    //         "players": "$_id.player",
+    //         "Total1": {
+    //             "$sum": "$_id.points"
+    //         }
+    //     }
+    // }, {
+    //     $sort: {
+    //         "Total1": -1,
+    //         "teamnumber": 1
+    //     }
+    // }]);
+
+
+    
+
+// const api_test_api_get = async (req, res) => {
+//   let result = await DreamTeam.aggregate([
+//     {
+//       $match: {
+//         matchid: req.query.matchid,
+//       },
+//     },
+//     {
+//       $unwind: "$players",
+//     },
+//     {
+//       $group: {
+//         _id: "$_id",
+//         teamnumber: {
+//           $first: "$players.teamnumber",
+//         },
+//         Total1: {
+//           $sum: {
+//             $switch: {
+//               branches: [
+//                 {
+//                   case: {
+//                     $eq: ["$players.captain", "active"],
+//                   },
+//                   then: {
+//                     $multiply: ["$players.points", 2],
+//                   },
+//                 },
+//                 {
+//                   case: {
+//                     $eq: ["$players.vcaptain", "active"],
+//                   },
+//                   then: {
+//                     $multiply: ["$players.points", 1.5],
+//                   },
+//                 },
+//               ],
+//               default: "$players.points",
+//             },
+//           },
+//         },
+//         players: {
+//           $addToSet: "$players",
+//         },
+//       },
+//     },
+//     {
+//       $sort: {
+//         Total1: -1,
+//       },
+//     },
+//   ]);
+
+//   // let result = await DreamTeam.aggregate([{
+//   //     $unwind: "$players"
+//   // }, {
+//   //     $group: {
+//   //         _id: "$_id",
+//   //         "teamnumber": {
+//   //             "$first": "$players.teamnumber"
+//   //         },
+//   //         Total1: {
+//   //             $sum: {
+//   //                 "$switch": {
+//   //                     "branches": [{
+//   //                         "case": {
+//   //                             "$eq": ["$players.captain", "active"]
+//   //                         },
+//   //                         "then": {
+//   //                             $multiply: ["$players.points",
+//   //                                 2
+//   //                             ]
+//   //                         }
+//   //                     }, {
+//   //                         "case": {
+//   //                             "$eq": ["$players.vcaptain", "active"]
+//   //                         },
+//   //                         "then": {
+//   //                             $multiply: ["$players.points",
+//   //                                 1.5
+//   //                             ]
+//   //                         }
+//   //                     }],
+//   //                     "default": "$players.points"
+//   //                 }
+//   //             },
+//   //         },
+//   //         "players": {
+//   //             "$addToSet": "$players",
+//   //         }
+//   //     },
+//   // }, {
+//   //     "$sort": {
+//   //         "Total1": -1,
+//   //     }
+//   // }, ]);
+//   //     let result = await DreamTeam.aggregate([{
+//   //     $match: {
+//   //         matchid: req.query.matchid
+//   //     }
+//   // }, {
+//   //     $group: {
+//   //         _id: {
+//   //             "teamnumber": "$teamnumber",
+//   //             "player": "$players",
+//   //             "points": "$players.points"
+//   //         },
+//   //     }
+//   // }, {
+//   //     "$project": {
+//   //         _id: 0,
+//   //         "teamnumber": "$_id.teamnumber",
+//   //         "players": "$_id.player",
+//   //         "Total1": {
+//   //             "$sum": "$_id.points"
+//   //         }
+//   //     }
+//   // }, {
+//   //     $sort: {
+//   //         "Total1": -1,
+//   //         "teamnumber": 1
+//   //     }
+//   // }]);
+//   // let result = await DreamTeam.aggregate(
+//   //     [{
+//   //         $match: {
+//   //             matchid: req.query.matchid
+//   //         }
+//   //     }, {
+//   //         "$unwind": "$players"
+//   //     }, {
+//   //         $group: {
+//   //             _id: {
+//   //                 $concat: [
+//   //                     //
+//   //                     {
+//   //                         $substr: ["$players.name", 0, 1]
+//   //                     }, " ", {
+//   //                         $arrayElemAt: [{
+//   //                             $split: ["$players.name", " "]
+//   //                         }, 1]
+//   //                     }
+//   //                 ]
+//   //             },
+//   //             "count": {
+//   //                 "$sum": 1
+//   //             },
+//   //             "fields": {
+//   //                 "$addToSet": {
+//   //                     "points": "$players.points",
+//   //                     "role": "$players.role",
+//   //                     "team": "$players.team",
+//   //                 }
+//   //             }
+//   //         },
+//   //     }, {
+//   //         "$sort": {
+//   //             "_id": 1
+//   //         }
+//   //     }, ]);
+//   //$players.name
+//   // let result = await DreamTeam.aggregate([{
+//   //     $match: {
+//   //         matchid: req.query.matchid
+//   //     }
+//   // }, {
+//   //     $group: {
+//   //         _id: {
+//   //             "teamnumber": "$teamnumber",
+//   //             "player": "$players",
+//   //             "points": "$players.points"
+//   //         },
+//   //     }
+//   // }, {
+//   //     "$project": {
+//   //         _id: 0,
+//   //         "teamnumber": "$_id.teamnumber",
+//   //         "players": {
+//   //             "name": "$_id.player.name",
+//   //             "captain": "$_id.player.captain",
+//   //             "vcaptain": "$_id.player.vcaptain",
+//   //             "role": "$_id.player.role",
+//   //             "team": "$_id.player.team",
+//   //         },
+//   //         "Total1": {
+//   //             "$sum": "$_id.points"
+//   //         }
+//   //     }
+//   // }, {
+//   //     $sort: {
+//   //         "Total1": -1,
+//   //         "teamnumber": 1
+//   //     }
+//   // }]);
+//   // let result = await DreamTeam.aggregate([
+//   //     // Filter
+//   //     {
+//   //         $match: {
+//   //             matchid: req.query.matchid
+//   //         }
+//   //     }, {
+//   //         $unwind: {
+//   //             path: "$players"
+//   //         }
+//   //     }, {
+//   //         $project: {
+//   //             teamnumber: "$teamnumber",
+//   //             name: "$players.name",
+//   //             role: "$players.role",
+//   //             team: "$players.team",
+//   //             captain: "$players.captain",
+//   //             vcaptain: "$players.vcaptain",
+//   //         }
+//   //     }, {
+//   //         $group: {
+//   //             _id: "$teamnumber",
+//   //             details: {
+//   //                 $push: {
+//   //                     "teamnumber": "$teamnumber",
+//   //                     "name": "$name",
+//   //                     "role": "$role",
+//   //                     "team": "$team",
+//   //                     "captain": "$captain",
+//   //                     "vcaptain": "$vcaptain",
+//   //                 },
+//   //             }
+//   //         }
+//   //     }, {
+//   //         $sort: {
+//   //             "_id": 1
+//   //         }
+//   //     }
+//   // ])
+//   // const filter = req.query.matchid ? {
+//   //     matchid: req.query.matchid
+//   // } : {};
+//   // let result = await MyMatch.find({
+//   //     "matchid": req.query.matchid,
+//   //     "players._id": "629a1b9df3dcb0586ece274f"
+//   // }, {
+//   //     "players.$": 1
+//   // });
+//   // console.log(result);
+//   // result
+//   // let result = await DreamTeam.aggregate([{
+//   //     $match: {
+//   //         matchid: req.query.matchid
+//   //     }
+//   // }, {
+//   //     $group: {
+//   //         _id: {
+//   //             "player": "$players",
+//   //             "points": "$players.points"
+//   //         },
+//   //     }
+//   // }, {
+//   //     "$project": {
+//   //         _id: 0,
+//   //         "players": "$_id.player",
+//   //         "Total1": {
+//   //             "$sum": "$_id.points"
+//   //         }
+//   //     }
+//   // }, {
+//   //     $sort: {
+//   //         "Total1": -1
+//   //     }
+//   // }]);
+//   // let result = await DreamTeam.aggregate([
+//   //     // Filter
+//   //     {
+//   //         $match: {
+//   //             matchid: req.query.matchid
+//   //         }
+//   //     },
+//   //     // Grouo By
+//   //     {
+//   //         $group: {
+//   //             _id: {
+//   //                 "player": "$players",
+//   //                 "points": {
+//   //                     $sum: {
+//   //                         $cond: [{
+//   //                             $eq: ['$players.captain', "active"]
+//   //                         }, {
+//   //                             $multiply: ["$players.points", "2"]
+//   //                         }, "$players.points"]
+//   //                     }
+//   //                 }
+//   //             },
+//   //         }
+//   //     },
+//   //     // Fields
+//   //     {
+//   //         "$project": {
+//   //             _id: 0,
+//   //             "players": "$_id.player",
+//   //             "Total1": {
+//   //                 "$sum": "$_id.points"
+//   //             }
+//   //         }
+//   //     },
+//   //     // Sort
+//   //     {
+//   //         $sort: {
+//   //             "Total1": -1
+//   //         }
+//   //     },
+//   // ]);
+//   // let result = await DreamTeam.aggregate([{
+//   //     $match: {
+//   //         matchid: req.query.matchid
+//   //     }
+//   // }, {
+//   //     $group: {
+//   //         _id: {
+//   //             "player": "$players",
+//   //             "points": "$players.points"
+//   //         },
+//   //     }
+//   // }, {
+//   //     "$project": {
+//   //         _id : 0 ,
+//   //         "players": "$_id.player",
+//   //         "Total1": {
+//   //             "$sum": "$_id.points"
+//   //         }
+//   //     }
+//   // }, {
+//   //     $sort: {
+//   //         "Total1": -1
+//   //     }
+//   // }]);
+//   // let result = await DreamTeam.find();
+//   res.status(200).send({
+//     res: result,
+//   });
+// };

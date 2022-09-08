@@ -1,0 +1,180 @@
+<div class="container-fluid mt-3">  
+  <div class="row bg-dark text-yellow">
+    <% if(!numOfPlayers) {%>
+    <form class="row gx-3 gy-2 align-items-center p-3" action="/admin/player/add">
+      <div class="col-sm-2">
+        <label class="visually-hidden" for="specificSizeInputName">Number of Players</label>
+        <div class="input-group">
+          <div class="input-group-text">#</div>
+          <input
+            type="text"
+            name="numOfPlayers"
+            class="form-control"
+            id="specificSizeInputName"
+            placeholder="Playes number to insert"
+            />
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <label class="visually-hidden" for="specificSizeSelect">Preference</label>
+        <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-people-group"></i></div>
+          <select class="form-select" name="team" id="specificSizeSelect">
+            <option selected>Team</option>
+            <% for(var i = 0; i < teamsList.length; i++){ %>
+            <option value="<%= teamsList[i].teamname %>"  <%= teamsList[i].teamname == selectedTeam ? 'selected=selected' : '' %>>
+              <%= teamsList[i].teamname.toUpperCase() %>
+            </option>
+            <% } %>
+          </select>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="status"
+            id="status"
+            value="active"
+            <%= playing11 == 'active' ? 'checked=checked' : '' %>
+            />
+          <label class="form-check-label" for="status">
+          Playing 11
+          </label>
+        </div>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-warning float-center text-dark">Submit</button>
+      </div>
+    </form>
+    <% } %>
+    <% if(numOfPlayers) {%>
+    <div class="float-end card-group mt-2">
+      <input size="30" type="text" class="squadtext" id="squadtext" placeholder="Enter squad url from espn site" value="" />
+      <input type="text" class="col-num" id="col-num" placeholder="Enter col number" value="" />  
+      <a class="btn btn-warning float-end text-dark" id="pullsquad">Pull Squads</a>
+    </div>
+    <% } %>
+    <form
+      class="row gx-3 gy-2 align-items-center p-3"
+      method="POST"
+      action="/admin/player/add"
+      >
+      <% for(var inc = 0; inc < numOfPlayers; inc++){ %>
+      <div class="col-sm-0">
+        <button type="button" class="btn btn-secondary">Player <%= inc + 1  %></button>
+      </div>
+      <div class="col-sm-3">
+        <label class="visually-hidden" for="specificSizeSelect">Preference</label>
+        <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-people-group"></i></div>
+          <select class="form-select" name="team_<%= inc %>" id="specificSizeSelect">
+            <option selected>Team</option>
+            <% for(var i = 0; i < teamsList.length; i++){ %>
+            <option value="<%= teamsList[i].teamname %>" <%= teamsList[i].teamname == selectedTeam ? 'selected=selected' : '' %>>
+              <%= teamsList[i].teamname.toUpperCase() %>
+            </option>
+            <% } %>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-3 player-wrapper">
+        <label class="visually-hidden" for="specificSizeInputName">Name</label>
+        <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-user"></i></div>
+          <input
+            type="text"
+            name="name_<%= inc %>"
+            class="form-control player-name"
+            id="specificSizeInputName"
+            placeholder="Players name"
+            />
+        </div>
+      </div>
+      <div class="col-sm-2 role-wrapper">
+        <label class="visually-hidden" for="specificSizeInputGroupUsername"
+          >Role</label
+          >
+        <div class="input-group">
+          <div class="input-group-text">Role</div>
+          <select class="form-select roleselect" name="role_<%= inc %>" id="roleselect_<%= inc %>">
+            <option selected value="ROLE">ROLE</option>
+            <option value="WK">WK</option>
+            <option value="BAT">BAT</option>
+            <option value="AR">AR</option>
+            <option value="BOWL">BOWL</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-3 profile-pic-wrapper">
+        <label class="visually-hidden" for="specificSizeInputGroupUsername"
+          >Picture</label
+          >
+        <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-camera"></i></i></div>
+          <input
+            type="text"
+            name="picture_<%= inc %>"
+            value="/static/images/player-wk.png"
+            class="form-control"
+            id="specificSizeInputGroupUsername"
+            placeholder="Picture"
+            />
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <label class="visually-hidden" for="specificSizeInputGroupUsername"
+          >Credits</label
+          >
+        <div class="input-group">
+          <div class="input-group-text">Credits</div>
+          <input
+            type="number"
+            step=".5"
+            name="credits_<%= inc %>"
+            value="8"
+            class="form-control"
+            id="specificSizeInputGroupUsername"
+            placeholder="Player Credits"
+            />
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="status_<%= inc %>"
+            id="status_<%= inc %>"
+            value="active"
+            <%= playing11 == 'active' ? 'checked=checked' : '' %>
+            />
+          <label class="form-check-label" for="status_<%= inc %>">
+          Playing 11
+          </label>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="star_<%= inc %>"
+            id="star_<%= inc %>"
+            value="active"
+            />
+          <label class="form-check-label" for="star_<%= inc %>"> Star </label>
+        </div>
+      </div>
+      <div></div>
+      <% } %> 
+      <% if(numOfPlayers) {%>
+      <div class="col-12">
+        <input type="hidden" name="numOfPlayers" value="<%= numOfPlayers %>"/>
+        <button type="submit" class="btn btn-warning float-center text-dark">Submit</button>
+      </div>
+      <% } %>
+    </form>
+  </div>
+</div>

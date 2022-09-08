@@ -1,0 +1,17 @@
+<%- include('../functions'); %>
+<div class="<%= teamName(teams.team, team1, team2) %> position-relative d-inline-block">
+    <% var cname = '' %>
+    <% var cname = teams.name %>
+    <% var ccap = '' %>
+    <% var ccap = teams.captain %>
+    <% var vcap = '' %>
+    <% var vcap = teams.vcaptain %>
+    <%- printCaptain(inc, ccap, cname) -%>
+    <%- printVcaptain(inc, vcap, cname) -%>
+    <img src="<%= teams.picture %>" width="60" height="60" />
+    <div class="pname fw-600"><%= splitName(teams.name) %></div>
+    <div class="bg-dark1 ra-credits alert-link">
+      <%- captainSelect(teams, captain) %>      
+      <%- isStar(teams.star) %>
+    </div>
+</div>

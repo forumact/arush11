@@ -1,0 +1,73 @@
+<div class="container-fluid bg-dark mt-3 text-yellow">
+   <div class="row">
+<form class="row gx-3 gy-2 align-items-center p-3" method="POST" action="/admin/player/<%= data._id %>/update">
+      <div class="col-sm-3">
+      <label class="visually-hidden" for="specificSizeSelect">Team List</label>
+                      <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-people-group"></i></div>
+      <select class="form-select" name='team' id="specificSizeSelect">
+         <option selected>Team</option>
+         <% for(var i = 0; i < teamsList.length; i++){ %>
+         <option value="<%= teamsList[i].teamname %>" <%= data.team == teamsList[i].teamname ? 'selected=selected' : '' %>><%= teamsList[i].teamname.toUpperCase() %></option>
+         <% } %> 
+      </select>
+   </div>
+   </div>
+   <div class="col-sm-3">
+      <label class="visually-hidden" for="specificSizeInputName">Name</label>
+      <div class="input-group">
+          <div class="input-group-text"><i class="fa-solid fa-user"></i></div>
+      <input type="text" name="name" class="form-control" id="specificSizeInputName" placeholder="Players name" value="<%= data.name %>">
+     </div>
+   </div>
+   <div class="col-sm-2 role-wrapper">
+      <label class="visually-hidden" for="specificSizeInputGroupUsername">Role</label>
+      <div class="input-group">
+         <div class="input-group-text">Role</div>
+         <select class="form-select roleselect" name='role' id="specificSizeSelect" id="roleselect">
+            <option value="WK" <%= data.role == 'WK' ? 'selected=selected' : '' %>>WK</option>
+            <option value="BAT" <%= data.role == 'BAT' ? 'selected=selected' : '' %>>BAT</option>
+            <option value="AR" <%= data.role == 'AR' ? 'selected=selected' : '' %>>AR</option>
+            <option value="BOWL" <%= data.role == 'BOWL' ? 'selected=selected' : '' %>>BOWL</option>
+         </select>
+      </div>
+   </div>
+   <div class="col-sm-4 profile-pic-wrapper">
+      <label class="visually-hidden" for="specificSizeInputGroupUsername">Picture</label>
+      <div class="input-group">
+         <div class="input-group-text"><i class="fa-solid fa-camera"></i></i></div>
+         <input type="text" name="picture" class="form-control" id="specificSizeInputGroupUsername" placeholder="Picture" value="<%= data.picture %>">
+      </div>
+   </div>
+   <div class="col-sm-3">
+      <label class="visually-hidden" for="specificSizeInputGroupUsername">Credits</label>
+      <div class="input-group">
+         <div class="input-group-text">Credits</div>
+         <input type="number" step=".5" name="credits" class="form-control" id="specificSizeInputGroupUsername" placeholder="Player Credits" value="<%= data.credits %>">
+      </div>
+   </div>
+
+   <div class="col-auto">
+      <div class="form-check">
+         <input class="form-check-input" type="checkbox" name="status" id="autoSizingCheck1" value="active" <%= data.status == 'active' ? 'checked=checked' : '' %>>
+         <label class="form-check-label" for="autoSizingCheck1">
+         Playing 11
+         </label>
+      </div>
+   </div>
+   <div class="col-auto">
+      <div class="form-check">
+         <input class="form-check-input" type="checkbox" name="star" id="autoSizingCheck2" value="active" <%= data.star == 'active' ? 'checked=checked' : '' %>>
+         <label class="form-check-label" for="autoSizingCheck2">
+         Star
+         </label>
+      </div>
+   </div>
+   <input type="hidden" name="id" value="<%= data._id %>">
+   <input type="hidden" name="destUrl" value="<%= destUrl %>">
+   <div class="col-auto">
+      <button type="submit" class="btn btn-warning float-center text-dark">Submit</button>
+   </div>
+</form>
+</div>
+</div>

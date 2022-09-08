@@ -1,0 +1,293 @@
+<%
+  splitName = function(fullName) {
+    const [first, last] = fullName.split(' ');
+    splitName = first.substring(0, 1) + ' ' + last;
+    return splitName;
+  }
+
+credits = function (players) {
+  let credits = [];
+  let sum = 0;
+  if (typeof players['WK'] != "undefined") {
+  players['WK'].forEach(function (player, index2) {
+    credits.push(player['credits']);
+  });
+}
+
+if (typeof players['BAT'] != "undefined") {
+  players['BAT'].forEach(function (player, index2) {
+    credits.push(player['credits']);
+  });
+}
+
+  players['AR'].forEach(function (player, index2) {
+    credits.push(player['credits']);
+  });
+  players['BOWL'].forEach(function (player, index2) {
+    credits.push(player['credits']);
+  });
+  // Running the for loop
+  for (let i = 0; i < credits.length; i++) {
+    sum = parseFloat(sum, 10) + parseFloat(credits[i], 10);
+  }
+  return sum;
+}
+
+
+
+points = function (players) {
+  let points = [];
+  let sum = 0;
+  players['WK'].forEach(function (player, index2) {
+    if (player['captain'] == 'active') {
+      player['points'] = player['points'] * 2;
+    }
+    if (player['vcaptain'] == 'active') {
+      player['points'] = player['points'] * 1.5;
+    }
+    points.push(player['points']);
+  });
+
+  players['BAT'].forEach(function (player, index2) {
+    if (player['captain'] == 'active') {
+      player['points'] = player['points'] * 2;
+    }
+    if (player['vcaptain'] == 'active') {
+      player['points'] = player['points'] * 1.5;
+    }
+    points.push(player['points']);
+  });
+
+  players['AR'].forEach(function (player, index2) {
+    if (player['captain'] == 'active') {
+      player['points'] = player['points'] * 2;
+    }
+    if (player['vcaptain'] == 'active') {
+      player['points'] = player['points'] * 1.5;
+    }
+    points.push(player['points']);
+  });
+  players['BOWL'].forEach(function (player, index2) {
+    if (player['captain'] == 'active') {
+      player['points'] = player['points'] * 2;
+    }
+    if (player['vcaptain'] == 'active') {
+      player['points'] = player['points'] * 1.5;
+    }
+    points.push(player['points']);
+  });
+  // Running the for loop
+  for (let i = 0; i < points.length; i++) {
+    sum = parseFloat(sum, 10) + parseFloat(points[i], 10);
+  }
+  return sum;
+}
+
+teamName = function (teamName, team1, team2) {
+  let teamClass;
+  if (teamName === team1) {
+    teamClass = 'team-1';
+  } else {
+    teamClass = 'team-2';
+  }
+  return teamClass;
+}
+
+
+teamPlayercount = function (players, teamname) {
+  let teamPlayercount = [];
+  const counts = {};
+
+  players['WK'].forEach(function (player, index2) {
+    teamPlayercount.push(player['team']);
+  });
+
+  players['BAT'].forEach(function (player, index2) {
+    teamPlayercount.push(player['team']);
+  });
+
+  players['AR'].forEach(function (player, index2) {
+    teamPlayercount.push(player['team']);
+  });
+  players['BOWL'].forEach(function (player, index2) {
+    teamPlayercount.push(player['team']);
+  });
+
+  for (const num of teamPlayercount) {
+    counts[num] = counts[num] ? counts[num] + 1 : 1;
+  }
+
+  return counts[teamname];
+}
+
+isStar = function (star) {
+  let starClass = '';
+  if (star == 'active') {
+    starClass = "<span class='dreampick'><i class='fa-solid fa-shield-heart'></i></span>"
+  }
+  return starClass;
+}
+
+printCaptain = function (index, captain = null, player = null) {
+  let starClass = '';
+  if (captain == 'active') {
+    starClass = '<div class="captain fw-600">C</div>';
+  }
+  return starClass;
+}
+
+printVcaptain = function (index, vcaptain, player = null) {
+  let starClass = '';
+  if (vcaptain == 'active') {
+    starClass = '<div class="vice-captain fw-600">VC</div>';
+  }
+  return starClass;
+}
+
+captainCheckbox = function (data, captain) {
+  if (typeof captain != "undefined") {
+    let res = captain.reduce((hash, obj) => {
+      if (obj['captain'] === undefined) return hash;
+      return Object.assign(hash, {
+        [obj['captain']]: (hash[obj['captain']] || []).concat(obj.name),
+      });
+    }, {});
+    if (res.hasOwnProperty('active')) {
+      return (res.active.indexOf(data) !== -1);
+    } else {
+      return false;
+    }
+  }
+}
+
+viceCaptainCheckbox = function (data, vcaptain) {
+  if (typeof vcaptain != "undefined") {
+    let res = vcaptain.reduce((hash, obj) => {
+      if (obj['vcaptain'] === undefined) return hash;
+      return Object.assign(hash, {
+        [obj['vcaptain']]: (hash[obj['vcaptain']] || []).concat(obj.name),
+      });
+    }, {});
+    if (res.hasOwnProperty('active')) {
+      return (res.active.indexOf(data) !== -1);
+    } else {
+      return false;
+    }
+  }
+}
+
+makeid = function (length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+pitchtype = function (combo) {
+  let pt;
+  let battingcnt = parseInt(combo[0]) + parseInt(combo[1]) + parseInt(combo[2]);
+  let bowlingcnt = parseInt(combo[2]) + parseInt(combo[3]);
+
+  if (parseInt(combo[1]) > 4 || parseInt(combo[0]) > 2) {
+    pt = 'bat';
+  }
+  else if (parseInt(combo[3]) > 4) {
+    pt = 'bowl';
+  } else {
+    pt = 'neutral';
+  }
+
+  return pt;
+}
+
+playerRoleCount = function (team) {
+  let group = team.reduce((r, a) => {
+    r[a.role] = [...r[a.role] || [], a];
+    return r;
+  }, {});
+  return '<span class="alert-link">WK: ' + group['WK'].length + ' &nbsp; BAT: ' + group['BAT'].length + ' &nbsp; AR: ' + group['AR'].length + ' &nbsp; BOWL: ' + group['BOWL'].length + '</span>';
+}
+
+playerRoleCount2 = function (group) {
+  let wkc = (typeof group['WK'] != "undefined") ? group['WK'].length : 0;
+  return '<span class="alert-link">WK: ' + wkc + ' &nbsp; BAT: ' + group['BAT'].length + ' &nbsp; AR: ' + group['AR'].length + ' &nbsp; BOWL: ' + group['BOWL'].length + '</span>';
+}
+
+playerTeamCount = function (team, team1, team2) {
+  let group = team.reduce((r, a) => {
+    r[a.team] = [...r[a.team] || [], a];
+    return r;
+  }, {});
+  return '<span class="alert-link">' + team1.toUpperCase() + ' : ' + group[team1].length + ' &nbsp;&&nbsp; ' + team2.toUpperCase() + ' : ' + group[team2].length + '</span>';
+}
+
+analyticsPrintCaptan = function (team, team1, team2) {
+  let captain = team.filter(team => team.captain == 'active');
+  let teamlable = null;
+  const [first, last] = captain[0].name.split(' ');
+  splitName = first.substring(0, 1) + ' ' + last;
+  let teamname = captain[0].team;
+  if (team1 == teamname) {
+    teamlable = 'team-1'
+  } else {
+    teamlable = 'team-2';
+  }
+  let html = '<div class="' + teamlable + ' position-relative d-inline-block">' +
+    '<img src="/static/images/player-wk.png" width="75" height="75"/>' +
+    '<div class="player-name fw-600">' + splitName + '</div>' +
+    '<div class="bg-dark1 text-white alert-link">' + captain[0].points * 2 + '</div>' +
+    '</div>';
+  return html;
+}
+
+analyticsPrintVCaptan = function (team, team1, team2) {
+  let vcaptain = team.filter(team => team.vcaptain == 'active');
+  let teamlable = null;
+  const [first, last] = vcaptain[0].name.split(' ');
+  splitName = first.substring(0, 1) + ' ' + last;
+  let teamname = vcaptain[0].team;
+  if (team1 == teamname) {
+    teamlable = 'team-1'
+  } else {
+    teamlable = 'team-2';
+  }
+  let html = '<div class="' + teamlable + ' position-relative d-inline-block">' +
+    '<img src="/static/images/player-wk.png" width="75" height="75"/>' +
+    '<div class="player-name fw-600">' + splitName + '</div>' +
+    '<div class="bg-dark1 text-white alert-link">' + vcaptain[0].points * 1.5 + '</div>' +
+    '</div>';
+  return html;
+}
+
+percentageCal = function (count, total) {
+ return ((count/total)*100).toFixed(1);
+}
+
+captainSelect = function (player, captain){
+  let cst = captainCheckbox(player.name, captain) ? 'checked="checked"': '';
+  let vcst = viceCaptainCheckbox(player.name, captain) ? 'checked="checked"': '';
+
+ let clabel =makeid(7);
+ let vclabel =makeid(8);
+
+  // let html = '<div class="class="btn-group" role="group" aria-label="Basic checkbox toggle button group"><label class="btn btn-outline-warning p-1" for="'+ clabel +'">Ca</label><input class="team3 btn-check" type="checkbox" name="captain"  id="'+ clabel +'" value="' + player.name +'"   '+ cst +'/></div>' +' '+
+  //    '<div class="class="btn-group" role="group"><label class="btn btn-outline-warning p-1" for="'+ vclabel +'">Vc</label><input class="team3 btn-check" type="checkbox" name="vcaptain" id="'+ vclabel +'" value="' + player.name +'"  '+ vcst +'/></div>';
+  // return html;
+  
+  let cbtn = '<div class="btn-group m-1" role="group" aria-label="Basic checkbox toggle button group">'+
+            '<input type="checkbox" class="btn-check" id="'+clabel+'"  '+cst+' value="'+player.name+'" name="captain">'+
+            '<label class="btn btn-outline-warning" for="'+clabel+'">Ca</label>'+
+          '</div>';
+  let vcbtn = '<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">'+
+            '<input type="checkbox" class="btn-check" id="'+vclabel+'"  '+vcst+' value="'+player.name+'" name="vcaptain">'+
+            '<label class="btn btn-outline-warning" for="'+vclabel+'">Vc</label>'+
+          '</div>';
+
+
+  return cbtn + vcbtn;
+}
+
+  %>

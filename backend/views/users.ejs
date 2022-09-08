@@ -1,0 +1,103 @@
+<% if(selectedUser.name) { %>
+<div class="container-fluid">
+  <div class="row bg-dark mt-3 text-yellow">
+    <form
+      class="row gx-3 gy-2 align-items-center p-3"
+      method="POST"
+      action="/admin/people/update"
+      >
+      <div class="col-sm-3">
+        <label class="visually-hidden" for="specificSizeInputName">User Name</label>
+        <div class="input-group">
+          <div class="input-group-text">User Name</div>
+          <input
+          id="base_name"
+            type="text"
+            name="name"
+            class="form-control"
+            id="specificSizeInputName"
+            placeholder="User Name"
+            value="<%= selectedUser.name %>"
+            />
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <label class="visually-hidden" for="specificSizeInputName">Email</label>
+        <div class="input-group">
+          <div class="input-group-text">Email</div>
+          <input
+          id="base_name"
+            type="text"
+            name="email"
+            class="form-control"
+            id="specificSizeInputName"
+            placeholder="User Name"
+            value="<%= selectedUser.email %>"
+            />
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="status"
+            id="autoSizingCheck2"
+            value="A"
+            <%= selectedUser.status == 'A' ? 'checked=checked' : '' %>
+            />
+          <label class="form-check-label" for="autoSizingCheck2">Status </label>
+        </div>
+      </div>
+      <div class="col-auto">
+      <input type="hidden" name="id" value="<%= selectedUser._id %>"/>
+        <button type="submit" class="btn btn-warning float-center text-dark"><%= (selectedUser._id) ? 'Update' : 'Create' %></button>
+      </div>
+    </form>
+  </div>
+</div>
+<% } %>
+<%# List Section %>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-12 mt-3 mb-3">
+      <table class="team1 table table-dark bg-dark text-yellow table-hover text-center mb-0">
+        <thead>
+          <tr>
+            <th colspan="8"></th>
+          </tr>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% usersList.forEach(function(user, index){ %>
+          <tr>
+            <th scope="row"><%= index+1 %></th>
+            <td><%= user.name.toUpperCase() %></td>
+            <td><%= user.email.toUpperCase() %></td>
+            <td><%= user.role.toUpperCase() %></td>
+            <td><%= user.createdAt %></td>
+            <td><i class="<%= (user.status == 'A') ? 'fas': 'fal' %> fa-heart"></i></td>
+            <td><a href="/admin/people/<%= user._id %>"><i class="fas fa-user-edit"></i></a></td>
+            <td>
+              <% if (user.role !== 'admin') {%>
+              <a class="arul-modal" redirect-url="/admin/people/delete/<%= user._id %>?id=<%= user._id %>">
+                <i class="fa-solid fa-trash-xmark"></i>
+              </a>
+              <% } %>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

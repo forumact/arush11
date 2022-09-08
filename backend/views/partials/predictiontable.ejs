@@ -1,0 +1,33 @@
+<table
+  class="table3 first table table-dark text-yellow table-hover text-center mt-3 mb-0"
+>
+  <thead>
+    <tr>
+      <th colspan="8"><img src="" alt="" width="120" /></th>
+    </tr>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Players</th>
+      <th scope="col">Role</th>
+      <th scope="col">Selection %</th>
+      <th scope="col">Star</th>
+      <th scope="col">Remove</th>
+      <th scope="col">Captain</th>
+      <th scope="col">V.Captain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% team.forEach(function(user, index){ %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= user.name %></td>
+      <td><%= user.role %></td>
+      <td><%= user.name %></td>
+      <td><input class="team4" type="checkbox" name="star" value="" /></td>
+      <td><input class="team4" type="checkbox" name="star" value="" /></td>
+      <td><input class="team4" type="checkbox" name="star" value="" /></td>
+      <td><input class="team4" type="checkbox" name="star" value="" /></td>
+    </tr>
+    <% }); %>
+  </tbody>
+</table>

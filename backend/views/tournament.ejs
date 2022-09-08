@@ -1,0 +1,96 @@
+<div class="container-fluid">
+  <div class="row bg-dark mt-3 text-yellow">
+    <form
+      class="row gx-3 gy-2 align-items-center p-3"
+      method="POST"
+      action="/admin/tournament"
+      >
+      <div class="col-sm-4">
+        <label class="visually-hidden" for="specificSizeInputName">Tournament Name</label>
+        <div class="input-group">
+          <div class="input-group-text">Tournament Name</div>
+          <input
+          id="base_name"
+            type="text"
+            name="tournament_name"
+            class="form-control"
+            id="specificSizeInputName"
+            placeholder="Tournament Name"
+            value="<%= selectedTournament.name %>"
+            />
+        </div>
+      </div>
+          <div class="col-sm-4">
+            <label class="visually-hidden" for="specificSizeInputGroupUsername"
+              >Tournament Machine Name</label
+              >
+            <div class="input-group">
+              <div class="input-group-text">Machine Name</div>
+              <input
+              readonly
+                id="machine_name<%= `${selectedTournament._id ? "update": ""}` %>"
+                type="text"
+                value="<%= selectedTournament.machine_name %>"
+                name="tournament_machine_name"
+                class="form-control"
+                id="specificSizeInputGroupUsername"
+                placeholder="Machine Name"
+                />
+            </div>
+          </div>
+      <div class="col-auto">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="status"
+            id="autoSizingCheck2"
+            value="active"
+            <%= selectedTournament.status == 'active' ? 'checked=checked' : '' %>
+            />
+          <label class="form-check-label" for="autoSizingCheck2">Status </label>
+        </div>
+      </div>
+      <div class="col-auto">
+      <input type="hidden" name="id" value="<%= selectedTournament._id %>"/>
+        <button type="submit" class="btn btn-warning float-center text-dark"><%= (selectedTournament._id) ? 'Update' : 'Create' %></button>
+      </div>
+    </form>
+  </div>
+</div>
+<%# List Section %>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-12 mt-3 mb-3">
+      <table class="team1 table table-dark bg-dark text-yellow table-hover text-center mb-0">
+        <thead>
+          <tr>
+            <th colspan="8"></th>
+          </tr>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tournament</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tournamentList.forEach(function(tournament, index){ %>
+          <tr>
+            <th scope="row"><%= index+1 %></th>
+            <td><%= tournament.name.toUpperCase() %></td>
+            <td><%= tournament.createdAt %></td>
+            <td><i class="<%= (tournament.status == 'active') ? 'fas': 'fal' %> fa-heart"></i></td>
+            <td><a href="/admin/tournament/<%= tournament._id %>"><i class="fa-solid fa-pencil"></i></a></td>
+            <td><a class="arul-modal" redirect-url="/admin/tournament/delete/<%= tournament._id %>?id=<%= tournament._id %>">
+                <i class="fa-solid fa-trash-xmark"></i>
+            </a></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <form action="/updatepoints" method="post">
+    <div class="row justify-content-center">
+      <div class="col-md-11 mt-3 mb-3">
+        <div class="float-end card-group mb-2">
+          <input type="text" class="matchid" id="matchid" placeholder="Enter match id" value="" />  
+          <a class="btn btn-warning float-end text-dark" id="pullscore">Pull Score</a>
+        </div>
+        <table class="team1 table table-dark bg-dark text-yellow table-hover text-center mb-0">
+          <thead style="position: sticky;top: 0">
+            <tr>
+              <th colspan="8"></th>
+            </tr>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Player Name</th>
+              <th scope="col">Role</th>
+              <th scope="col">Team</th>
+              <th scope="col">#</th>
+              <th scope="col">%</th>
+              <th scope="col">Update Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%- include('functions'); %>
+            <% playersList.forEach(function(player, index){ %>
+            <tr>
+              <th scope="row"><%= index+1 %></th>
+              <td><%= player._id %></td>
+              <td><%= player.fields[0].role %></td>
+              <td><%= player.fields[0].team.toUpperCase() %></td>
+              <td><%= player.count %></td>
+              <td><%= percentageCal(player.count, teamcount)%></td>
+              <td>
+                <input type="text" size="15" placeholder="<%= player._id %> Dream 11 Points" name="<%= player._id %>" 
+                value="<%= player.fields[0].points %>">
+              </td>
+              %>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        <input type="hidden" name="team1" class="team1" value="<%= team1 %>"/>
+        <input type="hidden" name="team2" class="team1" value="<%= team2 %>"/>
+        <input type="hidden" name="matchid" class="team1" value="<%= matchid %>"/>
+      </div>
+      <div class="bg-dark p-3 d-flex justify-content-center">   
+        <button type="submit" class="btn btn-warning float-center text-dark teampartition">Update</button>
+      </div>
+    </div>
+  </form>
+</div>

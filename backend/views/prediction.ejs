@@ -1,0 +1,175 @@
+<div class="container-fluid">
+<div class="row">
+<form class="row gx-3 gy-2 align-items-center mt-2 p-10" name="predictionform" action="/dreamteam">
+  <div class="col-md-12">
+    <!-- Winning Team Posibilities - Start -->
+    <div class="card text-yellow bg-dark mt-3 mb-3 h-100">
+      <div class="card-header fw-bold">Winning Team Posibilities</div>
+      <div class="card-body">
+        <div class="col-md-6">
+          <p class="card-title">Which Team have more Winning posibilities?</p>
+          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="radio" name="wp" class="btn-check" id="btncheck1" value="<%- team1 %>" onclick="checkform()">
+            <label class="btn btn-outline-warning btn" for="btncheck1"><%- team1.toUpperCase() %></label>
+            <input type="radio" name="wp" class="btn-check" id="btncheck2" value="both" onclick="checkform()">
+            <label class="btn btn-outline-warning btn" for="btncheck2">Both</label>
+            <input type="radio" name="wp" class="btn-check" id="btncheck3" value="<%- team2 %>" onclick="checkform()">
+            <label class="btn btn-outline-warning btn" for="btncheck3"><%- team2.toUpperCase() %></label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Winning Team Posibilities - End -->
+
+  <!-- Captain Preference - Start -->
+  <div class="card text-yellow bg-dark mt-3 mb-3 h-100">
+    <div class="card-header fw-bold">Captain Preference</div>
+    <div class="card-body">
+      <div class="col-md-6">
+        <p class="card-title">Captain Preference?</p>
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+          <% roles.forEach(function(role, index){%>
+              <input type="radio" name="cp" class="btn-check" id="<%=  `ccheck_${role}` %>" value="<%-  role %>" onclick="checkform()">
+              <label class="btn btn-outline-warning" for="<%=  `ccheck_${role}` %>"><%-  role.toUpperCase() %></label>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Captain Preference - End -->
+
+  <!-- Vice Captain Preference - Start -->
+  <div class="card text-yellow bg-dark mt-3 mb-3 h-100">
+    <div class="card-header fw-bold">Vice Captain Preference</div>
+    <div class="card-body">
+      <div class="col-md-6">
+        <p class="card-title">Vice Captain Preference?</p>
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+          <% roles.forEach(function(role, index){%>
+              <input type="radio" name="vcp" class="btn-check" id="<%=  `vccheck_${role}` %>" value="<%-  role %>" onclick="checkform()">
+              <label class="btn btn-outline-warning" for="<%=  `vccheck_${role}` %>"><%-  role.toUpperCase() %></label>
+          <% }); %>          
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Vice Captain Preference - End -->
+
+    <!-- Pitch Report Posibilities - Start -->
+    <div class="card text-yellow bg-dark mt-3 mb-3 h-100">
+      <div class="card-header fw-bold">Pitch Report</div>
+      <div class="card-body">
+        <!-- <img src="/static/images/pitch-type.jpg" class="card-img" alt="..." style="width:100%;max-width:300px"> -->
+        <div class="col-md-6">
+          <p class="card-title">Pitch Type?</p>
+          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="radio" name="pr" class="btn-check" id="prbtncheck1" value="bat" onclick="checkform()">
+            <label class="btn btn-outline-warning" for="prbtncheck1">Batting</label>
+            <input type="radio" name="pr" class="btn-check" id="prbtncheck3" value="both" onclick="checkform()">
+            <label class="btn btn-outline-warning" for="prbtncheck3">Both</label>
+            <input type="radio" name="pr" class="btn-check" id="prbtncheck2" value="bowl" onclick="checkform()">
+            <label class="btn btn-outline-warning" for="prbtncheck2">Bowling</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pitch Report Posibilities - End -->
+
+    <!-- Team Combination Strategy - Start -->
+    <div class="card text-yellow bg-dark h-100">
+      <div class="card-header fw-bold">Team Combination Strategy</div>
+      <div class="card-body">
+        <p class="card-title">Select any one combination:</p>
+        <div class="d-flex flex-wrap justify-content-center text-dark text-center" id="checkboxes">
+          <% selectedCombo.forEach(function(combo, index){%>
+          <%- include('functions'); %>            
+          <div class="card me-3 mb-3 combo-card" onclick="checkform()">
+            <input class="d-none tcombo" type="checkbox" id="<%=  `radio_${index}` %>" name="<%= `combo${index}`%>" value="<%= `${combo['0']}_${combo['1']}_${combo['2']}_${combo['3']}` %>"/>
+            <div class="card-body combo-card-body <%= pitchtype(combo)%>" label="<%=  `radio_${index}` %>">
+              <div class="card-text">WK : <%=  combo['0'] %></div>
+              <div class="card-text">BAT : <%=  combo['1'] %></div>
+              <div class="card-text">ALL : <%=  combo['2'] %></div>
+              <div class="card-text">BOWL : <%=  combo['3'] %></div>
+            </div>
+          </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+    <!-- Team Combination Strategy - End -->
+
+
+    <!-- Team Partition - Start -->
+    <div class="card text-yellow bg-dark mt-3 mb-3 h-100">
+      <div class="card-header fw-bold">Team Partition</div>
+      <div class="card-body">
+        <div class="card-columns text-dark text-center" id="checkboxes">
+          <div class="card ccard1" onclick="checkform()">
+            <input type="checkbox"  class="d-none" name="partition_1" value="5_6"/>
+            <div class="card-body">
+              <div class="card-title"><%- team1.toUpperCase() %>: 5</div>
+              <div class="card-text"><%- team2.toUpperCase() %>: 6</div>
+            </div>
+          </div>
+          <div class="card ccard1" onclick="checkform()">
+            <input type="checkbox"  class="d-none" name="partition_2" value="6_5"/>
+            <div class="card-body">
+              <div class="card-title"><%- team1.toUpperCase() %>: 6</div>
+              <div class="card-text"><%- team2.toUpperCase() %>: 5</div>
+            </div>
+          </div>
+          <div class="card ccard1" onclick="checkform()">
+            <input type="checkbox"  class="d-none" name="partition_3" value="7_4"/>
+            <div class="card-body">
+              <div class="card-title"><%- team1.toUpperCase() %>: 7</div>
+              <div class="card-text"><%- team2.toUpperCase() %>: 4</div>
+            </div>
+          </div>
+          <div class="card ccard1" onclick="checkform()">
+            <input type="checkbox"  class="d-none" name="partition_4" value="4_7"/>
+            <div class="card-body">
+              <div class="card-title"><%- team1.toUpperCase() %>: 4</div>
+              <div class="card-text"><%- team2.toUpperCase() %>: 7</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Team Partition - End -->
+    <!-- Team criteria - Start -->
+    <div class="card text-yellow bg-dark h-100">
+      <div class="card-header fw-bold">Team criteria</div>
+      <div class="card-body">
+        <div class="d-flex justify-content-center mt-3 pad-3">
+          <div class="input-group">
+            <div class="input-group-text"># of Team</div>
+            <input type="text" placeholder="Number of teams" name="nt" value="40" size="15"/>
+          </div>
+          <div class="input-group">
+            <div class="input-group-text"># of Process</div>
+            <input type="text" placeholder="Number of Process" name="np" value="1000" size="15"/>
+          </div>
+          <div class="input-group">
+            <div class="input-group-text">Credits Start</div>
+            <input type="text" placeholder="Credits Start" name="points_start" value="94" size="15"/>
+          </div>
+          <div class="input-group">
+            <div class="input-group-text">Credits End</div>
+            <input type="text" placeholder="Credits Etart" name="points_end" value="99" size="15"/>
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="btnchecksave" value="save" name="save" onclick="checkform()">
+            <label class="btn btn-outline-warning" for="btnchecksave">Save</label>
+          </div>
+        </div>
+        <input type="hidden" name="team1" class="team2" value="<%= team1 %>"/>
+        <input type="hidden" name="team2" class="team2" value="<%= team2 %>"/>
+        <input type="hidden" name="matchid" class="team2" value="<%= matchid %>"/>
+      </div>
+    </div>
+    <!-- Team criteria - End -->
+    <div class="d-flex justify-content-center mt-3 pad-3">
+      <button type="submit" class="btn btn-warning float-center text-dark teampartition disabled" id="proceedbtn">Proceed</button>
+    </div>
+</form>
+</div>
