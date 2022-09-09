@@ -2,7 +2,8 @@ import React from "react";
 import _ from 'lodash';
 
 import Banner from "../components/Banner/Banner";
-import MatchCard from "../components/MatchCard/MatchCard";
+import SeriesCard from "../components/SeriesCard/SeriesCard";
+import PageTitle from "../components/PageTitle/PageTitle";
 
 export default function Series() {
 
@@ -10,11 +11,12 @@ export default function Series() {
 
   return (
     <div>
+      <PageTitle pagetitle={'Series'} />
       <Banner />
       <section>
         <div className="container">
           <div className="row">
-            <MatchCard />
+            <SeriesCard />
           </div>
         </div>
       </section>

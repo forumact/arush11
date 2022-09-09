@@ -9,6 +9,7 @@ import { getSquad, selectAllPlayers } from '../features/squad/squadSlice';
 import Loader from "../components/Loader";
 import PlayerPreview from "../components/PlayerPreview/PlayerPreview";
 
+
 export default function Squads() {
   const ra11Squad = useSelector((store) => store.squad);
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ export default function Squads() {
 
 
   const renderCard2 = (team, img) => team2players.map(teambyrole => (
-    <PlayerPreview teambyrole={teambyrole} team={team} img={img} bgimgStyle={bgimgStyle} />
+    <PlayerPreview teambyrole={teambyrole} team={team} img={img} bgimgStyle={bgimgStyle}/>
   ));
 
   return (

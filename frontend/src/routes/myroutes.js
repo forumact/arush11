@@ -14,8 +14,8 @@ import PageNotFound from "../pages/PageNotFound";
 
 
 
-// import Imagetotext from "../pages/Imagetotext";
-// import Matches from "../pages/Matches";
+// import Iagetotext from "../pages/Imagetotext";
+import Match from "../pages/Match";
 import User from "../pages/User";
 // import PeopleEdit from "../pages/PeopleEdit";
 // import Players from "../pages/Players";
@@ -24,7 +24,7 @@ import User from "../pages/User";
 import Playing11 from "../pages/Playing11";
 // import Points from "../pages/Points";
 import Prediction from "../pages/Prediction";
-// import Result from "../pages/Result";
+import Result from "../pages/Result";
 // import Team from "../pages/Team";
 // import Tournament from "../pages/Tournament";
 // import UserPlayerEdit from "../pages/UserPlayerEdit";
@@ -76,14 +76,14 @@ export const MyRoutes = [
   },
   {
     path: "/captains",
-   component: Captains,
+    component: Captains,
     title: "Home",
     adminroute: "no",
     protected: "yes"
   },
   {
     path: "/prediction",
-   component: Prediction,
+    component: Prediction,
     title: "Home",
     adminroute: "no",
     protected: "yes"
@@ -102,20 +102,20 @@ export const MyRoutes = [
   //   adminroute: "no",
   //   protected: "yes"
   // },
-  // {
-  //   path: "/result",
-  //  // component: Result,
-  //   title: "Home",
-  //   adminroute: "no",
-  //   protected: "yes"
-  // },
-  // {
-  //   path: "/matches",
-  //  // component: Matches,
-  //   title: "Home",
-  //   adminroute: "no",
-  //   protected: "yes"
-  // },
+  {
+    path: "/result",
+    component: Result,
+    title: "Home",
+    adminroute: "no",
+    protected: "yes"
+  },
+  {
+    path: "/match",
+    component: Match,
+    title: "Home",
+    adminroute: "no",
+    protected: "yes"
+  },
   // {
   //   path: "/points",
   //  // component: Points,

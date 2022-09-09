@@ -45,7 +45,7 @@ export default function Playing11() {
   }
 
   const renderCard = (team, img) => team1players.map(teambyrole => (
-    <PlayerPreview teambyrole={teambyrole} team={team} img={img} bgimgStyle={bgimgStyle} />
+    <PlayerPreview teambyrole={teambyrole} team={team} img={img} bgimgStyle={bgimgStyle}/>
   ));
 
   const renderCard2 = (team, img) => team2players.map(teambyrole => (

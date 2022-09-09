@@ -45,7 +45,7 @@ export default function PlayersCard({ player }) {
                  />
               <label className="btn btn-sm btn-outline-warning" htmlFor={clable}>Ca</label>
             </div>
-            <div className="btn-group mt-1 ml-1 shadow-none" role="group">
+            <div className="btn-group mt-1 ml-1" role="group">
               <input type="checkbox" className="btn-check" id={vclable} name={(player ? player.name : '')}
                  />
               <label className="btn btn-sm btn-outline-primary" htmlFor={vclable}>Vc</label>

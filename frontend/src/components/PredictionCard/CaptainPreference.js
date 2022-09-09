@@ -7,7 +7,7 @@ export default function CaptainPreference({ team1, team2, onHandleClick }) {
       <div className="card-body shadow-sm bg-gray">
         <div className='row'>
           <div className="col">
-            <h5 className="card-title">Captain </h5>
+            <h5 className="card-title">Captain Team</h5>
             <p className="card-text">Select the team Captain for your Dream Team</p>
             <div className="btn-group shadow-none" role="group">
               <input type="radio" name="cpt" className="btn-check" id="btncheck1" value={team1} />

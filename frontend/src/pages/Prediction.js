@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import TeamPartition from '../components/PredictionCard/TeamPartition';
 import TeamCombo from '../components/PredictionCard/TeamCombo';
 import Teamcriteria from '../components/PredictionCard/Teamcriteria';
-import ground from "../team-bg.jpg";
 import { getcombo, filterCombo, filterPartition, filterCaptainRole, filterViceCaptainRole, preparePassData } from '../utils';
 import CaptainPreference from '../components/PredictionCard/CaptainPreference';
 import ViceCaptainPreference from '../components/PredictionCard/ViceCaptainPreference';
+
+import Banner from '../components/Banner/Banner';
 
 
 export default function Prediction() {
@@ -16,15 +17,8 @@ export default function Prediction() {
   const navigate = useNavigate();
   const { matchid, user_id, team1, team1img, team2, team2img } = location.state;
 
-  const bgimgStyle = {
-    backgroundImage: "url(" + ground + ")",
-    backgroundRepeat: "round",
-    backgroundSize: "contain",
-  };
-
   const [showteamPreference, setShowteamPreference] = useState([]);
   const [teamPrediction, setTeamPrediction] = useState([]);
-  // const [checkboxvalue, setcheckboxvalue] = useState([]);
   const [teamcombo, setTeamcombo] = useState([]);
   const [selectedteamcombo, setSelectedTeamcombo] = useState(0);
 
@@ -47,22 +41,6 @@ export default function Prediction() {
 
   }
 
-
-  const onHandleClickPartiton = (name, value) => {
-    let filteredArray = teamPrediction.filter(function (item) {
-      return item.partition == value
-    });
-    if (filteredArray.length > 0) {
-      let filteredArray1 = teamPrediction.filter(function (item) {
-        return item.partition != value
-      });
-      setTeamPrediction(filteredArray1);
-    } else {
-      setTeamPrediction([...teamPrediction, { [name]: value }]);
-    }
-
-  }
-
   const formSubmitHandler = (e) => {
     e.preventDefault();
 
@@ -77,16 +55,12 @@ export default function Prediction() {
     navigate('/dreamteam', { state: { matchid: matchid, user_id: user_id, team1: team1, team2: team2, team1img: team1img, team2img: team2img } });
   }
 
-  // const onHandleInputChange = (e) => {
-  //   let value = (e.target.type === 'radio') ? (e.target.checked ? e.target.value : 'inactive') : e.target.value
-  //   value = (e.target.type === 'checkbox') ? (e.target.checked ? e.target.value : '') : e.target.value
-  //   setTeamPrediction([...teamPrediction, { [e.target.name]: value }]);
-  // }
-
   console.log('teamPrediction', teamPrediction)
 
   return (
+    
     <form onSubmit={formSubmitHandler}>
+      {/* <Banner /> */}
       <div className="p-2">
         <div className='container'>
           <CaptainPreference team1={team1} team2={team2} onHandleClick={onHandleClick} />

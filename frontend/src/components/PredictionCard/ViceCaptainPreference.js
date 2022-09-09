@@ -7,7 +7,7 @@ export default function ViceCaptainPreference({ team1, team2, onHandleClick }) {
       <div className="card-body shadow-sm bg-gray">
         <div className='row'>
           <div className="col">
-            <h5 className="card-title">Vice Captain </h5>
+            <h5 className="card-title">Vice Captain Team</h5>
             <p className="card-text">Select the team Vice Captain for your Dream Team</p>
             <div className="btn-group shadow-none" role="group">
               <input type="radio" name="vcpt" className="btn-check" id="btncheck11" value={team1} />
@@ -20,7 +20,7 @@ export default function ViceCaptainPreference({ team1, team2, onHandleClick }) {
           </div>
           <div className="col">
             <h5 className="card-title">Vice Captain Role</h5>
-            <p className="card-text">Select the captain role for your Dream Team.</p>
+            <p className="card-text">Select the Vice captain role for your Dream Team.</p>
             <div className="btn-group shadow-none" role="group">
               <input type="checkbox" name="vcrole" className="btn-check" id="btncheck41" value={'WK'} onClick={(e) => onHandleClick(e, 'vcrole', 'WK')} />
               <label className="btn btn-outline-success btn mr-1" htmlFor="btncheck41">{'WK'}</label>
