@@ -23,6 +23,11 @@ export default function Banner() {
             <Link to={'/register'} className="btn btn-primary">Register</Link>
           </p>)
         }
+        {token &&
+          (<p>
+            <Link to={'/series'} className="btn btn-primary">Create Team</Link>
+          </p>)
+        }
       </div>
     </section>
   )
