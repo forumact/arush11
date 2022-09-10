@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 
 import PlayerPreview from "../components/PlayerPreview/PlayerPreview";
+import { getMatchlocalStorage } from "../utils";
 
 
 export default function Captains() {
@@ -18,7 +19,9 @@ export default function Captains() {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const { matchid, user_id, team1, team1img, team2, team2img } = location.state;
+  // const { matchid, user_id, team1, team1img, team2, team2img } = location.state;
+  const { matchid, user_id, team1, team1img, team2, team2img } = getMatchlocalStorage();
+
 
   const bgimgStyle = {
     backgroundImage: "url(" + ground + ")",
@@ -35,7 +38,15 @@ export default function Captains() {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    navigate('/prediction', { state: { matchid: matchid, user_id: user_id, team1: team1, team2: team2, team1img: team1img, team2img: team2img } });
+    // navigate('/prediction', {
+    //   state: {
+    //     matchid: matchid, user_id: user_id,
+    //     team1: team1, team2: team2, team1img: team1img,
+    //     team2img: team2img
+    //   }
+    // });
+
+    navigate('/prediction');
   }
 
 

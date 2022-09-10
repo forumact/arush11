@@ -33,6 +33,8 @@ export const fetchMatchPlayers = async ({ team1, team2, matchid }) => {
   let teamrole1 = [];
   let teamrole2 = [];
 
+  console.log(team1, team2, matchid)
+
   const myplaying11 = await instance.get("/api/fetch_match_players",
     {
       params: {
@@ -82,4 +84,44 @@ export const createMyMatch = async ({ matchid, user_id, team1, team1img, team2, 
 
   return mymatch;
 
+}
+
+export const updatePlayerById = async (pid, team, name, role, picture, credits, status, star) => {
+
+  const resp = await instance.post('/api/update_player_by_id', {
+    params: {
+      pid: pid,
+      name: name,
+      role: role,
+      picture: picture,
+      team: team,
+      credits: parseFloat(credits),
+      status: status || 'inactive',
+      star: star || 'inactive',
+      captain: 'inactive',
+      vcaptain: 'inactive',
+    }
+  });
+
+  return resp;
+}
+
+
+export const updateMatchPlayerById = async (matchid, pid, team, name, role, picture, credits, status, star) => {
+  await axios.post("/api/update_mymatch_player_by_id", {
+    params: {
+      matchid: matchid,
+      pid: pid,
+      name: name,
+      role: role,
+      picture: picture,
+      team: team,
+      credits: parseFloat(credits),
+      status: status || "inactive",
+      star: star || "inactive",
+      captain: "inactive",
+      vcaptain: "inactive",
+    },
+  }
+  );
 }

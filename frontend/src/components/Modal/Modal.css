@@ -11,7 +11,8 @@
 }
 .modalContainer .modal1 {
   width: 90vw;
-  height: 550px;
+  height: auto;
+  max-height: 550px;
   overflow: auto;
   background-color: #fff;
   padding: .5rem;

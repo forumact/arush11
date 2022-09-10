@@ -10,7 +10,7 @@ import ground from "../team-bg.jpg";
 import { getPlaying11 } from '../features/playing11/playing11Slice';
 import Loader from "../components/Loader";
 import PlayerPreview from "../components/PlayerPreview/PlayerPreview";
-
+import { getMatchlocalStorage } from "../utils";
 
 
 export default function Playing11() {
@@ -18,7 +18,9 @@ export default function Playing11() {
   const dispatch = useDispatch();
 
   const location = useLocation();
-  const { matchid, user_id, team1, team1img, team2, team2img } = location.state;
+  // const { matchid, user_id, team1, team1img, team2, team2img } = location.state;
+
+  const { matchid, user_id, team1, team1img, team2, team2img } = getMatchlocalStorage();
 
   const navigate = useNavigate();
 
@@ -27,8 +29,6 @@ export default function Playing11() {
     backgroundRepeat: "round",
     backgroundSize: "contain",
   };
-
-  console.log(ra11Playing11);
 
   let team1players = _.values(_.get(ra11Playing11.playing11, ['teamrole1']));
   let team2players = _.values(_.get(ra11Playing11.playing11, ['teamrole2']));
@@ -41,11 +41,19 @@ export default function Playing11() {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    navigate('/captains', { state: { matchid: matchid, user_id: user_id, team1: team1, team2: team2, team1img: team1img, team2img: team2img } });
+    navigate('/captains', {
+      state: {
+        matchid: matchid, user_id: user_id,
+        team1: team1, team2: team2, team1img: team1img,
+        team2img: team2img
+      }
+    });
+
+    navigate('/captains');
   }
 
   const renderCard = (team, img) => team1players.map(teambyrole => (
-    <PlayerPreview teambyrole={teambyrole} team={team} img={img} bgimgStyle={bgimgStyle}/>
+    <PlayerPreview teambyrole={teambyrole} team={team} img={img} bgimgStyle={bgimgStyle} />
   ));
 
   const renderCard2 = (team, img) => team2players.map(teambyrole => (

@@ -8,7 +8,7 @@ import { getSeries } from '../../features/series/seriesSlice';
 import bgMatch from './team-bg.jpg';
 import TeamListDropDown from './TeamListDropDown';
 
-import { getUniqueId } from '../../utils'
+import { getUniqueId, createMatchlocalStorage } from '../../utils'
 import Loader from '../Loader';
 
 export default function SeriesCard({ series }) {
@@ -57,7 +57,22 @@ export default function SeriesCard({ series }) {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    navigate('/squad', { state: { matchid: randid, user_id: user_id, team1: team1, team2: team2, team1img: team1img, team2img: team2img } });
+
+    let matchDetails = {
+      matchid: randid, user_id: user_id, team1: team1, team2: team2,
+      team1img: team1img, team2img: team2img
+    };
+    createMatchlocalStorage(matchDetails)
+
+    // navigate('/squad', {
+    //   state: {
+    //     matchid: randid, user_id: user_id,
+    //     team1: team1,
+    //     team2: team2, team1img: team1img, team2img: team2img
+    //   }
+    // });
+
+    navigate('/squad');
   }
 
   const renderCard = () => ra11Seriesarr.map(series => (

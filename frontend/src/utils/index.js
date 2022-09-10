@@ -184,6 +184,7 @@ export const printVcaptain = (vcaptain = null) => {
 }
 
 export const teamClass = (teamName, team1, team2) => {
+  console.log(teamName, team1, team2);
   let teamClass;
   if (teamName === team1) {
     teamClass = 'team-1';
@@ -201,4 +202,17 @@ export const getTeamPrecentage = (count, total) => {
 export const getRandomClass = () => {
   var items = ['ra11-bg-primary', 'ra11-bg-dark', 'ra11-bg-primary', 'ra11-bg-success', 'ra11-bg-warning'];
   return items[Math.floor(Math.random() * items.length)];
+}
+
+
+export const createMatchlocalStorage = (items) => {
+  localStorage.setItem('match', JSON.stringify(items));
+}
+
+export const deleteMatchlocalStorage = () => {
+  localStorage.removeItem("match");
+}
+
+export const getMatchlocalStorage = () => {
+  return JSON.parse(localStorage.getItem('match'));
 }

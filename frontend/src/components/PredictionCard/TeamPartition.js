@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function TeamPartition({ team1, team2, onHandleClick }) {
+export default function TeamPartition({ team1, team2, onHandleClick, teampartion }) {
   return (
     <div className="card">
       <h5 className="card-header bg-info text-center text-white">Team Partition Strategy</h5>
@@ -8,11 +8,11 @@ export default function TeamPartition({ team1, team2, onHandleClick }) {
         <p className="card-title d-flex justify-content-between">
           <div className=''>
             <span className='ra11-bg-dark p-1 text-dark'>Available Partition</span>
-            <span className='bg-dark p-2 fw-600 text-white badge'>4</span>
+            <span className='bg-danger p-2 fw-600 text-white badge badge-danger'>4</span>
           </div>
           <div className=''>
             <span className='ra11-bg-primary p-1 text-dark'>Selected partition</span>
-            <span className='bg-dark p-2 fw-600 text-white badge'>{'3'}</span>
+            <span className='bg-dark p-2 fw-600 text-white badge'>{teampartion}</span>
           </div>
         </p>
         <div class="card-column-4 rounded text-dark text-center mt-4">

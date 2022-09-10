@@ -1,6 +1,6 @@
 // import PageNotFound from "../pages/404";
 // import Captains from "../pages/Captains";
-// import DreamTeam from "../pages/DreamTeam";
+import DreamTeam from "../pages/DreamTeam";
 // import EditTeam from "../pages/EditTeam";
 // import EditTournament from "../pages/EditTournament";
 import Home from "../pages/Home";
@@ -95,13 +95,13 @@ export const MyRoutes = [
   //   adminroute: "no",
   //   protected: "yes"
   // },
-  // {
-  //   path: "/dream-team",
-  //  // component: DreamTeam,
-  //   title: "Home",
-  //   adminroute: "no",
-  //   protected: "yes"
-  // },
+  {
+    path: "/dream-team",
+    component: DreamTeam,
+    title: "Home",
+    adminroute: "no",
+    protected: "yes"
+  },
   {
     path: "/result",
     component: Result,

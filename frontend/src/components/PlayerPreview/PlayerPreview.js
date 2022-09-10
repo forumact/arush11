@@ -3,7 +3,7 @@ import PlayersCard from "../Players/PlayersCard";
 import GroundHeader from "../GroundHeader/GroundHeader";
 
 
-export default function PlayerPreview({teambyrole, team, img, bgimgStyle}) {
+export default function PlayerPreview({ teambyrole, team, img, bgimgStyle, toggle, setmodalData }) {
   return (
     <section className="team-bg h-100" style={bgimgStyle}>
       <GroundHeader team={team} img={img} />
@@ -13,7 +13,7 @@ export default function PlayerPreview({teambyrole, team, img, bgimgStyle}) {
       <div className="d-flex justify-content-center flex-wrap">
         {teambyrole &&
           teambyrole["WK"]?.map((player) => (
-            <PlayersCard player={player} key={player.pid} />
+            <PlayersCard player={player} key={player.pid} toggle={toggle} setmodalData={setmodalData} />
           ))}
       </div>
       <p className="text-white text-center text-uppercase badge d-flex justify-content-center">
@@ -22,7 +22,7 @@ export default function PlayerPreview({teambyrole, team, img, bgimgStyle}) {
       <div className="d-flex justify-content-center flex-wrap">
         {teambyrole &&
           teambyrole["BAT"]?.map((player) => (
-            <PlayersCard player={player} key={player.pid} />
+            <PlayersCard player={player} key={player.pid} toggle={toggle} setmodalData={setmodalData} />
           ))}
       </div>
       <p className="text-white text-center text-uppercase badge d-flex justify-content-center">
@@ -31,7 +31,7 @@ export default function PlayerPreview({teambyrole, team, img, bgimgStyle}) {
       <div className="d-flex justify-content-center flex-wrap">
         {teambyrole &&
           teambyrole["AR"]?.map((player) => (
-            <PlayersCard player={player} key={player.pid} />
+            <PlayersCard player={player} key={player.pid} toggle={toggle} setmodalData={setmodalData} />
           ))}
       </div>
       <p className="text-white text-center text-uppercase badge d-flex justify-content-center">
@@ -40,7 +40,7 @@ export default function PlayerPreview({teambyrole, team, img, bgimgStyle}) {
       <div className="d-flex justify-content-center flex-wrap">
         {teambyrole &&
           teambyrole["BOWL"]?.map((player) => (
-            <PlayersCard player={player} key={player.pid} />
+            <PlayersCard player={player} key={player.pid} toggle={toggle} setmodalData={setmodalData} />
           ))}
       </div>
       {/* <div className="d-flex justify-content-center bg-trans bg-success p-1 bg-opacity-25">
