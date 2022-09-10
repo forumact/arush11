@@ -18,6 +18,23 @@ export default function Header() {
         <Link to='/' className="navbar-brand">
           <img src={logo} width="30" height="30" className="d-inline-block align-top rounded-circle" alt="" />Arush11
         </Link>
+        <ul className="nav">
+          <li className="nav-item">
+            <Link to='/match' className="navbar-link nav-item text-white">
+              Match
+            </Link>
+          </li>
+        </ul>
+        <li className="nav nav-item dropdown">
+          <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#!" role="button" aria-haspopup="true" aria-expanded="false">Players</a>
+          <div className="dropdown-menu">
+            <Link className="dropdown-item" to='/admin/players'>Player List</Link>
+            <Link className="dropdown-item" to='/admin/player/add'>Add Player</Link>
+            <Link className="dropdown-item" to="/series">Series</Link>
+            <div className="dropdown-divider"></div>
+            <Link className="dropdown-item" to='/match'>Match</Link>
+          </div>
+        </li>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>

@@ -16,7 +16,7 @@ export default function DreamTeamPlayerCard({ player, team1, team2 }) {
       {captainsMark ? <span dangerouslySetInnerHTML={{ __html: captainsMark }}></span> : ''}
       {vicecaptainsMark ? <span dangerouslySetInnerHTML={{ __html: vicecaptainsMark }}></span> : ''}
         <img src={playerImg} width="60" height="60" alt="" />
-        <div className="pname fw-600 Tooltip-Wrapper fw-500">{splitName(player.name)}</div>
+        <div className="pname fw-600 Tooltip-Wrapper fw-500" title={player.name}>{splitName(player.name)}</div>
         <div className="bg-dark1 ra-credits alert-link">
           {player.star === 'active' && <span className="dreampick">
             <i className="fa-solid fa-shield-heart"></i>

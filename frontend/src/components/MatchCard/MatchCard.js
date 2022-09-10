@@ -140,7 +140,7 @@ export default function MatchCard() {
           <p>Please cross check your Team Points Here!</p>
           <div className='row'>
             <div className='col'>
-              <Link to={`/result?matchid=${match.matchid}`}
+              <Link to={`/result?matchid=${match.matchid}&team1=${match.team1}&team2=${match.team2}`}
                 className='btn btn-sm btn-secondary'>
                 <i class="fa-solid fa-street-view"></i></Link>
             </div>

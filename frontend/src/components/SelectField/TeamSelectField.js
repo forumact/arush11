@@ -15,7 +15,7 @@ export default function TeamSelectField(props) {
 
   return (
       <select className="form-select text-uppercase" defaultValue={props.value} name={props.mname}
-        id={props.id}>
+        id={props.id} onChange={props.onChange}>
         <option>{props.dname}</option>
         {team.map((request, index) => {
           return (

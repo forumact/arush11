@@ -12,14 +12,12 @@ import Captains from "../pages/Captains";
 
 import PageNotFound from "../pages/PageNotFound";
 
-
-
 // import Iagetotext from "../pages/Imagetotext";
 import Match from "../pages/Match";
 import User from "../pages/User";
 // import PeopleEdit from "../pages/PeopleEdit";
-// import Players from "../pages/Players";
-// import PlayersAdd from "../pages/PlayersAdd";
+import Players from "../pages/Players";
+import AddPlayer from "../pages/AddPlayer";
 // import PlayersEdit from "../pages/PlayersEdit";
 import Playing11 from "../pages/Playing11";
 // import Points from "../pages/Points";
@@ -172,20 +170,20 @@ export const MyRoutes = [
   //   adminroute: "yes",
   //   protected: "no"
   // },
-  // {
-  //   path: "/admin/players",
-  //  // component: Players,
-  //   title: "Home",
-  //   adminroute: "yes",
-  //   protected: "no"
-  // },
-  // {
-  //   path: "/admin/player/add",
-  //  // component: PlayersAdd,
-  //   title: "Home",
-  //   adminroute: "yes",
-  //   protected: "no"
-  // },
+  {
+    path: "/admin/players",
+    component: Players,
+    title: "Home",
+    adminroute: "yes",
+    protected: "no"
+  },
+  {
+    path: "/admin/player/add",
+    component: AddPlayer,
+    title: "Home",
+    adminroute: "yes",
+    protected: "no"
+  },
   // {
   //   path: "/admin/player/:pid/edit",
   //  // component: PlayersEdit,
