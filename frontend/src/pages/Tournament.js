@@ -79,7 +79,7 @@ export default function Tournament() {
   }
 
 
-  const renderModalContent = (modalData, matchid, team1, team2) => {
+  const renderModalContent = (modalData) => {
     console.log(modalData)
     return (
       <form onSubmit={modalSubmit}>

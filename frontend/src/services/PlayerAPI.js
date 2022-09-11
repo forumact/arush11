@@ -12,16 +12,20 @@ const instance = axios.create({ baseURL: 'http://localhost:5000' });
  export const addPlayer = async (details, numberofteam) => {
 
   let uniqueArr = [];
-  //Remove Duplicates
-  for (let inc = 0; inc < details.length; inc++) {
-    uniqueArr[details[inc].name] = details[inc].value
+  for (const [key, value] of Object.entries(details)) {
+    uniqueArr[key] = value;
   }
+  
+
+  console.log(details);
+  console.log('numberofteam', numberofteam);
+  console.log(uniqueArr);
 
   for (let inc = 0; inc < numberofteam; inc++) {
     await instance.post('/api/add_player', {
       params: {
         pid: getUniqueId(10),
-        name: uniqueArr['playername_' + inc],
+        name: uniqueArr['name_' + inc],
         role: uniqueArr['role_' + inc],
         picture: uniqueArr['picture_' + inc],
         team: uniqueArr['team_' + inc],

@@ -39,7 +39,7 @@ export default function AddPlayer() {
       setPlayerAddForm(true);
       setshowPlayerNumberForm(false);
       setshowSquadPullAddForm(true)
-      setnumberofTeam([...Array(Number(tempPlayer.number))]);
+      setnumberofTeam(tempPlayer.number);
       setselectedFields({
         team: tempPlayer.team,
         status: tempPlayer.status
@@ -61,7 +61,8 @@ export default function AddPlayer() {
         }
       }
     });
-    console.log(tempPlayer)
+    // console.log(tempPlayer)
+    console.log('numberofTeam', numberofTeam)
     let response = await addPlayer(tempPlayer, numberofTeam);
     if (response) {
       navigate(`/admin/players`);
@@ -79,7 +80,7 @@ export default function AddPlayer() {
             <h5 className="card-header text-center bg-info text-white">Player</h5>
             <div className="card-body bg-gray p-2">
               {
-                numberofTeam.map((players, index) => (
+                [...Array(Number(numberofTeam))].map((players, index) => (
                   <div className="container p-2" key={index}>
                     <div className='row align-items-baseline'>
                       <div className='col-sm-1'><span className='badge bg-dark'>{index + 1}</span></div>

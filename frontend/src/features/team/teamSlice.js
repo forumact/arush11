@@ -18,12 +18,18 @@ const teamSlice = createSlice({
   initialState,
   reducers: {
     addTeam: (state, action) => {
-      // console.log('edit user', action)
       state.team.push(action.payload)
       createTeam(action.payload);
     },
     editTeam: (state, action) => {
       const { tmid, teamname, image, status, tournament_name } = action.payload;
+      const existingPost = state.team.find((post) => post.tmid === tmid)
+      if (existingPost) {
+        existingPost.tournament_name = tournament_name
+        existingPost.teamname = teamname
+        existingPost.image = image
+        existingPost.status = status
+      }
       createTeam(action.payload);
     },
     deleteTeam: (state, action) => {
@@ -32,7 +38,7 @@ const teamSlice = createSlice({
       deleteTeamApi(tmid, teamname);
       console.log(current(state));
       // return false
-     
+
     }
   },
   extraReducers: builder => {
