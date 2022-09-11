@@ -26,11 +26,13 @@ export default function Header() {
           </li>
         </ul>
         <li className="nav nav-item dropdown">
-          <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#!" role="button" aria-haspopup="true" aria-expanded="false">Players</a>
+          <a className="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#!" role="button" aria-haspopup="true" aria-expanded="false">Players</a>
           <div className="dropdown-menu">
             <Link className="dropdown-item" to='/admin/players'>Player List</Link>
             <Link className="dropdown-item" to='/admin/player/add'>Add Player</Link>
             <Link className="dropdown-item" to="/series">Series</Link>
+            <Link className="dropdown-item" to="/admin/tournament">Tournament</Link>
+            <Link className="dropdown-item" to="/admin/team">Team</Link>
             <div className="dropdown-divider"></div>
             <Link className="dropdown-item" to='/match'>Match</Link>
           </div>

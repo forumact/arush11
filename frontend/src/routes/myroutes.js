@@ -23,8 +23,8 @@ import Playing11 from "../pages/Playing11";
 // import Points from "../pages/Points";
 import Prediction from "../pages/Prediction";
 import Result from "../pages/Result";
-// import Team from "../pages/Team";
-// import Tournament from "../pages/Tournament";
+import Team from "../pages/Team";
+import Tournament from "../pages/Tournament";
 // import UserPlayerEdit from "../pages/UserPlayerEdit";
 
 
@@ -142,13 +142,13 @@ export const MyRoutes = [
   //   adminroute: "yes",
   //   protected: "no"
   // },
-  // {
-  //   path: "/admin/tournament",
-  //  // component: Tournament,
-  //   title: "Home",
-  //   adminroute: "yes",
-  //   protected: "no"
-  // },
+  {
+    path: "/admin/tournament",
+   component: Tournament,
+    title: "Home",
+    adminroute: "yes",
+    protected: "no"
+  },
   // {
   //   path: "/admin/tournament/:tid/edit",
   //  // component: EditTournament,
@@ -156,13 +156,13 @@ export const MyRoutes = [
   //   adminroute: "yes",
   //   protected: "no"
   // },
-  // {
-  //   path: "/admin/team",
-  //  // component: Team,
-  //   title: "Home",
-  //   adminroute: "yes",
-  //   protected: "no"
-  // },
+  {
+    path: "/admin/team",
+   component: Team,
+    title: "Home",
+    adminroute: "yes",
+    protected: "no"
+  },
   // {
   //   path: "/admin/team/:tmid/edit",
   //  // component: EditTeam,
