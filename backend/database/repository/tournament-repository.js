@@ -42,7 +42,7 @@ class TournamentRepository {
         {
           limit: 25,
           sort: {
-            name: 1, //Sort by Date Added DESC
+            createdAt: 1, //Sort by Date Added DESC
           },
         });
       return tournaments;

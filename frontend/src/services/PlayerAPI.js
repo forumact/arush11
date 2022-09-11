@@ -38,6 +38,8 @@ const instance = axios.create({ baseURL: 'http://localhost:5000' });
     });
   }
 
+  return true;
+
 }
 
 export const fetchPlayersByTeam = async (team) => {

@@ -61,8 +61,6 @@ export default function AddPlayer() {
         }
       }
     });
-    // console.log(tempPlayer)
-    console.log('numberofTeam', numberofTeam)
     let response = await addPlayer(tempPlayer, numberofTeam);
     if (response) {
       navigate(`/admin/players`);

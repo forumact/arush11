@@ -42,7 +42,7 @@ class TeamRepository {
           limit: 25,
           sort: {
             // name: 1, //Sort by Date Added DESC
-            createdAt: -1
+            tournament_name: 1
           },
         });
       return existingTeam;
