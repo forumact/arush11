@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import { fetchPlayersByTeam, updatePlayerById } from "../../services/PlayerAPI";
+import _ from 'lodash';
 
 const initialState = {
   loading: false,
@@ -16,27 +17,28 @@ export const getPlayers = createAsyncThunk('player/fetchPlayers', async (team) =
 
 export const updatePlayerAndGet = createAsyncThunk('data/update', async (params) => {
   const { pid, team, name, role, picture, credits, status, star } = params;
-  await updatePlayerById( pid, team, name, role, picture, credits, status, star)
-  let response = await fetchPlayersByTeam({ team});
+  await updatePlayerById(pid, team, name, role, picture, credits, status, star)
+  let response = await fetchPlayersByTeam({ team });
   console.log(response)
   return response
 })
+
+
+const remove = (data, removeId) => {
+  return _.remove(data, (item) => item.id !== removeId)  // removes parent object if its id matches removeId
+    .map(({ id, sub }) => ({ id, sub: _.remove(sub, (item) => item.id !== removeId) })) // replaces sub array with new sub array with subobject missing
+}
 
 const playerSlice = createSlice({
   name: "player",
   initialState,
   reducers: {
-    deleteUser: (state, action) => {
-      const { uid } = action.payload;
-      const existingUser = state.users.find((user) => user.uid == uid);
-      if (existingUser) {
-        let response = state.users.filter((user) => user.uid !== uid);
-        return {
-          loading: false,
-          users: response,
-          error: "",
-        };
-      }
+    deletePlayer: (state, action) => {
+      const { pid, role } = action.payload;
+      state.player.map(player => {
+        _.remove(player[role], (pl) => pl.pid === pid)
+        return player[role];
+      });
     },
   },
   extraReducers: builder => {
@@ -69,6 +71,6 @@ const playerSlice = createSlice({
   }
 });
 
-// export const { addUser, editUser, deleteUser } = seriesSlice.actions;
+export const { deletePlayer } = playerSlice.actions;
 
 export default playerSlice.reducer;

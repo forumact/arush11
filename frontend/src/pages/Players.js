@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import TeamSelectField from '../components/SelectField/TeamSelectField'
 
-import { getPlayers, updatePlayerAndGet } from '../features/players/playersSlice';
+import { getPlayers, updatePlayerAndGet, deletePlayer } from '../features/players/playersSlice';
 import Loader from "../components/Loader";
 import PlayerPreview from "../components/PlayerPreview/PlayerPreview";
 import ground from "../team-bg.jpg";
@@ -16,6 +17,9 @@ export default function Players() {
 
   const ra11player = useSelector((store) => store.player);
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const { team } = location.state || 'ind';
 
   const bgimgStyle = {
     backgroundImage: "url(" + ground + ")",
@@ -33,8 +37,8 @@ export default function Players() {
   }
 
   useEffect(() => {
-    dispatch(getPlayers('ind'))
-  }, [dispatch])
+    dispatch(getPlayers(team || 'ind'))
+  }, [dispatch, team])
 
 
   const modalSubmit = (event) => {
@@ -52,9 +56,17 @@ export default function Players() {
     Toggle()
   }
 
+  const handlerDeletePlayer = (player) => {
+    let text = `Are you sure you want to delete ${player.name}?`;
+    var answer = window.confirm(text);
+    if (answer) {
+      dispatch(deletePlayer(player));
+    }
+  }
+
   const renderCard = (team) => ra11player.player.map((teambyrole, index) => (
-    <PlayerPreview teambyrole={teambyrole} bgimgStyle={bgimgStyle} team={team} toggle={Toggle} 
-    setmodalData={setmodalData} key={index} />
+    <PlayerPreview teambyrole={teambyrole} bgimgStyle={bgimgStyle} team={team} toggle={Toggle}
+      setmodalData={setmodalData} key={index} onDelete={handlerDeletePlayer} />
   ));
 
 
@@ -118,9 +130,10 @@ export default function Players() {
       <PageTitile pagetitle={"Player"} />
       <div className='container-fluid mt-2'>
         <div className="row mt-2 bg-dark align-items-baseline">
-          <div class="col-sm-2">
-            <div class="form-group row p-1">
-              <div class="col-sm-10">
+          <div className="col-sm-2">
+            <div className="row p-2">
+              <div className="col-sm-10 d-flex">
+                <span className='text-white mr-2'>Team:</span>
                 <TeamSelectField dname="Team" mname={'team'} id={'team'} value={"ind"} onChange={onInputChangeHandler} />
               </div>
             </div>
@@ -128,7 +141,7 @@ export default function Players() {
         </div>
         <div className="row justify-conten-center align-items-center">
           <div className="col mt-3 mb-3">
-            {ra11player.loading ? <Loader /> : renderCard('IND')}
+            {ra11player.loading ? <Loader /> : renderCard(team)}
           </div>
         </div>
       </div>

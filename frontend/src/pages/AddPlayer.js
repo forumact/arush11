@@ -63,7 +63,12 @@ export default function AddPlayer() {
     });
     let response = await addPlayer(tempPlayer, numberofTeam);
     if (response) {
-      navigate(`/admin/players`);
+      let team = tempPlayer.team_0;
+      navigate('/admin/players', {
+        state: {
+          team: team,
+        }
+      });
     }
   }
 

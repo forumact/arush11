@@ -32,7 +32,11 @@ export default function MatchCard() {
   const Toggle = () => setModal(!modal1);
 
   const handlerDelete = (matchid) => {
-    dispatch(deleteMyMatch({ matchid: matchid }));
+    let text = `Are you sure you want to delete?`;
+    var answer = window.confirm(text);
+    if (answer) {
+      dispatch(deleteMyMatch({ matchid: matchid }));
+    }
   }
 
   const renderModalContent = (modalData) => {

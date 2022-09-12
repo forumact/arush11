@@ -9,13 +9,13 @@ const instance = axios.create({ baseURL: 'http://localhost:5000' });
  * @param {*} numberofteam 
  */
 
- export const addPlayer = async (details, numberofteam) => {
+export const addPlayer = async (details, numberofteam) => {
 
   let uniqueArr = [];
   for (const [key, value] of Object.entries(details)) {
     uniqueArr[key] = value;
   }
-  
+
 
   console.log(details);
   console.log('numberofteam', numberofteam);

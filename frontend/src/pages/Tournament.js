@@ -71,13 +71,12 @@ export default function Tournament() {
   ));
 
   const handleRemoveUser = (tid) => {
-    dispatch(deleteTournament({ tid }));
+    let text = `Are you sure you want to delete this?`;
+    var answer = window.confirm(text);
+    if (answer) {
+      dispatch(deleteTournament({ tid }));
+    }
   }
-
-  const updateForm = (tid) => {
-    navigate(`/admin/tournament/${tid}/edit`);
-  }
-
 
   const renderModalContent = (modalData) => {
     console.log(modalData)

@@ -5,14 +5,14 @@ import { splitName, getUniqueId } from '../../utils';
 import playerImg from './t1.png';
 
 
-export default function PlayersCard({ player, toggle, setmodalData }) {
+export default function PlayersCard({ player, toggle, setmodalData, onDelete }) {
   let url = new URL(window.location.href);
   let clable = getUniqueId(6)
   let vclable = getUniqueId(7)
   return (
     <div className={`position-relative d-inline-block team-2 ${player.status}`}>
       <img src={playerImg} width="60" height="60" alt="" />
-      <div className="pname fw-600 Tooltip-Wrapper fw-500">{splitName(player.name)}</div>
+      <div className="pname fw-600 Tooltip-Wrapper fw-500" title={player.name}>{splitName(player.name)}</div>
       <div className="bg-dark1 ra-credits alert-link">
         {player.star === 'active' && <span className="dreampick">
           <i className="fa-solid fa-shield-heart"></i>
@@ -30,7 +30,7 @@ export default function PlayersCard({ player, toggle, setmodalData }) {
         )}
         {/* Show delete for admin and squad page alone */}
         {(url.pathname.match(/(admin|squad)/) &&
-          <span className="text-white delete" role="button">
+          <span className="text-white delete" role="button" onClick={() => onDelete(player)}>
             <i className="fas fa-trash"></i>
           </span>
         )}

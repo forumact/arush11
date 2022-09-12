@@ -57,7 +57,7 @@ export default function Team() {
       <td>{team.tournament_name ? team.tournament_name.replaceAll("_", " ").toUpperCase() : ""}</td>
       <td className="text-uppercase bolder">
         <span className="mr-1 badge bg-dark">{team !== '' ? team.teamname : ''}</span>
-        <span><img src={team.image} alt={team.teamname} width="30"/></span>
+        <span><img src={team.image} alt={team.teamname} width="30" /></span>
       </td>
       <td><i className={'text-danger fa-heart ' + (team.status === 'active' ? 'fas' : 'far')}></i></td>
       <td>{rawDate(team.createdAt)}</td>
@@ -73,13 +73,12 @@ export default function Team() {
   ));
 
   const handleRemoveUser = (tmid, teamname) => {
-    dispatch(deleteTeam({ tmid, teamname }));
+    let text = `Are you sure you want to delete this?`;
+    var answer = window.confirm(text);
+    if (answer) {
+      dispatch(deleteTeam({ tmid, teamname }));
+    }
   }
-
-  const updateForm = (tid) => {
-    navigate(`/admin/tournament/${tid}/edit`);
-  }
-
 
   const renderModalContent = (modalData) => {
     console.log(modalData)
