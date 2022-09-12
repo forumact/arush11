@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import TeamSelectField from '../components/SelectField/TeamSelectField'
 
-import { getPlayers, updatePlayerAndGet, deletePlayer } from '../features/players/playersSlice';
+import { getPlayers, updatePlayerAndGet, deletePlayer, updatePlayer } from '../features/players/playersSlice';
 import Loader from "../components/Loader";
 import PlayerPreview from "../components/PlayerPreview/PlayerPreview";
 import ground from "../team-bg.jpg";
@@ -52,7 +52,8 @@ export default function Players() {
         }
       }
     });
-    dispatch(updatePlayerAndGet(tempPlayer));
+    // dispatch(updatePlayerAndGet(tempPlayer));
+    dispatch(updatePlayer(tempPlayer));
     Toggle()
   }
 
@@ -71,7 +72,7 @@ export default function Players() {
 
 
   const renderModalContent = (modalData) => {
-    console.log(modalData)
+    // console.log(modalData)
     return (
       <form onSubmit={modalSubmit}>
         <div className="card">
@@ -114,6 +115,7 @@ export default function Players() {
                 </label>
               </div>
               <input type='hidden' defaultValue={modalData.pid} name='pid' />
+              <input type='hidden' defaultValue={modalData.role} name='current_role' />
               <div className="col">
                 <button type="submit" className="btn btn-primary">Save</button>
               </div>

@@ -24,10 +24,6 @@ export const updatePlayerAndGet = createAsyncThunk('data/update', async (params)
 })
 
 
-const remove = (data, removeId) => {
-  return _.remove(data, (item) => item.id !== removeId)  // removes parent object if its id matches removeId
-    .map(({ id, sub }) => ({ id, sub: _.remove(sub, (item) => item.id !== removeId) })) // replaces sub array with new sub array with subobject missing
-}
 
 const playerSlice = createSlice({
   name: "player",
@@ -40,6 +36,18 @@ const playerSlice = createSlice({
         return player[role];
       });
     },
+    updatePlayer: (state, action) => {
+      const { pid, team, name, role, picture, credits, status, star, current_role } = action.payload;
+      state.player.map(player => {
+        //Remove Matched element from the array
+        _.remove(player[current_role], (pl) => pl.pid === pid)
+        //insert modified player to the array
+        player[role].splice(0, 0, action.payload)
+        updatePlayerById(pid, team, name, role, picture, credits, status, star)
+        return player[role];
+      });
+    },
+
   },
   extraReducers: builder => {
     builder.addCase(getPlayers.pending, state => {
@@ -71,6 +79,6 @@ const playerSlice = createSlice({
   }
 });
 
-export const { deletePlayer } = playerSlice.actions;
+export const { deletePlayer, updatePlayer } = playerSlice.actions;
 
 export default playerSlice.reducer;
