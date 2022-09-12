@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import { fetchSquads, updateMatchPlayerById, fetchMatchPlayers } from "../../services/SquadAPI";
+import _ from 'lodash';
 
 
 const initialState = {
@@ -45,6 +46,20 @@ const squadSlice = createSlice({
       //   error: "",
       // };
     },
+    updatePlayer: (state, action) => {
+      const { matchid, pid, team, name, role, picture, credits, status, star, current_role, teamrole } = action.payload;
+      console.log(current(state))
+      state.squad[teamrole].map(squad => {
+        //Remove Matched element from the array
+        console.log(current(squad))
+        _.remove(squad[current_role], (pl) => pl.pid === pid)
+        console.log(current(squad))
+        //insert modified squad to the array
+        squad[role].splice(0, 0, action.payload)
+        updateMatchPlayerById(matchid, pid, team, name, role, picture, credits, status, star)
+        return squad[role];
+      });
+    },
   },
   extraReducers: builder => {
     builder.addCase(getSquad.pending, state => {
@@ -79,6 +94,6 @@ const squadSlice = createSlice({
 
 export const selectAllPlayers = state => state.squad.squad
 
-export const { addUser, editPlayer, deleteUser } = squadSlice.actions;
+export const { addUser, updatePlayer, deleteUser } = squadSlice.actions;
 
 export default squadSlice.reducer;

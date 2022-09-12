@@ -64,11 +64,11 @@ export default function Playing11() {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-6 mt-3 mb-3">
-          {ra11Playing11.loading ? <Loader /> : renderCard(team1, team1img)}
+          {ra11Playing11.loading ? <Loader minh='650px'/> : renderCard(team1, team1img)}
 
         </div>
         <div className="col-md-6 mt-3 mb-3">
-          {ra11Playing11.loading ? <Loader /> : renderCard2(team2, team2img)}
+          {ra11Playing11.loading ? <Loader minh='650px'/> : renderCard2(team2, team2img)}
         </div>
         <div className="bg-dark p-2 d-flex justify-content-center mb-1">
           <Link to={-1} className="btn btn-danger text-dark mr-1">

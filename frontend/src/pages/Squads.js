@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import ground from "../team-bg.jpg";
-import { getSquad, selectAllPlayers, updateDataAndGet } from '../features/squad/squadSlice';
+import { getSquad, selectAllPlayers, updatePlayer } from '../features/squad/squadSlice';
 import Loader from "../components/Loader";
 import PlayerPreview from "../components/PlayerPreview/PlayerPreview";
 import { getMatchlocalStorage } from "../utils";
@@ -71,7 +71,7 @@ export default function Squads() {
         }
       }
     });
-    dispatch(updateDataAndGet(tempPlayer));
+    dispatch(updatePlayer(tempPlayer));
     Toggle()
   }
 
@@ -88,7 +88,8 @@ export default function Squads() {
 
 
   const renderModalContent = (modalData, matchid, team1, team2) => {
-    console.log(modalData)
+
+    let teamrole = modalData.team == team1 ? 'teamrole1': 'teamrole2';
     return (
       <form onSubmit={modalSubmit}>
         <div className="card">
@@ -134,6 +135,8 @@ export default function Squads() {
               <input type='hidden' defaultValue={matchid} name='matchid' />
               <input type='hidden' defaultValue={team1} name='team1' />
               <input type='hidden' defaultValue={team2} name='team2' />
+              <input type='hidden' defaultValue={modalData.role} name='current_role' />
+              <input type='hidden' defaultValue={teamrole} name='teamrole' />
               <div className="col">
                 <button type="submit" className="btn btn-primary">Save</button>
               </div>
@@ -149,10 +152,10 @@ export default function Squads() {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-6 mt-3 mb-3">
-          {ra11Squad.loading ? <Loader /> : renderCard(team1, team1img)}
+          {ra11Squad.loading ? <Loader minh='650px' /> : renderCard(team1, team1img)}
         </div>
         <div className="col-md-6 mt-3 mb-3">
-          {ra11Squad.loading ? <Loader /> : renderCard2(team2, team2img)}
+          {ra11Squad.loading ? <Loader minh='650px' /> : renderCard2(team2, team2img)}
         </div>
         <div className="bg-dark p-2 d-flex justify-content-center mb-1">
           <Link to={-1} className="btn btn-danger text-dark mr-1">

@@ -6,7 +6,7 @@ import GroundHeader from "../GroundHeader/GroundHeader";
 export default function PlayerPreview({ teambyrole, team, img, bgimgStyle, toggle, setmodalData, onDelete }) {
   return (
     <section className="team-bg h-100" style={bgimgStyle}>
-      <GroundHeader team={team} img={img} />
+      <GroundHeader team={team} img={img} teambyrole={teambyrole}/>
       <p className="text-white text-uppercase badge d-flex justify-content-center">
         Wicket-Keepers
       </p>

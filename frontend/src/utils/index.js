@@ -216,3 +216,32 @@ export const deleteMatchlocalStorage = () => {
 export const getMatchlocalStorage = () => {
   return JSON.parse(localStorage.getItem('match'));
 }
+
+
+export const credits = function (players) {
+  let credits = [];
+  let sum = 0;
+  if (typeof players['WK'] != "undefined") {
+    players['WK']?.forEach(function (player, index2) {
+      credits.push(player['credits']);
+    });
+  }
+
+  if (typeof players['BAT'] != "undefined") {
+    players['BAT']?.forEach(function (player, index2) {
+      credits.push(player['credits']);
+    });
+  }
+
+  players['AR']?.forEach(function (player, index2) {
+    credits.push(player['credits']);
+  });
+  players['BOWL']?.forEach(function (player, index2) {
+    credits.push(player['credits']);
+  });
+  // Running the for loop
+  for (let i = 0; i < credits.length; i++) {
+    sum = parseFloat(sum, 10) + parseFloat(credits[i], 10);
+  }
+  return sum;
+}

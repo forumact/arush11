@@ -21,7 +21,7 @@ export default function DreamTeamPlayerCard({ player, team1, team2 }) {
           {player.star === 'active' && <span className="dreampick">
             <i className="fa-solid fa-shield-heart"></i>
           </span>}
-          <span className="me-xxl-1 text-white">{player.credits}</span>
+          <span className="me-xxl-1 text-white">{player.points ? player.points : player.credits}</span>
         </div>
     </div>
   );

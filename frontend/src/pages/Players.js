@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import TeamSelectField from '../components/SelectField/TeamSelectField'
 
-import { getPlayers, updatePlayerAndGet, deletePlayer, updatePlayer } from '../features/players/playersSlice';
+import { getPlayers, deletePlayer, updatePlayer } from '../features/players/playersSlice';
 import Loader from "../components/Loader";
 import PlayerPreview from "../components/PlayerPreview/PlayerPreview";
 import ground from "../team-bg.jpg";
@@ -31,8 +31,11 @@ export default function Players() {
   const [modalData, setmodalData] = React.useState(false);
   const Toggle = () => setModal(!modal1);
 
+  const [selecteTeam, setselecteTeam] = React.useState('IND');
+
   const onInputChangeHandler = (e) => {
     const { value } = e.target;
+    setselecteTeam(value)
     dispatch(getPlayers(value))
   }
 
@@ -65,14 +68,13 @@ export default function Players() {
     }
   }
 
-  const renderCard = (team) => ra11player.player.map((teambyrole, index) => (
-    <PlayerPreview teambyrole={teambyrole} bgimgStyle={bgimgStyle} team={team} toggle={Toggle}
+  const renderCard = () => ra11player.player.map((teambyrole, index) => (
+    <PlayerPreview teambyrole={teambyrole} bgimgStyle={bgimgStyle} team={selecteTeam} toggle={Toggle}
       setmodalData={setmodalData} key={index} onDelete={handlerDeletePlayer} />
   ));
 
 
   const renderModalContent = (modalData) => {
-    // console.log(modalData)
     return (
       <form onSubmit={modalSubmit}>
         <div className="card">
@@ -143,7 +145,7 @@ export default function Players() {
         </div>
         <div className="row justify-conten-center align-items-center">
           <div className="col mt-3 mb-3">
-            {ra11player.loading ? <Loader /> : renderCard(team)}
+            {ra11player.loading ? <Loader  minh='650px'/> : renderCard()}
           </div>
         </div>
       </div>

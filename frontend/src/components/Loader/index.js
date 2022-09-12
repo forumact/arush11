@@ -1,10 +1,12 @@
 import React from 'react'
 
-export default function Loader() {
+export default function Loader(props) {
   return (
-    <div className="text-center min-vh-50">
-      <div className="spinner-border" role="status">
-        <span className="visually-hidden">Loading...</span>
+    <div className='loader-wrapper' style={{ 'minHeight': props.minh }}>
+      <div className="text-center loader-vh" >
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
       </div>
     </div>
   )

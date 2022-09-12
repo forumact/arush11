@@ -20,7 +20,7 @@ import Players from "../pages/Players";
 import AddPlayer from "../pages/AddPlayer";
 // import PlayersEdit from "../pages/PlayersEdit";
 import Playing11 from "../pages/Playing11";
-// import Points from "../pages/Points";
+import Points from "../pages/Points";
 import Prediction from "../pages/Prediction";
 import Result from "../pages/Result";
 import Team from "../pages/Team";
@@ -114,13 +114,13 @@ export const MyRoutes = [
     adminroute: "no",
     protected: "yes"
   },
-  // {
-  //   path: "/points",
-  //  // component: Points,
-  //   title: "Points",
-  //   adminroute: "no",
-  //   protected: "yes"
-  // },
+  {
+    path: "/points",
+    component: Points,
+    title: "Points",
+    adminroute: "no",
+    protected: "yes"
+  },
   // {
   //   path: "/img-to-text",
   //  // component: Imagetotext,
@@ -144,7 +144,7 @@ export const MyRoutes = [
   // },
   {
     path: "/admin/tournament",
-   component: Tournament,
+    component: Tournament,
     title: "Home",
     adminroute: "yes",
     protected: "no"
@@ -158,7 +158,7 @@ export const MyRoutes = [
   // },
   {
     path: "/admin/team",
-   component: Team,
+    component: Team,
     title: "Home",
     adminroute: "yes",
     protected: "no"

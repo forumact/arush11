@@ -5,7 +5,7 @@ const instance = axios.create({ baseURL: 'http://localhost:5000' });
 
 
 export const deleteDreamTeam = async (matchid) => {
-  const { data } = await axios.post("/api/delete_dreamteam",
+  const { data } = await instance.post("/api/delete_dreamteam",
     {
       params: {
         matchid: matchid
@@ -19,7 +19,7 @@ export const deleteDreamTeam = async (matchid) => {
 
 export const createDreamTeamSave = async (players, processData, captains) => {
 
-  const { data } = await axios.post("/api/create_dreamteam",
+  const { data } = await instance.post("/api/create_dreamteam",
     {
       params: {
         players: players,
@@ -38,7 +38,7 @@ export const FetchCreatedDreamTeam = async (matchid) => {
   let result = [];
   let mockresult = [];
 
-  const dreamTeam = await axios.get("/api/fetchp_created_dreamteam",
+  const dreamTeam = await instance.get("/api/fetchp_created_dreamteam",
     {
       params: {
         matchid: matchid,
@@ -60,17 +60,28 @@ export const FetchCreatedDreamTeam = async (matchid) => {
 
 }
 
+export const pointsUpdate = async (matchid) => {
+  const { data } = await axios.get("/api/dreamteam_pointsupdate_by_matchid",
+    {
+      params: {
+        matchid: matchid,
+      },
+    }
+  );
+
+  return data.data || [];
+}
 export const updatePoints = async (matchid, players) => {
 
   console.log(matchid, players)
-  const points = await axios.post("/api/updatepoints", {
+  const points = await instance.post("/api/updatepoints", {
     params: {
       players: players,
       matchid: matchid,
     },
   });
 
-  await axios.post("/api/update_match_status", {
+  await instance.post("/api/update_match_status", {
     params: {
       status: "C",
       matchid: matchid,
@@ -84,7 +95,7 @@ export const updatePoints = async (matchid, players) => {
 
 export const getDreamTeamCount = async (matchid) => {
 
-  const { data } = await axios.get("/api/dreamteam_count",
+  const { data } = await instance.get("/api/dreamteam_count",
     {
       params: {
         matchid: matchid,

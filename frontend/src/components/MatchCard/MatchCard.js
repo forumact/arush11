@@ -145,14 +145,17 @@ export default function MatchCard() {
           <div className='row'>
             <div className='col'>
               <Link to={`/result?matchid=${match.matchid}&team1=${match.team1}&team2=${match.team2}`}
-                className='btn btn-sm btn-secondary'>
+                className='btn btn-sm btn-primary'>
                 <i class="fa-solid fa-street-view"></i></Link>
             </div>
             <div className='col'>
-              <button className='btn btn-sm btn-secondary' onClick={() => { Toggle(); setmodalData(match) }}><i class="fa-solid fa-chart-simple"></i></button>
+              <Link to={`/points?matchid=${match.matchid}&team1=${match.team1}&team2=${match.team2}`} className='btn btn-sm btn-primary'><i class="fa-solid fa-edit"></i></Link>
             </div>
             <div className='col'>
-              <button className='btn btn-sm btn-secondary'>C</button>
+              <button className='btn btn-sm btn-primary' onClick={() => { Toggle(); setmodalData(match) }}><i class="fa-solid fa-chart-simple"></i></button>
+            </div>
+            <div className='col'>
+              <button className='btn btn-sm btn-primary'>{match.status}</button>
             </div>
             <div className='col'>
               <button className='btn btn-sm btn-danger' onClick={() => handlerDelete(match.matchid)}><i class="fa-solid fa-trash"></i></button>
