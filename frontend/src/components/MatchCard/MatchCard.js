@@ -40,6 +40,7 @@ export default function MatchCard() {
   }
 
   const renderModalContent = (modalData) => {
+    console.log(modalData);
     return (
       <>
         <div className="card">
@@ -48,10 +49,22 @@ export default function MatchCard() {
             <p className="card-title d-flex justify-content-between">
               <div className=''>
                 <span className='ra11-bg-primary p-1'>Selected combination</span>
-                <span className='bg-dark p-2 fw-600 text-white badge'>{'6'}</span>
+                <span className='bg-dark p-2 fw-600 text-white badge'>{modalData.combination.length}</span>
               </div>
             </p>
             <div className='d-flex flex-wrap justify-content-center text-dark text-center mt-4'>
+              {modalData.combination.map((combo) => {
+                return (
+                  <div class="card mr-3 mb-3 rounded">
+                    <div class="card-body combo-card-body bowl rounded" label="radio_0">
+                      <div class="card-text">WK : {combo[0]}</div>
+                      <div class="card-text">BAT : {combo[1]}</div>
+                      <div class="card-text">ALL : {combo[2]}</div>
+                      <div class="card-text">BOWL : {combo[3]}</div>
+                    </div>
+                  </div>
+                )
+              })}
               <div class="card mr-3 mb-3 rounded">
                 <div class="card-body combo-card-body bowl rounded" label="radio_0">
                   <div class="card-text">WK : 1</div>
@@ -69,28 +82,20 @@ export default function MatchCard() {
             <p className="card-title d-flex justify-content-between">
               <div className=''>
                 <span className='ra11-bg-primary p-1 text-dark'>Selected partition</span>
-                <span className='bg-dark p-2 fw-600 text-white badge'>{'3'}</span>
+                <span className='bg-dark p-2 fw-600 text-white badge'>{modalData.partition.length}</span>
               </div>
             </p>
-            <div class="card-column-4 rounded text-dark text-center mt-4">
-              <div className='card rounded' >
-                <div class="card-body combo-card-body partition-card text-uppercase rounded" label="radio_0">
-                  <div class="card-text">{'team1'} : 7</div>
-                  <div class="card-text">{'team2'} : 4</div>
-                </div>
-              </div>
-              <div className='card rounded' >
-                <div class="card-body combo-card-body partition-card text-uppercase rounded" label="radio_0">
-                  <div class="card-text">{'team1'} : 4</div>
-                  <div class="card-text">{'team2'} : 7</div>
-                </div>
-              </div>
-              <div className='card rounded' >
-                <div class="card-body combo-card-body partition-card text-uppercase rounded" label="radio_0">
-                  <div class="card-text">{'team1'} : 5</div>
-                  <div class="card-text">{'team2'} : 6</div>
-                </div>
-              </div>
+            <div class={`card-column-${modalData.partition.length} rounded text-dark text-center mt-4`}>
+              {modalData.partition.map((part) => {
+                return (
+                  <div className='card rounded' >
+                    <div class="card-body combo-card-body partition-card text-uppercase rounded" label="radio_0">
+                      <div class="card-text">{modalData.team1} : {part[0]}</div>
+                      <div class="card-text">{modalData.team2} : {part[1]}</div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
@@ -99,16 +104,16 @@ export default function MatchCard() {
           <div className="card-body bg-gray">
             <div className='row'>
               <div class="col">
-                <input type="number" class="form-control" name='nt' placeholder="Num of Team" defaultValue="40" />
+                <input type="number" class="form-control" disabled name='nt' defaultValue={modalData.teamcount} />
               </div>
               <div class="col">
-                <input type="number" class="form-control" name='np' placeholder="Num of Process" defaultValue="100" />
+                <input type="number" class="form-control" disabled name='np' placeholder="Num of Process" defaultValue="100" />
               </div>
               <div class="col">
-                <input type="number" class="form-control" name="ps" placeholder="Point Start" defaultValue="95" />
+                <input type="number" class="form-control" disabled name="ps" defaultValue={modalData.pointsstart} />
               </div>
               <div class="col">
-                <input type="number" class="form-control" name="pe" placeholder="Point End" defaultValue="98" />
+                <input type="number" class="form-control" disabled name="pe" defaultValue={modalData.pointsend} />
               </div>
             </div>
           </div>
