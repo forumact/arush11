@@ -42,6 +42,36 @@ export const addPlayer = async (details, numberofteam) => {
 
 }
 
+
+
+/**
+ * 
+ * @param {*} details 
+ * @param {*} numberofteam 
+ */
+
+export const addSinglePlayer = async (details) => {
+
+  let result = await instance.post('/api/add_player', {
+    params: {
+      pid: getUniqueId(10),
+      name: details.name,
+      role: details.role,
+      picture: details.picture,
+      team: details.team,
+      credits: details.credits,
+      status: details.status,
+      star: details.star,
+      captain: 'inactive',
+      vcaptain: 'inactive',
+    }
+  });
+
+  return result;
+
+}
+
+
 export const fetchPlayersByTeam = async (team) => {
   let teamrole = [];
   const { data } = await axios.get('/api/fetch_all_players', {

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import { fetchPlayersByTeam, updatePlayerById, deleteMatchPlayerById } from "../../services/PlayerAPI";
+import { fetchPlayersByTeam, updatePlayerById, deleteMatchPlayerById, addSinglePlayer } from "../../services/PlayerAPI";
 import _ from 'lodash';
 
 const initialState = {
@@ -14,21 +14,18 @@ export const getPlayers = createAsyncThunk('player/fetchPlayers', async (team) =
   return response
 })
 
-
-export const updatePlayerAndGet = createAsyncThunk('data/update', async (params) => {
-  const { pid, team, name, role, picture, credits, status, star } = params;
-  await updatePlayerById(pid, team, name, role, picture, credits, status, star)
-  let response = await fetchPlayersByTeam({ team });
-  console.log(response)
-  return response
-})
-
-
-
 const playerSlice = createSlice({
   name: "player",
   initialState,
   reducers: {
+    addPlayer: (state, action) => {
+      const { role } = action.payload;
+      state.player.map(player => {
+        let result = addSinglePlayer(action.payload)
+        return player[role].push(action.payload);
+      });
+
+    },
     deletePlayer: (state, action) => {
       const { pid, role } = action.payload;
       state.player.map(player => {
@@ -64,22 +61,9 @@ const playerSlice = createSlice({
       state.player = []
       state.error = action.error.message
     })
-    builder.addCase(updatePlayerAndGet.pending, state => {
-      state.loading = true
-    })
-    builder.addCase(updatePlayerAndGet.fulfilled, (state, action) => {
-      state.loading = false
-      state.squad = action.payload
-      state.error = ''
-    })
-    builder.addCase(updatePlayerAndGet.rejected, (state, action) => {
-      state.loading = false
-      state.squad = []
-      state.error = action.error.message
-    })
   }
 });
 
-export const { deletePlayer, updatePlayer } = playerSlice.actions;
+export const { addPlayer, deletePlayer, updatePlayer } = playerSlice.actions;
 
 export default playerSlice.reducer;

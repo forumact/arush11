@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import TeamSelectField from '../components/SelectField/TeamSelectField'
 
-import { getPlayers, deletePlayer, updatePlayer } from '../features/players/playersSlice';
+import { getPlayers, addPlayer, deletePlayer, updatePlayer } from '../features/players/playersSlice';
 import Loader from "../components/Loader";
 import PlayerPreview from "../components/PlayerPreview/PlayerPreview";
 import ground from "../team-bg.jpg";
@@ -55,8 +55,11 @@ export default function Players() {
         }
       }
     });
-    // dispatch(updatePlayerAndGet(tempPlayer));
-    dispatch(updatePlayer(tempPlayer));
+    if(tempPlayer.pid){
+      dispatch(updatePlayer(tempPlayer));
+    }else{
+      dispatch(addPlayer(tempPlayer));
+    }
     Toggle()
   }
 
