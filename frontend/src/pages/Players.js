@@ -75,20 +75,21 @@ export default function Players() {
 
 
   const renderModalContent = (modalData) => {
+    let modalTitle = modalData.name ? `Edit - ${modalData.name}` : 'Create Player';
     return (
       <form onSubmit={modalSubmit}>
         <div className="card">
-          <h5 className="card-header text-center bg-info text-white">{`Edit - ${modalData.name}`}</h5>
+          <h5 className="card-header text-center bg-info text-white">{modalTitle}</h5>
           <div className="card-body bg-gray p-2">
             <div className='row'>
               <div className="col">
-                <TeamSelectField dname="Team" mname={'team'} id={'team'} value={modalData.team} />
+                <TeamSelectField dname="Team" mname={'team'} id={'team'} value={modalData.team ? modalData.team: ''} />
               </div>
               <div className="col-auto">
-                <input type="text" className="form-control" name='name' placeholder="Name" defaultValue={modalData.name} />
+                <input type="text" className="form-control" name='name' placeholder="Name" defaultValue={modalData.name ? modalData.name: ''} />
               </div>
               <div className="col-auto">
-                <select className="form-select roleselect" name='role' id='roleselect' defaultValue={modalData.role}>
+                <select className="form-select roleselect" name='role' id='roleselect' defaultValue={modalData.role ? modalData.role : ''}>
                   <option svalue="ROLE" >ROLE</option>
                   <option value="WK">WK</option>
                   <option value="BAT">BAT</option>
@@ -97,10 +98,10 @@ export default function Players() {
                 </select>
               </div>
               <div className="col-auto">
-                <input type="text" className="form-control" name="picture" placeholder="Picture" defaultValue={modalData.picture} />
+                <input type="text" className="form-control" name="picture" placeholder="Picture" defaultValue={modalData.picture ? modalData.picture : ''} />
               </div>
               <div className="col">
-                <input type="number" step=".5" className="form-control" name="credits" placeholder="credits" defaultValue={modalData.credits} />
+                <input type="number" step=".5" className="form-control" name="credits" placeholder="credits" defaultValue={modalData.credits ? modalData.credits: ''} />
               </div>
               <div className="col">
                 <input className="form-check-input" type="checkbox" id="status" name="status" defaultValue={modalData.status}
@@ -150,7 +151,7 @@ export default function Players() {
         </div>
       </div>
       <Modal show={modal1} title="Player Edit" close={Toggle} submit={modalSubmit}>
-        {modalData ? renderModalContent(modalData) : 'NotFound'}
+        {renderModalContent(modalData ? modalData : '')}
       </Modal>
     </>
   )

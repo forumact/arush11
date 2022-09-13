@@ -1,7 +1,7 @@
 import React from 'react';
 import { credits } from '../../utils';
 
-export default function GroundHeader({ team, img, teambyrole }) {
+export default function GroundHeader({ team, img, teambyrole, toggle, setmodalData }) {
 
   return (
     <div className="d-flex justify-content-between bg-trans bg-success p-1 text-dark bg-opacity-50">
@@ -16,6 +16,7 @@ export default function GroundHeader({ team, img, teambyrole }) {
         </div>}
       </div>
       <div className="p-1">
+        <button className='badge bg-dark fs-6 border-0' onClick={() => { toggle(); setmodalData() }} >Create Player</button>
         <div className="d-inline-block fs-6 badge">CR</div>
         <span className="text-white badge fs-6 bg-dark">{credits(teambyrole)}</span>
       </div>
