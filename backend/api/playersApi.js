@@ -74,8 +74,8 @@ const add_player_api_post = async (req, res) => {
 
 const delete_player_by_id_api_post = async (req, res) => {
   try {
-    const id = req.body.params.id
-    const data = await pservice.DeletePlaerById({ id });
+    const pid = req.body.params.pid
+    const data = await pservice.DeletePlaerById({ pid });
     res.send({
       status: 200,
       data: data,

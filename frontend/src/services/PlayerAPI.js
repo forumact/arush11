@@ -170,7 +170,18 @@ export const deleteMatch = async (matchid) => {
   );
 
   console.log(deletemymatch);
+}
 
+export const deleteMatchPlayerById = async (pid) => {
+  const deletemymatch = await axios.post("/api/delete_player_by_id",
+    {
+      params: {
+        pid: pid,
+      },
+    }
+  );
+
+  console.log(deletemymatch);
 }
 
 export const fetchMatchPlayers = async ({ team1, team2, matchid }) => {

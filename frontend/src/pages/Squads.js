@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import ground from "../team-bg.jpg";
-import { getSquad, selectAllPlayers, updatePlayer } from '../features/squad/squadSlice';
+import { getSquad, selectAllPlayers, updatePlayer, deletePlayer } from '../features/squad/squadSlice';
 import Loader from "../components/Loader";
 import PlayerPreview from "../components/PlayerPreview/PlayerPreview";
 import { getMatchlocalStorage } from "../utils";
@@ -75,21 +75,37 @@ export default function Squads() {
     Toggle()
   }
 
+  const handlerDeletePlayer = (player) => {
+    let text = `Are you sure you want to delete ${player.name}?`;
+    var answer = window.confirm(text);
+    let newObj = {};
+    console.log(player)
+    if (team1 == player.team) {
+      newObj = Object.assign({ teamrole: 'teamrole1' }, player);
+    } else {
+      newObj = Object.assign({ teamrole: 'teamrole2' }, player);
+    }
+    console.log(newObj)
+    if (answer) {
+      dispatch(deletePlayer(newObj));
+    }
+  }
+
   const renderCard = (team, img) => team1players.map((teambyrole, index) => (
     <PlayerPreview teambyrole={teambyrole} team={team} img={img} bgimgStyle={bgimgStyle}
-      toggle={Toggle} setmodalData={setmodalData} key={index} />
+      toggle={Toggle} setmodalData={setmodalData} key={index} onDelete={handlerDeletePlayer} />
   ));
 
 
   const renderCard2 = (team, img) => team2players.map((teambyrole, index) => (
     <PlayerPreview teambyrole={teambyrole} team={team} img={img} bgimgStyle={bgimgStyle}
-      toggle={Toggle} setmodalData={setmodalData} key={index} />
+      toggle={Toggle} setmodalData={setmodalData} key={index} onDelete={handlerDeletePlayer} />
   ));
 
 
   const renderModalContent = (modalData, matchid, team1, team2) => {
 
-    let teamrole = modalData.team == team1 ? 'teamrole1': 'teamrole2';
+    let teamrole = modalData.team == team1 ? 'teamrole1' : 'teamrole2';
     return (
       <form onSubmit={modalSubmit}>
         <div className="card">

@@ -71,13 +71,13 @@ class PlayerRepository {
    * @param {*} param0
    * @returns
    */
-  async DeletePlaerById({ id }) {
+  async DeletePlaerById(pid) {
     try {
-      const deletedUser = await PlayerModel.findByIdAndRemove(id);
+      console.log(pid);
+      const deletedUser = await PlayerModel.deleteOne(pid);
       return deletedUser;
     } catch (err) {
       logger.info(`Data Base Action Failed: ${err}`);
-
       throw new Error("Unable to Delete The User");
     }
   }

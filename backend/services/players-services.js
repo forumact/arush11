@@ -42,9 +42,9 @@ class PlayerServices {
     }
   }
 
-  async DeletePlaerById({ id }) {
+  async DeletePlaerById({ pid }) {
     try {
-      const player = await this.repository.DeletePlaerById({ id })
+      const player = await this.repository.DeletePlaerById({ pid })
       return player
     } catch (err) {
 

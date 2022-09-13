@@ -17,15 +17,6 @@ export const getSquad = createAsyncThunk('squad/fetchSquad', async ({ matchid, u
 })
 
 
-export const updateDataAndGet = createAsyncThunk('data/update', async (params) => {
-  const { matchid, pid, team, name, role, picture, credits, status, star, team1, team2 } = params;
-  await updateMatchPlayerById(matchid, pid, team, name, role, picture, credits, status, star)
-  let response = await fetchMatchPlayers({ team1, team2, matchid });
-  console.log(response)
-  return response
-})
-
-
 const squadSlice = createSlice({
   name: "squad",
   initialState,
@@ -33,18 +24,12 @@ const squadSlice = createSlice({
     addUser: (state, action) => {
       console.log("edit user", action);
     },
-    editPlayer: async (state, action) => {
-      // const { matchid, pid, team, name, role, picture, credits, status, star } = action.payload;
-      // updateDataAndGet(matchid, pid, team, name, role, picture, credits, status, star);
-      // let team1 = 'zim';
-      // let team2 = 'aus';
-      // let response = await fetchMatchPlayers({ team1, team2, matchid });
-      // console.log('response', response)
-      // return {
-      //   loading: false,
-      //   squad: state,
-      //   error: "",
-      // };
+    deletePlayer: (state, action) => {
+      const { pid, role, teamrole } = action.payload;
+      state.squad[teamrole].map(squad => {
+        _.remove(squad[role], (pl) => pl.pid === pid)
+        return squad[role];
+      });
     },
     updatePlayer: (state, action) => {
       const { matchid, pid, team, name, role, picture, credits, status, star, current_role, teamrole } = action.payload;
@@ -75,25 +60,12 @@ const squadSlice = createSlice({
       state.squad = []
       state.error = action.error.message
     })
-    builder.addCase(updateDataAndGet.pending, state => {
-      state.loading = true
-    })
-    builder.addCase(updateDataAndGet.fulfilled, (state, action) => {
-      state.loading = false
-      state.squad = action.payload
-      state.error = ''
-    })
-    builder.addCase(updateDataAndGet.rejected, (state, action) => {
-      state.loading = false
-      state.squad = []
-      state.error = action.error.message
-    })
   }
 });
 
 
 export const selectAllPlayers = state => state.squad.squad
 
-export const { addUser, updatePlayer, deleteUser } = squadSlice.actions;
+export const { addUser, updatePlayer, deletePlayer } = squadSlice.actions;
 
 export default squadSlice.reducer;

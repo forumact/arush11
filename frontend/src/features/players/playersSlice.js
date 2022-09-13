@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import { fetchPlayersByTeam, updatePlayerById } from "../../services/PlayerAPI";
+import { fetchPlayersByTeam, updatePlayerById, deleteMatchPlayerById } from "../../services/PlayerAPI";
 import _ from 'lodash';
 
 const initialState = {
@@ -33,6 +33,7 @@ const playerSlice = createSlice({
       const { pid, role } = action.payload;
       state.player.map(player => {
         _.remove(player[role], (pl) => pl.pid === pid)
+        deleteMatchPlayerById(pid);
         return player[role];
       });
     },
