@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import TeamSelectField from '../components/SelectField/TeamSelectField'
 
@@ -48,7 +48,7 @@ export default function Players() {
     event.preventDefault();
     let tempPlayer = {}
     Object.entries(event.target.elements).forEach(([name, input]) => {
-      if (input.type != 'submit' || (typeof input.type !== undefined)) {
+      if (input.type !== 'submit') {
         let value = (input.type === 'checkbox') ? (input.checked ? 'active' : 'inactive') : input.value;
         if (value.length > 0) {
           tempPlayer[input.name] = value;

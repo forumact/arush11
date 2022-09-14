@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import TeamPartition from '../components/PredictionCard/TeamPartition';
@@ -14,17 +14,14 @@ import {
 import CaptainPreference from '../components/PredictionCard/CaptainPreference';
 import ViceCaptainPreference from '../components/PredictionCard/ViceCaptainPreference';
 
-import Banner from '../components/Banner/Banner';
 import { fetchPlayerForPrediction } from '../services/PlayerAPI';
 
 
 
 export default function Prediction() {
-  const location = useLocation();
   const navigate = useNavigate();
-  // const { matchid, user_id, team1, team1img, team2, team2img } = location.state;
 
-  const { matchid, user_id, team1, team1img, team2, team2img } = getMatchlocalStorage();
+  const { matchid, team1, team2 } = getMatchlocalStorage();
 
   let combo = getcombo();
   let groupby = 'role';
@@ -55,7 +52,7 @@ export default function Prediction() {
       setTeamcombo(selectedCombo);
     });
 
-  }, []);
+  }, [team1, team2, matchid, combo, groupby]);
 
 
 
@@ -64,22 +61,22 @@ export default function Prediction() {
 
   const onHandleClick = (event, name, value) => {
     let filteredArray = teamPrediction.filter(function (item) {
-      return item[name] == value
+      return item[name] === value
     });
     if (filteredArray.length > 0) {
       let filteredArray1 = teamPrediction.filter(function (item) {
-        return item[name] != value
+        return item[name] !== value
       });
-      if (name == 'combo') {
+      if (name === 'combo') {
         setSelectedTeamcombo(filteredArray1.length);
-      } if (name == 'partition') {
+      } if (name === 'partition') {
         setSelectedteampartition(filteredArray1.length);
       }
       setTeamPrediction(filteredArray1);
     } else {
-      if (name == 'combo') {
+      if (name === 'combo') {
         setSelectedTeamcombo(preVstate => preVstate + 1);
-      } if (name == 'partition') {
+      } if (name === 'partition') {
         setSelectedteampartition(preVstate => preVstate + 1);
       }
       setTeamPrediction([...teamPrediction, { [name]: value }]);
@@ -97,12 +94,12 @@ export default function Prediction() {
     let processData = preparePassData(0, teamPrediction, combo, part, captainRole, viceCaptainRole, matchid, team1, team2, e);
     console.log('processData', processData);
 
-    if (processData.combo.length == 0) {
+    if (processData.combo.length === 0) {
       alert('Team Combination is not selected!');
       return false;
     }
 
-    if (processData.partition.length == 0) {
+    if (processData.partition.length === 0) {
       alert('Team Partition is not selected!');
       return false;
     }

@@ -16,8 +16,6 @@ export default function Points() {
 
   let query = useQuery();
   let matchid = query.get('matchid');
-  let team1 = query.get('team1');
-  let team2 = query.get('team2');
 
 
   const [players, setPlayers] = React.useState([]);

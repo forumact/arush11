@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from 'react-router-dom';
@@ -46,10 +45,10 @@ export default function MatchCard() {
     return (
       <>
         <ViewCaptainPreference team1={modalData.team1}
-          team2={modalData.team2} defaultTeam={modalData.captainteam} 
+          team2={modalData.team2} defaultTeam={modalData.captainteam}
           captainChoice={modalData.captainchoice} />
         <ViewViceCaptainPreference team1={modalData.team1}
-          team2={modalData.team2} defaultTeam={modalData.captainteam} 
+          team2={modalData.team2} defaultTeam={modalData.captainteam}
           vcaptainChoice={modalData.vcaptainchoice} />
         <div className="card">
           <h5 className="card-header bg-info text-center text-white">Team Combination Strategy</h5>
@@ -138,11 +137,11 @@ export default function MatchCard() {
           <div className="row mt-4 mb-4">
             <div className="col-md-6">
               <div className="col">
-                <img width="30" height="30" src={match.team1img} />
+                <img width="30" height="30" src={match.team1img} alt={match.team1} />
                 <span className="h6 badge badge-danger text-uppercase">{match.team1}</span>
               </div>
               <div className="col">
-                <img width="30" height="30" src={match.team2img} />
+                <img width="30" height="30" src={match.team2img} alt={match.team2} />
                 <span className="h6 badge badge-warning text-uppercase">{match.team2}</span>
               </div>
             </div>

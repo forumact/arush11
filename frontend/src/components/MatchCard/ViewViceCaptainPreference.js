@@ -11,13 +11,13 @@ export default function ViewViceCaptainPreference({ team1, team2, defaultTeam, v
             <p className="card-text">Select the team Vice Captain for your Dream Team</p>
             <div className="btn-group shadow-none" role="group">
               <input type="radio" name="vcpt" className="btn-check" id="btncheck11" value={team1} 
-              checked={defaultTeam == team1 ? true : false} disabled/>
+              checked={defaultTeam === team1 ? true : false} disabled/>
               <label className="btn btn-outline-primary btn" htmlFor="btncheck11">{team1}</label>
               <input type="radio" name="vcpt" className="btn-check" id="btncheck21" value="both" 
-              checked={defaultTeam == 'both' ? true : false} disabled/>
+              checked={defaultTeam === 'both' ? true : false} disabled/>
               <label className="btn btn-outline-primary btn" htmlFor="btncheck21">Both</label>
               <input type="radio" name="vcpt" className="btn-check" id="btncheck31" value={team2} 
-              checked={defaultTeam == team2 ? true : false} disabled/>
+              checked={defaultTeam === team2 ? true : false} disabled/>
               <label className="btn btn-outline-primary btn" htmlFor="btncheck31">{team2}</label>
             </div>
           </div>

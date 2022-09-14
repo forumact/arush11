@@ -38,7 +38,7 @@ export default function Result() {
       setDreamTeam(response);
 
     });
-  }, []);
+  }, [matchid]);
 
 
 console.log(team1, team2)

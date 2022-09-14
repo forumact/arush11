@@ -1,5 +1,4 @@
 import React from "react";
-import _ from 'lodash';
 
 import Banner from "../components/Banner/Banner";
 import SeriesCard from "../components/SeriesCard/SeriesCard";

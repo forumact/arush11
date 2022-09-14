@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchPlayersByTeam, updatePlayerById, deleteMatchPlayerById, addSinglePlayer } from "../../services/PlayerAPI";
 import _ from 'lodash';
 
@@ -21,7 +21,7 @@ const playerSlice = createSlice({
     addPlayer: (state, action) => {
       const { role } = action.payload;
       state.player.map(player => {
-        let result = addSinglePlayer(action.payload)
+        addSinglePlayer(action.payload)
         return player[role].push(action.payload);
       });
 
