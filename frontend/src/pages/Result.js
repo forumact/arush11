@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { FetchCreatedDreamTeam } from '../services/DreamTeamAPI';
 import ground from "../team-bg.jpg";
 import DreamTamPlayerPreview from '../components/DreamTeamCard/DreamTamPlayerPreview';
+import PageTitle from '../components/PageTitle/PageTitle';
 
 
 export default function Result() {
@@ -31,8 +32,6 @@ export default function Result() {
 
 
   useEffect(() => {
-    document.title = 'Results | RA11';
-
     FetchCreatedDreamTeam(matchid).then((response) => {
       setShowLoader(false)
       console.log(response);
@@ -47,6 +46,8 @@ console.log(team1, team2)
   let gridClass = loader === true ? 'col-md-4' : 'col-auto';
 
   return (
+    <>
+    <PageTitle pagetitle={'Results'} />
     <div className='container mb-4'>
       <div className="row justify-content-center">
         {
@@ -58,5 +59,6 @@ console.log(team1, team2)
         }
       </div>
     </div>
+    </>
   )
 }

@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { getMatch, selectAllMatch, deleteMyMatch } from '../../features/match/matchSlice';
 import bgMatch from '../SeriesCard/team-bg.jpg'
 import Modal from '../Modal/Modal';
+import ViewCaptainPreference from './ViewCaptainPreference';
+import ViewViceCaptainPreference from './ViewViceCaptainPreference';
 
 
 export default function MatchCard() {
@@ -43,6 +45,12 @@ export default function MatchCard() {
     console.log(modalData);
     return (
       <>
+        <ViewCaptainPreference team1={modalData.team1}
+          team2={modalData.team2} defaultTeam={modalData.captainteam} 
+          captainChoice={modalData.captainchoice} />
+        <ViewViceCaptainPreference team1={modalData.team1}
+          team2={modalData.team2} defaultTeam={modalData.captainteam} 
+          vcaptainChoice={modalData.vcaptainchoice} />
         <div className="card">
           <h5 className="card-header bg-info text-center text-white">Team Combination Strategy</h5>
           <div className="card-body bg-gray">

@@ -9,7 +9,7 @@ export default function Match() {
   return (
     <div>
       <PageTitle pagetitle={'Match'} />
-      <Banner />
+      <Banner bgclass={'bg-overlay-match'}/>
       <div className='container'>
         <MatchCard/>
       </div>

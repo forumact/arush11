@@ -12,7 +12,7 @@ export default function Series() {
   return (
     <div>
       <PageTitle pagetitle={'Series'} />
-      <Banner />
+      <Banner bgclass={'bg-overlay-contest'}/>
       <section>
         <div className="container">
           <div className="row">

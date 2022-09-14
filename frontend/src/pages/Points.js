@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Banner from '../components/Banner/Banner';
+import PageTitle from '../components/PageTitle/PageTitle';
 
 import { pointsUpdate, getDreamTeamCount, updatePoints } from '../services/DreamTeamAPI';
 import { getTeamPrecentage } from '../utils'
@@ -54,7 +55,8 @@ export default function Points() {
 
   return (
     <>
-      <Banner />
+      <Banner bgclass='bg-overlay-points'/>
+      <PageTitle pagetitle="Points" />
       <form onSubmit={formSubmitHandler}>
         <div className="container">
           <div className="row">

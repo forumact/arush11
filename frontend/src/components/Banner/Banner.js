@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { getUserjson } from '../../utils';
 
 
-export default function Banner() {
+export default function Banner({ bgclass }) {
 
   let token = getUserjson();
 
   return (
-    <section className="jumbotron text-center bg-dark text-white bg-overlay rounded-0">
+    <section className={`jumbotron text-center bg-dark text-white rounded-0 ${bgclass ? bgclass : 'bg-overlay'}`}>
       <div className="container">
         <h1>3 simple steps to create Dream Team</h1>
         <p className="lead">

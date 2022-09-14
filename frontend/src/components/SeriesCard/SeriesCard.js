@@ -79,7 +79,7 @@ export default function SeriesCard({ series }) {
     <div className="col-md-4">
       <div className="card mb-4 box-shadow">
         <div className="card-header bg-card-ground" style={bgimgStyle}>
-          <h3 className='text-capitalize'>{series[0].tournament_name.replaceAll('_', " ")}</h3>
+          <h4 className='text-capitalize text-white'>{series[0].tournament_name.replaceAll('_', " ")}</h4>
           <div className="row mt-4 mb-4">
             <div className="col-md-6">
             </div>

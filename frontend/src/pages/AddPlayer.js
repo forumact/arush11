@@ -33,8 +33,6 @@ export default function AddPlayer() {
       }
     });
 
-    console.log(tempPlayer)
-
     if (tempPlayer.number && tempPlayer.team !== 'Team') {
       setPlayerAddForm(true);
       setshowPlayerNumberForm(false);

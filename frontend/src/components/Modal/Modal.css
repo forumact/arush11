@@ -10,7 +10,7 @@
   align-items: center;
 }
 .modalContainer .modal1 {
-  width: auto;
+  width: 80%;
   height: auto;
   max-height: 550px;
   overflow: auto;
