@@ -34,7 +34,7 @@ export default function Captains() {
 
   useEffect(() => {
     dispatch(getPlaying11({ team1, team2, matchid }))
-  }, [])
+  }, [dispatch, team1, team2, matchid])
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -63,7 +63,6 @@ export default function Captains() {
       <div className="row">
         <div className="col-md-6 mt-3 mb-3">
           {ra11Playing11.loading ? <Loader minh='650px'/> : renderCard(team1, team1img)}
-
         </div>
         <div className="col-md-6 mt-3 mb-3">
           {ra11Playing11.loading ? <Loader minh='650px'/> : renderCard2(team2, team2img)}

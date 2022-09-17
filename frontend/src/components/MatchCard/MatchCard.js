@@ -72,14 +72,6 @@ export default function MatchCard() {
                   </div>
                 )
               })}
-              <div class="card mr-3 mb-3 rounded">
-                <div class="card-body combo-card-body bowl rounded" label="radio_0">
-                  <div class="card-text">WK : 1</div>
-                  <div class="card-text">BAT : 3</div>
-                  <div class="card-text">ALL : 1</div>
-                  <div class="card-text">BOWL : 6</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

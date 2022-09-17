@@ -12,6 +12,7 @@ import { getMatchlocalStorage } from "../utils";
 
 import Modal from '../components/Modal/Modal';
 import TeamSelectField from "../components/SelectField/TeamSelectField";
+import RoleSelectField from '../components/SelectField/RoleSelectField';
 
 
 export default function Squads() {
@@ -105,7 +106,7 @@ export default function Squads() {
 
   const renderModalContent = (modalData, matchid, team1, team2) => {
 
-    let teamrole = modalData.team == team1 ? 'teamrole1' : 'teamrole2';
+    let teamrole = modalData.team === team1 ? 'teamrole1' : 'teamrole2';
     return (
       <form onSubmit={modalSubmit}>
         <div className="card">
@@ -119,13 +120,7 @@ export default function Squads() {
                 <input type="text" className="form-control" name='name' placeholder="Name" defaultValue={modalData.name} />
               </div>
               <div className="col-auto">
-                <select className="form-select roleselect" name='role' id='roleselect' defaultValue={modalData.role}>
-                  <option svalue="ROLE" >ROLE</option>
-                  <option value="WK">WK</option>
-                  <option value="BAT">BAT</option>
-                  <option value="AR">AR</option>
-                  <option value="BOWL">BOWL</option>
-                </select>
+                <RoleSelectField custclass="form-select roleselect" name='role' id='roleselect' defaultValue={modalData.role} />
               </div>
               <div className="col-auto">
                 <input type="text" className="form-control" name="picture" placeholder="Picture" defaultValue={modalData.picture} />

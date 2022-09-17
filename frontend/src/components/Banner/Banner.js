@@ -25,7 +25,7 @@ export default function Banner({ bgclass }) {
         }
         {token &&
           (<p>
-            <Link to={'/series'} className="btn btn-primary">Create Team</Link>
+            <Link to={'/series'} className="btn btn-primary">Upcoming Match</Link>
           </p>)
         }
       </div>

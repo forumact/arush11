@@ -55,10 +55,6 @@ export default function Prediction() {
   }, [team1, team2, matchid, combo, groupby]);
 
 
-
-
-
-
   const onHandleClick = (event, name, value) => {
     let filteredArray = teamPrediction.filter(function (item) {
       return item[name] === value

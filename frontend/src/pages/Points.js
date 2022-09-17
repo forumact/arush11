@@ -2,13 +2,15 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Banner from '../components/Banner/Banner';
 import PageTitle from '../components/PageTitle/PageTitle';
+import { useNavigate } from 'react-router-dom';
+
 
 import { pointsUpdate, getDreamTeamCount, updatePoints } from '../services/DreamTeamAPI';
 import { getTeamPrecentage } from '../utils'
 
 export default function Points() {
 
-
+  const navigate = useNavigate();
   function useQuery() {
     const { search } = useLocation();
     return new URLSearchParams(search);
@@ -16,6 +18,8 @@ export default function Points() {
 
   let query = useQuery();
   let matchid = query.get('matchid');
+  let team1 = query.get('team1');
+  let team2 = query.get('team2');
 
 
   const [players, setPlayers] = React.useState([]);
@@ -42,7 +46,7 @@ export default function Points() {
     e.preventDefault();
     console.log('in', points);
     updatePoints(matchid, points);
-    // navigate(`/result?matchid=${matchid}&team1=${team1}&team2=${team2}`);
+    navigate(`/result?matchid=${matchid}&team1=${team1}&team2=${team2}`);
   }
 
   const onInputChange = e => {
@@ -78,7 +82,7 @@ export default function Points() {
                     </thead>
                     <tbody>
                       {players.map((player, index) => (
-                        <tr>
+                        <tr key={index}>
                           <td className="pl-4">{index + 1}</td>
                           <td><h5 className="font-medium mb-0">{player._id}</h5></td>
                           <td><span className="text-muted">{player.fields[0].role}</span></td>

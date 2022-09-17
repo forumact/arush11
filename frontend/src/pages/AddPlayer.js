@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import PlayerNumberForm from '../components/AddPlayerCard/PlayerNumberForm';
 import SquadPullForm from '../components/AddPlayerCard/SquadPullForm';
 import PageTitle from '../components/PageTitle/PageTitle'
+import RoleSelectField from '../components/SelectField/RoleSelectField';
 import TeamSelectField from '../components/SelectField/TeamSelectField'
 
 import { addPlayer } from '../services/PlayerAPI';
@@ -92,13 +93,8 @@ export default function AddPlayer() {
                         <input type="text" className="form-control player-name" name={'name_' + index} id={'playername_' + index} placeholder="Name" defaultValue={""} />
                       </div>
                       <div className="col-auto">
-                        <select className="form-select roleselect" name={'role_' + index} id={'roleselect_' + index} defaultValue={""}>
-                          <option svalue="ROLE" >ROLE</option>
-                          <option value="WK">WK</option>
-                          <option value="BAT">BAT</option>
-                          <option value="AR">AR</option>
-                          <option value="BOWL">BOWL</option>
-                        </select>
+                        <RoleSelectField name={'role_' + index} id={'roleselect_' + index} defaultValue={""} 
+                        custclass="form-select roleselect" />                        
                       </div>
                       <div className="col-auto">
                         <input type="text" className="form-control" name={"picture_" + index} id={'picture_' + index} placeholder="Picture" defaultValue={""} />

@@ -11,6 +11,7 @@ import ground from "../team-bg.jpg";
 import PageTitile from '../components/PageTitle/PageTitle';
 
 import Modal from '../components/Modal/Modal';
+import RoleSelectField from '../components/SelectField/RoleSelectField';
 
 
 export default function Players() {
@@ -92,19 +93,23 @@ export default function Players() {
                 <input type="text" className="form-control" name='name' placeholder="Name" defaultValue={modalData.name ? modalData.name: ''} />
               </div>
               <div className="col-auto">
-                <select className="form-select roleselect" name='role' id='roleselect' defaultValue={modalData.role ? modalData.role : ''}>
+                {/* <select className="form-select roleselect" name='role' id='roleselect' defaultValue={modalData.role ? modalData.role : ''}>
                   <option svalue="ROLE" >ROLE</option>
                   <option value="WK">WK</option>
                   <option value="BAT">BAT</option>
                   <option value="AR">AR</option>
                   <option value="BOWL">BOWL</option>
-                </select>
+                </select> */}
+                <RoleSelectField custclass="form-select roleselect" name='role' id='roleselect' 
+                defaultValue={modalData.role ? modalData.role : ''} />
               </div>
               <div className="col-auto">
-                <input type="text" className="form-control" name="picture" placeholder="Picture" defaultValue={modalData.picture ? modalData.picture : ''} />
+                <input type="text" className="form-control" name="picture" placeholder="Picture" 
+                defaultValue={modalData.picture ? modalData.picture : ''} />
               </div>
               <div className="col">
-                <input type="number" step=".5" className="form-control" name="credits" placeholder="credits" defaultValue={modalData.credits ? modalData.credits: ''} />
+                <input type="number" step=".5" className="form-control" name="credits" placeholder="credits" 
+                defaultValue={modalData.credits ? modalData.credits: ''} />
               </div>
               <div className="col">
                 <input className="form-check-input" type="checkbox" id="status" name="status" defaultValue={modalData.status}

@@ -68,21 +68,21 @@ export const MyRoutes = [
   {
     path: "/playing-11",
     component: Playing11,
-    title: "Home",
+    title: "Playing 11",
     adminroute: "no",
     protected: "yes"
   },
   {
     path: "/captains",
     component: Captains,
-    title: "Home",
+    title: "Captains",
     adminroute: "no",
     protected: "yes"
   },
   {
     path: "/prediction",
     component: Prediction,
-    title: "Home",
+    title: "Prediction",
     adminroute: "no",
     protected: "yes"
   },
@@ -96,21 +96,21 @@ export const MyRoutes = [
   {
     path: "/dream-team",
     component: DreamTeam,
-    title: "Home",
+    title: "Dream Team",
     adminroute: "no",
     protected: "yes"
   },
   {
     path: "/result",
     component: Result,
-    title: "Home",
+    title: "Result",
     adminroute: "no",
     protected: "yes"
   },
   {
     path: "/match",
     component: Match,
-    title: "Home",
+    title: "Match",
     adminroute: "no",
     protected: "yes"
   },
@@ -145,7 +145,7 @@ export const MyRoutes = [
   {
     path: "/admin/tournament",
     component: Tournament,
-    title: "Home",
+    title: "Tournament",
     adminroute: "yes",
     protected: "no"
   },
@@ -159,7 +159,7 @@ export const MyRoutes = [
   {
     path: "/admin/team",
     component: Team,
-    title: "Home",
+    title: "Team",
     adminroute: "yes",
     protected: "no"
   },
@@ -173,14 +173,14 @@ export const MyRoutes = [
   {
     path: "/admin/players",
     component: Players,
-    title: "Home",
+    title: "Players",
     adminroute: "yes",
     protected: "no"
   },
   {
     path: "/admin/player/add",
     component: AddPlayer,
-    title: "Home",
+    title: "Add Player",
     adminroute: "yes",
     protected: "no"
   },
@@ -197,6 +197,6 @@ export const MyRoutes = [
     title: "404",
     adminroute: "no",
     protected: "no",
-    menu: "yes"
+    menu: "no"
   },
 ];

@@ -3,7 +3,6 @@ import React from 'react'
 export default function DreamTeamFooter({ team }) {
 
   const playerRoleCount = function (teambyrole, role) {
-    console.log(teambyrole[role].length)
     return teambyrole[role].length;
   }
 

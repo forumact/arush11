@@ -1,12 +1,13 @@
 {
-  "name": "ra-11",
+  "name": "arush-11",
   "version": "1.0.0",
-  "description": "Custom site for RA-11",
+  "description": "Custom site for ARUSH-11",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "server.js",
-    "dev": "nodemon server.js"
+    "start-watch": "nodemon index.js",
+    "dev": "concurrently \"npm run start-watch\" \"cd ../frontend && npm start\"" 
   },
   "author": "ArulrajM\u001b[D \u001b Murugavel",
   "license": "ISC",
@@ -31,6 +32,7 @@
     "winston": "^3.8.1"
   },
   "devDependencies": {
+    "concurrently": "^7.4.0",
     "nodemon": "^2.0.15"
   },
   "keywords": [
