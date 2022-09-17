@@ -1,6 +1,6 @@
 
 import React, { useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loader from '../components/Loader';
@@ -11,6 +11,7 @@ import Modal from '../components/Modal/Modal';
 import PageTitle from "../components/PageTitle/PageTitle";
 import TournamentSelectField from "../components/SelectField/TournamentSelectField";
 
+import bgMatch from '../assets/team-bg.jpg';
 
 export default function Team() {
 
@@ -19,6 +20,13 @@ export default function Team() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const tmid = getUniqueId(10);
+
+  const bgimgStyle = {
+    backgroundImage: 'linear-gradient(rgba(0,0,0,.9), rgba(0,0,0,.1)), url(' + bgMatch + ')',
+    backgroundRepeat: "round",
+    backgroundSize: "contain",
+    opacity: 0.95,
+  };
 
   const [modal1, setModal] = React.useState(false);
   const [modalData, setmodalData] = React.useState(false);
@@ -52,24 +60,63 @@ export default function Team() {
 
 
   const renderCard = () => ra11Team?.team?.map(team => (
-    <tr key={team.tmid}>
-      <th scope="row">{team.tmid}</th>
-      <td>{team.tournament_name ? team.tournament_name.replaceAll("_", " ").toUpperCase() : ""}</td>
-      <td className="text-uppercase bolder">
-        <span className="mr-1 badge bg-dark">{team !== '' ? team.teamname : ''}</span>
-        <span><img src={team.image} alt={team.teamname} width="30" /></span>
-      </td>
-      <td><i className={'text-danger fa-heart ' + (team.status === 'active' ? 'fas' : 'far')}></i></td>
-      <td>{rawDate(team.createdAt)}</td>
-      <td>
-        <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onClick={() => handleRemoveUser(team.tmid, team.teamname)}>
-          <i className="fa fa-trash text-danger"></i>
-        </button>
-        <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onClick={() => { Toggle(); setmodalData(team) }}>
-          <i className="fa fa-edit"></i>
-        </button>
-      </td>
-    </tr>
+    // <tr key={team.tmid}>
+    //   <th scope="row">{team.tmid}</th>
+    //   <td>{team.tournament_name ? team.tournament_name.replaceAll("_", " ").toUpperCase() : ""}</td>
+    //   <td className="text-uppercase bolder">
+    //     <span className="mr-1 badge bg-dark">{team !== '' ? team.teamname : ''}</span>
+    //     <span><img src={team.image} alt={team.teamname} width="30" /></span>
+    //   </td>
+    //   <td><i className={'text-danger fa-heart ' + (team.status === 'active' ? 'fas' : 'far')}></i></td>
+    //   <td>{rawDate(team.createdAt)}</td>
+    //   <td>
+    //     <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onClick={() => handleRemoveUser(team.tmid, team.teamname)}>
+    //       <i className="fa fa-trash text-danger"></i>
+    //     </button>
+    //     <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onClick={() => { Toggle(); setmodalData(team) }}>
+    //       <i className="fa fa-edit"></i>
+    //     </button>
+    //   </td>
+    // </tr>
+    <div class="col-md-4">
+      <div class="card mb-4 box-shadow">
+        <div class="card-header" style={bgimgStyle}>
+          <h5 className="text-white">{team.tournament_name ? team.tournament_name.replaceAll("_", " ").toUpperCase() : ""}</h5>
+          <div class="row mt-4 mb-4">
+            <div class="col-md-6">
+              <div class="col">
+                <img src={team.image} alt={team.teamname} width="30" />
+                <span class="h6 text-white text-uppercase bolder">{team !== '' ? team.teamname : ''}</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="col">
+                <h5 class="text-white">{rawDate(team.createdAt)}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural
+            lead-in to additional content. This content is a little bit
+            longer.
+          </p>
+          <div class="d-flex justify-content-between">
+            <div class="btn-group">
+              <Link className="btn btn btn-sm btn-outline-primary" to={'/admin/players'}>View</Link>
+              <button class="btn btn btn-sm btn-outline-success" onClick={() => { Toggle(); setmodalData(team) }}>
+                Edit
+              </button>
+              <button class="btn btn btn-sm btn-outline-danger" onClick={() => handleRemoveUser(team.tmid, team.teamname)}>
+                Delete
+              </button>
+            </div>
+            <small className={team.status == 'active' ? 'btn btn-sm text-uppercase text-white bg-success' : 'btn btn-sm text-uppercase text-white bg-danger'}>{team.status}</small>
+          </div>
+        </div>
+      </div>
+    </div>
   ));
 
   const handleRemoveUser = (tmid, teamname) => {
@@ -121,30 +168,11 @@ export default function Team() {
       <Banner />
       <div className="container">
         <div className="row">
-          <div className="col-md-12">
-            <div className="card mb-3">
-              <div className="card-body bg-primary text-white d-flex justify-content-between">
-                <h5 className="card-title text-uppercase mb-0">Team - <span className="badge bg-dark">{ra11Team.team?.length}</span></h5>
-                <span className='bg-dark btn text-white' onClick={() => { Toggle(); setmodalData(false) }}>Create</span>
-              </div>
-              <div className="table-responsive">
-                <table className="table no-wrap user-table mb-0">
-                  <thead>
-                    <tr>
-                      <th scope="col" className="border-0 text-uppercase font-medium pl-4">#</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Tournament</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Team</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Status</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Date</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Manage</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {ra11Team.loading ? <tr><td colSpan="6"><Loader /></td></tr> : renderCard()}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          {ra11Team.loading ? <Loader minh='550px' /> : renderCard()}
+          <div class="fixed-action-btn align-items-end" onClick={() => { Toggle(); setmodalData(false) }}>
+            <a class="btn btn-floating text-white bg-primary" href="#!">
+              <i class="fas fa-pencil-alt"></i>
+            </a>
           </div>
         </div>
       </div>
