@@ -20,7 +20,16 @@ export default function Players() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const { team } = location.state || 'ind';
+  let { team } = location.state || 'ind';
+
+
+  function useQuery() {
+    const { search } = useLocation();
+    return new URLSearchParams(search);
+  }
+  let query = useQuery();
+  console.log('query', query)
+  team = team ? team : query.get('team');
 
   const bgimgStyle = {
     backgroundImage: "url(" + ground + ")",
@@ -32,7 +41,7 @@ export default function Players() {
   const [modalData, setmodalData] = React.useState(false);
   const Toggle = () => setModal(!modal1);
 
-  const [selecteTeam, setselecteTeam] = React.useState('IND');
+  const [selecteTeam, setselecteTeam] = React.useState(team || 'IND');
 
   const onInputChangeHandler = (e) => {
     const { value } = e.target;
@@ -56,9 +65,9 @@ export default function Players() {
         }
       }
     });
-    if(tempPlayer.pid){
+    if (tempPlayer.pid) {
       dispatch(updatePlayer(tempPlayer));
-    }else{
+    } else {
       dispatch(addPlayer(tempPlayer));
     }
     Toggle()
@@ -87,29 +96,22 @@ export default function Players() {
           <div className="card-body bg-gray p-2">
             <div className='row'>
               <div className="col">
-                <TeamSelectField dname="Team" mname={'team'} id={'team'} value={modalData.team ? modalData.team: ''} />
+                <TeamSelectField dname="Team" mname={'team'} id={'team'} value={modalData.team ? modalData.team : ''} />
               </div>
               <div className="col-auto">
-                <input type="text" className="form-control" name='name' placeholder="Name" defaultValue={modalData.name ? modalData.name: ''} />
+                <input type="text" className="form-control" name='name' placeholder="Name" defaultValue={modalData.name ? modalData.name : ''} />
               </div>
               <div className="col-auto">
-                {/* <select className="form-select roleselect" name='role' id='roleselect' defaultValue={modalData.role ? modalData.role : ''}>
-                  <option svalue="ROLE" >ROLE</option>
-                  <option value="WK">WK</option>
-                  <option value="BAT">BAT</option>
-                  <option value="AR">AR</option>
-                  <option value="BOWL">BOWL</option>
-                </select> */}
-                <RoleSelectField custclass="form-select roleselect" name='role' id='roleselect' 
-                defaultValue={modalData.role ? modalData.role : ''} />
+                <RoleSelectField custclass="form-select roleselect" name='role' id='roleselect'
+                  defaultValue={modalData.role ? modalData.role : ''} />
               </div>
               <div className="col-auto">
-                <input type="text" className="form-control" name="picture" placeholder="Picture" 
-                defaultValue={modalData.picture ? modalData.picture : ''} />
+                <input type="text" className="form-control" name="picture" placeholder="Picture"
+                  defaultValue={modalData.picture ? modalData.picture : ''} />
               </div>
               <div className="col">
-                <input type="number" step=".5" className="form-control" name="credits" placeholder="credits" 
-                defaultValue={modalData.credits ? modalData.credits: ''} />
+                <input type="number" step=".5" className="form-control" name="credits" placeholder="credits"
+                  defaultValue={modalData.credits ? modalData.credits : ''} />
               </div>
               <div className="col">
                 <input className="form-check-input" type="checkbox" id="status" name="status" defaultValue={modalData.status}
@@ -147,14 +149,14 @@ export default function Players() {
             <div className="row p-2">
               <div className="col-sm-10 d-flex">
                 <span className='text-white mr-2'>Team:</span>
-                <TeamSelectField dname="Team" mname={'team'} id={'team'} value={"ind"} onChange={onInputChangeHandler} />
+                <TeamSelectField dname="Team" mname={'team'} id={'team'} value={team || 'ind'} onChange={onInputChangeHandler} />
               </div>
             </div>
           </div>
         </div>
         <div className="row justify-conten-center align-items-center">
           <div className="col mt-3 mb-3">
-            {ra11player.loading ? <Loader  minh='650px'/> : renderCard()}
+            {ra11player.loading ? <Loader minh='650px' /> : renderCard()}
           </div>
         </div>
       </div>

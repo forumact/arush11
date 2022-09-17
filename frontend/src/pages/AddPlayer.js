@@ -41,7 +41,8 @@ export default function AddPlayer() {
       setnumberofTeam(tempPlayer.number);
       setselectedFields({
         team: tempPlayer.team,
-        status: tempPlayer.status
+        status: tempPlayer.status,
+        star: tempPlayer.star
       });
     } else {
       alert('Please select team!')
@@ -111,7 +112,7 @@ export default function AddPlayer() {
                       </div>
                       <div className="col">
                         <input className="form-check-input" type="checkbox" id={"star_" + index} name={"star_" + index} defaultValue={""}
-                          defaultChecked={"" === 'active' ? true : false} />
+                          defaultChecked={selectedFields.star === 'active' ? true : false} />
                         <label className="form-check-label" htmlFor="star">
                           Star
                         </label>

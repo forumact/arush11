@@ -32,7 +32,7 @@ export default function Header() {
             <div className="dropdown-menu">
               {adminRoute.map((route, index) => (
                 // console.log(route)
-                <Link className="dropdown-item" to={route.path}>{route.title}</Link>
+                <Link key={index} className="dropdown-item" to={route.path}>{route.title}</Link>
               ))}
             </div>
           </li>

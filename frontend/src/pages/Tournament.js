@@ -11,6 +11,8 @@ import { rawDate, getUniqueId } from "../utils";
 import Modal from '../components/Modal/Modal';
 import PageTitle from '../components/PageTitle/PageTitle';
 
+import bgMatch from '../assets/team-bg.jpg';
+
 
 export default function Tournament() {
 
@@ -25,6 +27,12 @@ export default function Tournament() {
   const [modalData, setmodalData] = React.useState(false);
   const Toggle = () => setModal(!modal1);
 
+  const bgimgStyle = {
+    backgroundImage: 'linear-gradient(rgba(0,0,0,.9), rgba(0,0,0,.1)), url(' + bgMatch + ')',
+    backgroundRepeat: "round",
+    backgroundSize: "contain",
+    opacity: 0.95,
+  };
 
   useEffect(() => {
     dispatch(getTournament())
@@ -54,20 +62,47 @@ export default function Tournament() {
 
 
   const renderCard = () => ra11Tournament.tournament.map(tournament => (
-    <tr key={tournament.tid}>
-      <th scope="row">{tournament.tid}</th>
-      <td className="text-uppercase bolder">{tournament !== '' ? tournament.name : ''}</td>
-      <td>{rawDate(tournament.createdAt)}</td>
-      <td><i className={'fa-heart ' + (tournament.status === 'active' ? 'fas' : 'far')}></i></td>
-      <td>
-        <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onClick={() => handleRemoveUser(tournament.tid)}>
-          <i className="fa fa-trash text-danger"></i>
-        </button>
-        <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onClick={() => { Toggle(); setmodalData(tournament) }}>
-          <i className="fa fa-edit"></i>
-        </button>
-      </td>
-    </tr>
+    <div class="col-md-3">
+      <div class="card mb-4 box-shadow">
+        <div class="card-header" style={bgimgStyle}>
+          <h6 className="text-white text-uppercase">{tournament !== '' ? tournament.name : ''}</h6>
+          <div class="row mt-4 mb-4">
+            <div class="col-md-8">
+              <div class="col">
+                <h5 class="text-white">{rawDate(tournament.createdAt)}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class="btn-group">
+              <button class="btn btn btn-sm btn-outline-success" onClick={() => { Toggle(); setmodalData(tournament) }}>
+                Edit
+              </button>
+              <button class="btn btn btn-sm btn-outline-danger" onClick={() => handleRemoveUser(tournament.tid)}>
+                Delete
+              </button>
+            </div>
+            <small className={tournament.status === 'active' ? 'btn btn-sm text-uppercase text-white bg-success' : 'btn btn-sm text-uppercase text-white bg-danger'}>{tournament.status}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    // <tr key={tournament.tid}>
+    //   <th scope="row">{tournament.tid}</th>
+    //   <td className="text-uppercase bolder">{tournament !== '' ? tournament.name : ''}</td>
+    //   <td>{rawDate(tournament.createdAt)}</td>
+    //   <td><i className={'fa-heart ' + (tournament.status === 'active' ? 'fas' : 'far')}></i></td>
+    //   <td>
+    //     <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onClick={() => handleRemoveUser(tournament.tid)}>
+    //       <i className="fa fa-trash text-danger"></i>
+    //     </button>
+    //     <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onClick={() => { Toggle(); setmodalData(tournament) }}>
+    //       <i className="fa fa-edit"></i>
+    //     </button>
+    //   </td>
+    // </tr>
   ));
 
   const handleRemoveUser = (tid) => {
@@ -113,7 +148,13 @@ export default function Tournament() {
       <PageTitle pagetitle="Tournament" />
       <div className="container">
         <div className="row">
-          <div className="col-md-12">
+          {ra11Tournament.loading ? <Loader minh='550px' /> : renderCard()}
+          <div class="fixed-action-btn align-items-end" onClick={() => { Toggle(); setmodalData(false) }}>
+            <a class="btn btn-floating text-white bg-primary" href="#!">
+              <i class="fas fa-pencil-alt"></i>
+            </a>
+          </div>
+          {/* <div className="col-md-12">
             <div className="card mb-3">
               <div className="card-body bg-primary text-white d-flex justify-content-between">
                 <h5 className="card-title text-uppercase mb-0">Tounrament - <span className="badge bg-dark">{ra11Tournament.tournament?.length}</span></h5>
@@ -136,7 +177,7 @@ export default function Tournament() {
                 </table>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <Modal show={modal1} title="Match Details" close={Toggle} submit={modalSubmit}>

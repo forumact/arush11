@@ -129,11 +129,11 @@ export default function MatchCard() {
           <div className="row mt-4 mb-4">
             <div className="col-md-6">
               <div className="col">
-                <img width="30" height="30" src={match.team1img} alt={match.team1} />
+                <img width="30" height="30" src={match.team1img} alt={match.team1} className="mr-1"/>
                 <span className="h6 badge badge-danger text-uppercase">{match.team1}</span>
               </div>
               <div className="col">
-                <img width="30" height="30" src={match.team2img} alt={match.team2} />
+                <img width="30" height="30" src={match.team2img} alt={match.team2} className="mr-1"/>
                 <span className="h6 badge badge-warning text-uppercase">{match.team2}</span>
               </div>
             </div>
@@ -145,7 +145,7 @@ export default function MatchCard() {
           </div>
         </div>
         <div className="card-body">
-          <p>Please cross check your Team Points Here!</p>
+          <p>Please cross check your <span className='badge bg-dark'>{match.teamcount}</span> Team performance here!</p>
           <div className='row'>
             <div className='col'>
               <Link to={`/result?matchid=${match.matchid}&team1=${match.team1}&team2=${match.team2}`}

@@ -1,54 +1,88 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Banner from '../components/Banner/Banner'
+import PageTitle from '../components/PageTitle/PageTitle'
+import { rawDate, getUniqueId } from "../utils";
+
+import { getUser } from '../features/user/userSlice';
+import Loader from '../components/Loader';
+
 
 export default function User() {
-  return (
-    <>
-      <Banner />
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <div className="card mb-3">
-              <div className="card-body bg-primary text-white">
-                <h5 className="card-title text-uppercase mb-0">Manage Users</h5>
+
+  const ra11User = useSelector(store => store.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const uid = getUniqueId(10);
+
+
+  const [modal1, setModal] = React.useState(false);
+  const [modalData, setmodalData] = React.useState(false);
+  const Toggle = () => setModal(!modal1);
+
+
+  useEffect(() => {
+    dispatch(getUser())
+  }, [])
+
+
+
+  const handleRemoveUser = (tmid, teamname) => {
+    let text = `Are you sure you want to delete this?`;
+    var answer = window.confirm(text);
+    if (answer) {
+      // dispatch(deleteTeam({ tmid, teamname }));
+    }
+  }
+
+  console.log('ra11User', ra11User)
+
+
+  const renderCard = () => ra11User?.user?.map(user => (
+    <div className="col-md-3">
+      <div class="card rounded">
+        <div class="card-content rounded">
+          <div class="card-body bg-dark rounded">
+            <div class="media d-flex">
+              <div class="media-body text-left">
+                <h3 class="text-success text-uppercase">{user.name}</h3>
+                <span className="text-white">{user.email}</span>
               </div>
-              <div className="table-responsive">
-                <table className="table no-wrap user-table mb-0">
-                  <thead>
-                    <tr>
-                      <th scope="col" className="border-0 text-uppercase font-medium pl-4">#</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Name</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Occupation</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Email</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Added</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Category</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Manage</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[...Array(10)].map((index) => (
-                      <tr>
-                        <td className="pl-4">{index + 1}</td>
-                        <td><h5 className="font-medium mb-0">Daniel Kristeen</h5></td>
-                        <td><span className="text-muted">Visual Designer</span></td>
-                        <td><span className="text-muted">daniel@website.com</span></td>
-                        <td><span className="text-muted">15 Mar 1988</span></td>
-                        <td><span className="text-muted">User</span></td>
-                        <td>
-                          <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2">
-                            <i className="fa fa-trash text-danger"></i>
-                          </button>
-                          <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" data-toggle="modal" data-target="#UserModal">
-                            <i className="fa fa-edit"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div class="align-self-center">
+                <i class="fa fa-user text-success font-large-2 float-right"></i>
               </div>
             </div>
           </div>
+          <div className="card-footer rounded">
+            <div class="d-flex justify-content-between">
+              <div class="btn-group">
+                <button class="btn btn btn-sm btn-outline-success" onClick={() => { Toggle(); setmodalData(user) }}>
+                  Edit
+                </button>
+                <button class="btn btn btn-sm btn-outline-danger" onClick={() => handleRemoveUser(user.tmid, user.teamname)}>
+                  Delete
+                </button>
+              </div>
+              <small className={user.status == 'A' ? 'btn btn-sm text-uppercase text-white bg-success' : 'btn btn-sm text-uppercase text-white bg-danger'}>{user.status}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ));
+
+
+
+
+  return (
+    <>
+      <Banner />
+      <PageTitle pagetitle={'User'} />
+      <div className="container">
+        <div className="row">
+          {ra11User.loading ? <Loader minh='550px' /> : renderCard()}
         </div>
       </div>
     </>

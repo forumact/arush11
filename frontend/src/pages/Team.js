@@ -48,8 +48,6 @@ export default function Team() {
         }
       }
     });
-    // console.log(tempPlayer)
-    // return false;
     if (tempPlayer.op == 'create') {
       dispatch(addTeam(tempPlayer));
     } else {
@@ -60,33 +58,15 @@ export default function Team() {
 
 
   const renderCard = () => ra11Team?.team?.map(team => (
-    // <tr key={team.tmid}>
-    //   <th scope="row">{team.tmid}</th>
-    //   <td>{team.tournament_name ? team.tournament_name.replaceAll("_", " ").toUpperCase() : ""}</td>
-    //   <td className="text-uppercase bolder">
-    //     <span className="mr-1 badge bg-dark">{team !== '' ? team.teamname : ''}</span>
-    //     <span><img src={team.image} alt={team.teamname} width="30" /></span>
-    //   </td>
-    //   <td><i className={'text-danger fa-heart ' + (team.status === 'active' ? 'fas' : 'far')}></i></td>
-    //   <td>{rawDate(team.createdAt)}</td>
-    //   <td>
-    //     <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onClick={() => handleRemoveUser(team.tmid, team.teamname)}>
-    //       <i className="fa fa-trash text-danger"></i>
-    //     </button>
-    //     <button type="button" className="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" onClick={() => { Toggle(); setmodalData(team) }}>
-    //       <i className="fa fa-edit"></i>
-    //     </button>
-    //   </td>
-    // </tr>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="card mb-4 box-shadow">
         <div class="card-header" style={bgimgStyle}>
           <h5 className="text-white">{team.tournament_name ? team.tournament_name.replaceAll("_", " ").toUpperCase() : ""}</h5>
           <div class="row mt-4 mb-4">
             <div class="col-md-6">
               <div class="col">
-                <img src={team.image} alt={team.teamname} width="30" />
-                <span class="h6 text-white text-uppercase bolder">{team !== '' ? team.teamname : ''}</span>
+                <img src={team.image} alt={team.teamname} width="30" className="mr-1"/>
+                <span class="h6 text-white text-uppercase bolder badge bg-primary">{team !== '' ? team.teamname : ''}</span>
               </div>
             </div>
             <div class="col-md-6">
@@ -104,7 +84,7 @@ export default function Team() {
           </p>
           <div class="d-flex justify-content-between">
             <div class="btn-group">
-              <Link className="btn btn btn-sm btn-outline-primary" to={'/admin/players'}>View</Link>
+              <Link className="btn btn btn-sm btn-outline-primary" to={`/admin/players?team=${team.teamname}`}>View</Link>
               <button class="btn btn btn-sm btn-outline-success" onClick={() => { Toggle(); setmodalData(team) }}>
                 Edit
               </button>
