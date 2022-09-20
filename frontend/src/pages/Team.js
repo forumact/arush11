@@ -1,6 +1,6 @@
 
 import React, { useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loader from '../components/Loader';
@@ -18,7 +18,6 @@ export default function Team() {
 
   const ra11Team = useSelector(store => store.team);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const tmid = getUniqueId(10);
 
   const bgimgStyle = {
@@ -41,14 +40,14 @@ export default function Team() {
     event.preventDefault();
     let tempPlayer = {}
     Object.entries(event.target.elements).forEach(([name, input]) => {
-      if (input.type != 'submit' || (typeof input.type !== undefined)) {
+      if (input.type !== 'submit' || (typeof input.type !== 'undefined')) {
         let value = (input.type === 'checkbox') ? (input.checked ? 'active' : 'inactive') : input.value;
         if (value.length > 0) {
           tempPlayer[input.name] = value;
         }
       }
     });
-    if (tempPlayer.op == 'create') {
+    if (tempPlayer.op === 'create') {
       dispatch(addTeam(tempPlayer));
     } else {
       dispatch(editTeam(tempPlayer))
@@ -58,41 +57,41 @@ export default function Team() {
 
 
   const renderCard = () => ra11Team?.team?.map(team => (
-    <div class="col-md-3">
-      <div class="card mb-4 box-shadow">
-        <div class="card-header" style={bgimgStyle}>
+    <div className="col-md-3" key={team.tmid}>
+      <div className="card mb-4 box-shadow">
+        <div className="card-header" style={bgimgStyle}>
           <h5 className="text-white">{team.tournament_name ? team.tournament_name.replaceAll("_", " ").toUpperCase() : ""}</h5>
-          <div class="row mt-4 mb-4">
-            <div class="col-md-6">
-              <div class="col">
+          <div className="row mt-4 mb-4">
+            <div className="col-md-6">
+              <div className="col">
                 <img src={team.image} alt={team.teamname} width="30" className="mr-1"/>
-                <span class="h6 text-white text-uppercase bolder badge bg-primary">{team !== '' ? team.teamname : ''}</span>
+                <span className="h6 text-white text-uppercase bolder badge bg-primary">{team !== '' ? team.teamname : ''}</span>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="col">
-                <h5 class="text-white">{rawDate(team.createdAt)}</h5>
+            <div className="col-md-6">
+              <div className="col">
+                <h6 className="text-white">{rawDate(team.createdAt)}</h6>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-body">
-          <p class="card-text">
+        <div className="card-body">
+          <p className="card-text">
             This is a wider card with supporting text below as a natural
             lead-in to additional content. This content is a little bit
             longer.
           </p>
-          <div class="d-flex justify-content-between">
-            <div class="btn-group">
+          <div className="d-flex justify-content-between">
+            <div className="btn-group">
               <Link className="btn btn btn-sm btn-outline-primary" to={`/admin/players?team=${team.teamname}`}>View</Link>
-              <button class="btn btn btn-sm btn-outline-success" onClick={() => { Toggle(); setmodalData(team) }}>
+              <button className="btn btn btn-sm btn-outline-success" onClick={() => { Toggle(); setmodalData(team) }}>
                 Edit
               </button>
-              <button class="btn btn btn-sm btn-outline-danger" onClick={() => handleRemoveUser(team.tmid, team.teamname)}>
+              <button className="btn btn btn-sm btn-outline-danger" onClick={() => handleRemoveUser(team.tmid, team.teamname)}>
                 Delete
               </button>
             </div>
-            <small className={team.status == 'active' ? 'btn btn-sm text-uppercase text-white bg-success' : 'btn btn-sm text-uppercase text-white bg-danger'}>{team.status}</small>
+            <small className={team.status === 'active' ? 'btn btn-sm text-uppercase text-white bg-success' : 'btn btn-sm text-uppercase text-white bg-danger'}>{team.status}</small>
           </div>
         </div>
       </div>
@@ -108,7 +107,6 @@ export default function Team() {
   }
 
   const renderModalContent = (modalData) => {
-    console.log(modalData)
     return (
       <form onSubmit={modalSubmit}>
         <div className="card m-0 shadow-none">
@@ -149,9 +147,9 @@ export default function Team() {
       <div className="container">
         <div className="row">
           {ra11Team.loading ? <Loader minh='550px' /> : renderCard()}
-          <div class="fixed-action-btn align-items-end" onClick={() => { Toggle(); setmodalData(false) }}>
-            <a class="btn btn-floating text-white bg-primary" href="#!">
-              <i class="fas fa-pencil-alt"></i>
+          <div className="fixed-action-btn align-items-end" onClick={() => { Toggle(); setmodalData(false) }}>
+            <a className="btn btn-floating text-white bg-primary" href="#!">
+              <i className="fas fa-plus"></i>
             </a>
           </div>
         </div>

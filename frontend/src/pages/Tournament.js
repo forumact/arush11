@@ -151,33 +151,9 @@ export default function Tournament() {
           {ra11Tournament.loading ? <Loader minh='550px' /> : renderCard()}
           <div class="fixed-action-btn align-items-end" onClick={() => { Toggle(); setmodalData(false) }}>
             <a class="btn btn-floating text-white bg-primary" href="#!">
-              <i class="fas fa-pencil-alt"></i>
+              <i class="fas fa-plus"></i>
             </a>
           </div>
-          {/* <div className="col-md-12">
-            <div className="card mb-3">
-              <div className="card-body bg-primary text-white d-flex justify-content-between">
-                <h5 className="card-title text-uppercase mb-0">Tounrament - <span className="badge bg-dark">{ra11Tournament.tournament?.length}</span></h5>
-                <span className='bg-dark btn text-white' onClick={() => { Toggle(); setmodalData(false) }}>Create</span>
-              </div>
-              <div className="table-responsive">
-                <table className="table no-wrap user-table mb-0">
-                  <thead>
-                    <tr>
-                      <th scope="col" className="border-0 text-uppercase font-medium pl-4">#</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Name</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Status</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Date</th>
-                      <th scope="col" className="border-0 text-uppercase font-medium">Manage</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {ra11Tournament.loading ? <tr><td colSpan="6"><Loader /></td></tr> : renderCard()}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
       <Modal show={modal1} title="Match Details" close={Toggle} submit={modalSubmit}>

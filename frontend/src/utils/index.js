@@ -190,7 +190,6 @@ export const printVcaptain = (vcaptain = null) => {
 }
 
 export const teamClass = (teamName, team1, team2) => {
-  console.log(teamName, team1, team2);
   let teamClass;
   if (teamName === team1) {
     teamClass = 'team-1';
@@ -250,4 +249,29 @@ export const credits = function (players) {
     sum = parseFloat(sum, 10) + parseFloat(credits[i], 10);
   }
   return sum;
+}
+
+
+export const playerCount = function (players) {
+  let playerCount = [];
+  if (typeof players['WK'] != "undefined") {
+    players['WK']?.forEach(function (player, index2) {
+      playerCount.push(player['pid']);
+    });
+  }
+
+  if (typeof players['BAT'] != "undefined") {
+    players['BAT']?.forEach(function (player, index2) {
+      playerCount.push(player['pid']);
+    });
+  }
+
+  players['AR']?.forEach(function (player, index2) {
+    playerCount.push(player['pid']);
+  });
+  players['BOWL']?.forEach(function (player, index2) {
+    playerCount.push(player['pid']);
+  });
+
+  return playerCount.length;
 }

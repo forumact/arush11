@@ -1,8 +1,8 @@
 const { createLogger, format, transports } = require('winston');
 
-let mydate = new Date();
-let infoFilename = mydate.getFullYear() + "-" + mydate.getMonth() + "-" + mydate.getDate() + "-" + "info-ra11.log";
-let errorFilename = mydate.getFullYear() + "-" + mydate.getMonth() + "-" + mydate.getDate() + "-" + "error-ra11.log";
+let current = new Date();
+const infoFilename = `${current.getDate()}-${current.getMonth() + 1}-${current.getFullYear()}-info-arush11.log`;
+const errorFilename = `${current.getDate()}-${current.getMonth() + 1}-${current.getFullYear()}-error-arush11.log`;
 
 
 module.exports = createLogger({

@@ -15,8 +15,8 @@ export default function DreamTamPlayerPreview({ teambyrole, bgimgStyle, team1, t
       </p> */}
       <div className="d-flex justify-content-center flex-wrap">
         {teambyrole &&
-          teambyrole["WK"]?.map((player) => (
-            <DreamTeamPlayerCard player={player} key={player.pid} team1={team1} team2={team2} />
+          teambyrole["WK"]?.map((player, index) => (
+            <DreamTeamPlayerCard player={player} key={index} team1={team1} team2={team2} />
           ))}
       </div>
       {/* <p className="text-white text-center text-uppercase badge d-flex justify-content-center">
@@ -24,8 +24,8 @@ export default function DreamTamPlayerPreview({ teambyrole, bgimgStyle, team1, t
       </p> */}
       <div className="d-flex justify-content-center flex-wrap">
         {teambyrole &&
-          teambyrole["BAT"]?.map((player) => (
-            <DreamTeamPlayerCard player={player} key={player.pid} team1={team1} team2={team2} />
+          teambyrole["BAT"]?.map((player, index) => (
+            <DreamTeamPlayerCard player={player} key={index} team1={team1} team2={team2} />
           ))}
       </div>
       {/* <p className="text-white text-center text-uppercase badge d-flex justify-content-center">
@@ -33,8 +33,8 @@ export default function DreamTamPlayerPreview({ teambyrole, bgimgStyle, team1, t
       </p> */}
       <div className="d-flex justify-content-center flex-wrap">
         {teambyrole &&
-          teambyrole["AR"]?.map((player) => (
-            <DreamTeamPlayerCard player={player} key={player.pid} team1={team1} team2={team2} />
+          teambyrole["AR"]?.map((player, index) => (
+            <DreamTeamPlayerCard player={player} key={index} team1={team1} team2={team2} />
           ))}
       </div>
       {/* <p className="text-white text-center text-uppercase badge d-flex justify-content-center">
@@ -42,8 +42,8 @@ export default function DreamTamPlayerPreview({ teambyrole, bgimgStyle, team1, t
       </p> */}
       <div className="d-flex justify-content-center flex-wrap">
         {teambyrole &&
-          teambyrole["BOWL"]?.map((player) => (
-            <DreamTeamPlayerCard player={player} key={player.pid} team1={team1} team2={team2} />
+          teambyrole["BOWL"]?.map((player, index) => (
+            <DreamTeamPlayerCard player={player} key={index} team1={team1} team2={team2} />
           ))}
       </div>
       {teambyrole && <DreamTeamFooter team={teambyrole} />}

@@ -160,6 +160,11 @@ export default function Players() {
           </div>
         </div>
       </div>
+      <div class="fixed-action-btn align-items-end" onClick={() => { Toggle(); setmodalData(false) }}>
+            <a class="btn btn-floating text-white bg-primary" href="#!">
+              <i class="fas fa-plus"></i>
+            </a>
+          </div>
       <Modal show={modal1} title="Player Edit" close={Toggle} submit={modalSubmit}>
         {renderModalContent(modalData ? modalData : '')}
       </Modal>

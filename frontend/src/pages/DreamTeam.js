@@ -15,6 +15,8 @@ export default function DreamTeam() {
   const location = useLocation();
   const { processData } = location.state;
 
+  console.log('processData', processData)
+
   const bgimgStyle = {
     backgroundImage: "url(" + ground + ")",
     backgroundRepeat: "round",
