@@ -86,6 +86,9 @@ class DreamTeamRepository {
             teamnumber: {
               $first: "$players.teamnumber",
             },
+            combo: {
+              $first: "$combo",
+            },
             Total1: {
               $sum: {
                 $switch: {

@@ -10,6 +10,7 @@ var DreamTeamSchema = new mongoose.Schema({
         default: "D",
         required: true,
     },
+    combo: [],
     players: [],
     createdAt: {
         type: Date,

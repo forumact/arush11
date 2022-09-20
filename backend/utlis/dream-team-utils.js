@@ -80,7 +80,8 @@ const dreamTeamGener = async (Player, passdata, captains) => {
           selectedTeamsUpdated.team,
           selected,
           passdata.matchid,
-          passdata.userid
+          passdata.userid,
+          randCombo
         );
       }
 
@@ -547,7 +548,7 @@ const checkUniqueTeamCriteria = async (
  * @param {*} userid
  * @returns
  */
-const teamSave = async (sampleTeam, teamnumber, matchid, userid) => {
+const teamSave = async (sampleTeam, teamnumber, matchid, userid, combo) => {
   try {
     let playerArray = [];
     for await (let player of sampleTeam) {
@@ -570,6 +571,7 @@ const teamSave = async (sampleTeam, teamnumber, matchid, userid) => {
       matchid: matchid,
       userid: userid,
       teamnumber: parseInt(teamnumber),
+      combo: combo,
       players: playerArray,
     };
 

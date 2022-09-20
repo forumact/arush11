@@ -56,7 +56,7 @@ export const FetchCreatedDreamTeam = async (matchid) => {
     result.push(groupByKey(team, "role"));
   });
 
-  return result;
+  return {result, dreamTeam}
 
 }
 
