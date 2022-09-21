@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from 'react-router-dom';
-import _, { join } from 'lodash';
 
-import { FetchCreatedDreamTeam } from '../services/DreamTeamAPI';
 import ground from "../team-bg.jpg";
 import DreamTamPlayerPreview from '../components/DreamTeamCard/DreamTamPlayerPreview';
 import PageTitle from '../components/PageTitle/PageTitle';
+import { getResult } from '../features/result/resultSlice';
+import Loader from '../components/Loader';
+
 
 
 export default function Result() {
@@ -15,6 +17,9 @@ export default function Result() {
     backgroundRepeat: "round",
     backgroundSize: "contain",
   };
+
+  const ra11result = useSelector((store) => store.result);
+  const dispatch = useDispatch();
 
   const [loader, setShowLoader] = useState(true);
   const [combos, setCombos] = useState([]);
@@ -31,23 +36,28 @@ export default function Result() {
   let team1 = query.get('team1');
   let team2 = query.get('team2');
 
-
   useEffect(() => {
-    FetchCreatedDreamTeam(matchid).then((response) => {
-      setShowLoader(false)
-      let combo = {};
-      for (let inc = 0; inc < response.dreamTeam.data.data.length; inc++) {
-        let num = response.dreamTeam.data.data[inc].combo.join('_');
-        combo[num] = combo[num] ? combo[num] + 1 : 1;
-      }
-      setDreamTeam(response.result);
-      setCombos(combo);
-    });
-  }, [matchid]);
+    dispatch(getResult(matchid))
+  }, [dispatch, matchid])
 
+
+  // useEffect(() => {
+  //   FetchCreatedDreamTeam(matchid).then((response) => {
+  //     setShowLoader(false)
+  //     let combo = {};
+  //     for (let inc = 0; inc < response.dreamTeam.data.data.length; inc++) {
+  //       let num = response.dreamTeam.data.data[inc].combo.join('_');
+  //       combo[num] = combo[num] ? combo[num] + 1 : 1;
+  //     }
+  //     setDreamTeam(response.result);
+  //     setCombos(combo);
+  //   });
+  // }, [matchid]);
+
+  // console.log(ra11result)
   let gridClass = loader === true ? 'col-md-4' : 'col-auto';
 
-   return (
+  return (
     <>
       <PageTitle pagetitle={'Results'} />
       <div className='container-fluid mb-4'>
@@ -75,7 +85,7 @@ export default function Result() {
         </div>
         <div className="row justify-content-center">
           {
-            dreamTeam.map((players, index) => (
+            ra11result.loading ? <Loader minh='650px' /> : ra11result?.result?.map((players, index) => (
               <div className={`${gridClass} mt-4`} key={index}>
                 <DreamTamPlayerPreview teambyrole={players} bgimgStyle={bgimgStyle} team1={team1} team2={team2} tnumber={index} />
               </div>

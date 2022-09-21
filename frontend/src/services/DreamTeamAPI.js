@@ -46,17 +46,17 @@ export const FetchCreatedDreamTeam = async (matchid) => {
     }
   );
 
-  for (let inc = 0; inc < dreamTeam.data.data.length; inc++) {
-    mockresult.push(
-      _.orderBy(dreamTeam.data.data[inc].players, ["points"], ["desc"])
-    );
-  }
+  // for (let inc = 0; inc < dreamTeam.data.data.length; inc++) {
+  //   mockresult.push(
+  //     _.orderBy(dreamTeam.data.data[inc].players, ["points"], ["desc"])
+  //   );
+  // }
 
-  mockresult.forEach(function (team, index) {
-    result.push(groupByKey(team, "role"));
-  });
+  // mockresult.forEach(function (team, index) {
+  //   result.push(groupByKey(team, "role"));
+  // });
 
-  return {result, dreamTeam}
+  return dreamTeam;
 
 }
 

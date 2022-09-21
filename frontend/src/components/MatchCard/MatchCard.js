@@ -9,6 +9,8 @@ import Modal from '../Modal/Modal';
 import ViewCaptainPreference from './ViewCaptainPreference';
 import ViewViceCaptainPreference from './ViewViceCaptainPreference';
 
+import Loader from '../Loader';
+
 
 export default function MatchCard() {
 
@@ -41,7 +43,6 @@ export default function MatchCard() {
   }
 
   const renderModalContent = (modalData) => {
-    console.log(modalData);
     return (
       <>
         <ViewCaptainPreference team1={modalData.team1}
@@ -129,11 +130,11 @@ export default function MatchCard() {
           <div className="row mt-4 mb-4">
             <div className="col-md-6">
               <div className="col">
-                <img width="30" height="30" src={match.team1img} alt={match.team1} className="mr-1"/>
+                <img width="30" height="30" src={match.team1img} alt={match.team1} className="mr-1" />
                 <span className="h6 badge badge-danger text-uppercase">{match.team1}</span>
               </div>
               <div className="col">
-                <img width="30" height="30" src={match.team2img} alt={match.team2} className="mr-1"/>
+                <img width="30" height="30" src={match.team2img} alt={match.team2} className="mr-1" />
                 <span className="h6 badge badge-warning text-uppercase">{match.team2}</span>
               </div>
             </div>

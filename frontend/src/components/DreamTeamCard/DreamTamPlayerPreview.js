@@ -7,6 +7,8 @@ import DreamTeamPlayerCard from './DreamTeamPlayerCard';
 
 export default function DreamTamPlayerPreview({ teambyrole, bgimgStyle, team1, team2, tnumber }) {
 
+  // console.log(teambyrole)
+
   return (
     <section className="team-bg h-100" style={bgimgStyle}>
       <DreamTeamHeader teambyrole={teambyrole} team1={team1} team2={team2} tnumber={tnumber} />

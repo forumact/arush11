@@ -79,48 +79,52 @@ export default function DreamTeamHeader({ teambyrole, team1, team2, tnumber }) {
     if (typeof players['WK'] != "undefined") {
       players['WK'].map((player, index2) => {
         if (player['captain'] === 'active') {
-          player['points'] = player['points'] * 2;
+          points['points'] = player['points'] * 2;
         }
         if (player['vcaptain'] === 'active') {
-          player['points'] = player['points'] * 1.5;
+          points['points'] = player['points'] * 1.5;
         }
-        points.push(player['points']);
+        points['points'] = player['points'];
+        points.push(points['points']);
       });
     }
 
     if (typeof players['WK'] != "undefined") {
       players['BAT'].map((player, index2) => {
         if (player['captain'] === 'active') {
-          player['points'] = player['points'] * 2;
+          points['points'] = player['points'] * 2;
         }
         if (player['vcaptain'] === 'active') {
-          player['points'] = player['points'] * 1.5;
+          points['points'] = player['points'] * 1.5;
         }
-        points.push(player['points']);
+        points['points'] = player['points'];
+        points.push(points['points']);
       });
     }
 
     if (typeof players['WK'] != "undefined") {
       players['AR'].map((player, index2) => {
         if (player['captain'] === 'active') {
-          player['points'] = player['points'] * 2;
+          points['points'] = player['points'] * 2;
         }
         if (player['vcaptain'] === 'active') {
-          player['points'] = player['points'] * 1.5;
+          points['points'] = player['points'] * 1.5;
         }
-        points.push(player['points']);
+        points['points'] = player['points'];
+        points.push(points['points']);
       });
     }
 
     if (typeof players['WK'] != "undefined") {
       players['BOWL'].map((player, index2) => {
         if (player['captain'] === 'active') {
-          player['points'] = player['points'] * 2;
+          points['points'] = player['points'] * 2;
         }
         if (player['vcaptain'] === 'active') {
-          player['points'] = player['points'] * 1.5;
+          points['points'] = player['points'] * 1.5;
         }
-        points.push(player['points']);
+        points['points'] = player['points'];
+        points.push(points['points']);
       });
     }
     // Running the for loop
