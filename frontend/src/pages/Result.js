@@ -7,6 +7,7 @@ import DreamTamPlayerPreview from '../components/DreamTeamCard/DreamTamPlayerPre
 import PageTitle from '../components/PageTitle/PageTitle';
 import { getResult } from '../features/result/resultSlice';
 import Loader from '../components/Loader';
+import ResultComboCard from '../components/ResultCard/ResultComboCard';
 
 
 
@@ -40,23 +41,7 @@ export default function Result() {
     dispatch(getResult(matchid))
   }, [dispatch, matchid])
 
-
-  // useEffect(() => {
-  //   FetchCreatedDreamTeam(matchid).then((response) => {
-  //     setShowLoader(false)
-  //     let combo = {};
-  //     for (let inc = 0; inc < response.dreamTeam.data.data.length; inc++) {
-  //       let num = response.dreamTeam.data.data[inc].combo.join('_');
-  //       combo[num] = combo[num] ? combo[num] + 1 : 1;
-  //     }
-  //     setDreamTeam(response.result);
-  //     setCombos(combo);
-  //   });
-  // }, [matchid]);
-
-  // console.log(ra11result)
-  let gridClass = loader === true ? 'col-md-4' : 'col-auto';
-
+  const { result, combo } = ra11result.result;
   return (
     <>
       <PageTitle pagetitle={'Results'} />
@@ -64,29 +49,15 @@ export default function Result() {
         <div className="row bg-dark p-2">
           <section className="d-flex justify-content-between">
             <div className='text-white'>
-              Team: <span className='badge bg-white text-dark'>{dreamTeam.length}</span>
+              Team: <span className='badge bg-white text-dark'>{result?.length}</span>
             </div>
-            <form className="form-inline d-flex col-md-3">
-              <div className="form-row">
-                <div className="form-group mr-2">
-                  <label htmlFor="exampleFormControlSelect1" className='mr-2 text-white'>Combo Filter</label>
-                  <select className="form-control form-select-lg" id="teamFilter">
-                    <option>All</option>
-                    {
-                      Object.entries(combos).map((com, index) => (
-                        <option key={index} value={com}>{`${com.join(' | # ')}`}</option>
-                      ))
-                    }
-                  </select>
-                </div>
-              </div>
-            </form>
+            <ResultComboCard combo={combo} />
           </section>
         </div>
         <div className="row justify-content-center">
           {
-            ra11result.loading ? <Loader minh='650px' /> : ra11result?.result?.map((players, index) => (
-              <div className={`${gridClass} mt-4`} key={index}>
+            ra11result.loading ? <Loader minh='650px' /> : result?.map((players, index) => (
+              <div className={`col-auto mt-4`} key={index}>
                 <DreamTamPlayerPreview teambyrole={players} bgimgStyle={bgimgStyle} team1={team1} team2={team2} tnumber={index} />
               </div>
             ))

@@ -78,59 +78,59 @@ export default function DreamTeamHeader({ teambyrole, team1, team2, tnumber }) {
     let sum = 0;
     if (typeof players['WK'] != "undefined") {
       players['WK'].map((player, index2) => {
+        let points = player['points'];
         if (player['captain'] === 'active') {
-          points['points'] = player['points'] * 2;
+          points = player['points'] * 2;
         }
         if (player['vcaptain'] === 'active') {
-          points['points'] = player['points'] * 1.5;
+          points = player['points'] * 1.5;
         }
-        points['points'] = player['points'];
-        points.push(points['points']);
+        sum = parseFloat(sum, 10) + parseFloat(points, 10);
+
       });
     }
 
     if (typeof players['WK'] != "undefined") {
       players['BAT'].map((player, index2) => {
+        let points = player['points'];
         if (player['captain'] === 'active') {
-          points['points'] = player['points'] * 2;
+          points = player['points'] * 2;
+
         }
         if (player['vcaptain'] === 'active') {
-          points['points'] = player['points'] * 1.5;
+          points = player['points'] * 1.5;
         }
-        points['points'] = player['points'];
-        points.push(points['points']);
+        sum = parseFloat(sum, 10) + parseFloat(points, 10);
       });
     }
 
     if (typeof players['WK'] != "undefined") {
       players['AR'].map((player, index2) => {
+        let points = player['points'];
         if (player['captain'] === 'active') {
-          points['points'] = player['points'] * 2;
+          points = player['points'] * 2;
         }
         if (player['vcaptain'] === 'active') {
-          points['points'] = player['points'] * 1.5;
+          points = player['points'] * 1.5;
         }
-        points['points'] = player['points'];
-        points.push(points['points']);
+        sum = parseFloat(sum, 10) + parseFloat(points, 10);
+
       });
     }
 
     if (typeof players['WK'] != "undefined") {
       players['BOWL'].map((player, index2) => {
+        let ppoints = player['points'];
         if (player['captain'] === 'active') {
-          points['points'] = player['points'] * 2;
+          ppoints = player['points'] * 2;
         }
         if (player['vcaptain'] === 'active') {
-          points['points'] = player['points'] * 1.5;
-        }
-        points['points'] = player['points'];
-        points.push(points['points']);
+          ppoints = player['points'] * 1.5;
+        }        
+        sum = parseFloat(sum, 10) + parseFloat(ppoints, 10);
       });
     }
-    // Running the for loop
-    for (let i = 0; i < points.length; i++) {
-      sum = parseFloat(sum, 10) + parseFloat(points[i], 10);
-    }
+    console.log(sum);
     return sum ? sum : 0;
   }
 

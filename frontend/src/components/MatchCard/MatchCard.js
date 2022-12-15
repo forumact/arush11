@@ -10,6 +10,7 @@ import ViewCaptainPreference from './ViewCaptainPreference';
 import ViewViceCaptainPreference from './ViewViceCaptainPreference';
 
 import Loader from '../Loader';
+import NoResult from '../NoResult/NoResult';
 
 
 export default function MatchCard() {
@@ -122,54 +123,55 @@ export default function MatchCard() {
     )
   }
 
-  const renderCard = () => ra11Match.map(match => (
-    <div className="col-md-4" key={match.matchid}>
-      <div className="card mb-4 box-shadow">
-        <div className="card-header bg-card-ground" style={bgimgStyle}>
-          <h3>{match.matchid}</h3>
-          <div className="row mt-4 mb-4">
-            <div className="col-md-6">
-              <div className="col">
-                <img width="30" height="30" src={match.team1img} alt={match.team1} className="mr-1" />
-                <span className="h6 badge badge-danger text-uppercase">{match.team1}</span>
+  const renderCard = () => ra11Match.length == 0 ? <NoResult /> :
+    ra11Match.map(match => (
+      <div className="col-md-4" key={match.matchid}>
+        <div className="card mb-4 box-shadow">
+          <div className="card-header bg-card-ground" style={bgimgStyle}>
+            <h3>{match.matchid}</h3>
+            <div className="row mt-4 mb-4">
+              <div className="col-md-6">
+                <div className="col">
+                  <img width="30" height="30" src={match.team1img} alt={match.team1} className="mr-1" />
+                  <span className="h6 badge badge-danger text-uppercase">{match.team1}</span>
+                </div>
+                <div className="col">
+                  <img width="30" height="30" src={match.team2img} alt={match.team2} className="mr-1" />
+                  <span className="h6 badge badge-warning text-uppercase">{match.team2}</span>
+                </div>
               </div>
-              <div className="col">
-                <img width="30" height="30" src={match.team2img} alt={match.team2} className="mr-1" />
-                <span className="h6 badge badge-warning text-uppercase">{match.team2}</span>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="col">
-                <h5 className="text-white">{match.createdAt.substring(0, 10)}</h5>
+              <div className="col-md-6">
+                <div className="col">
+                  <h5 className="text-white">{match.createdAt.substring(0, 10)}</h5>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="card-body">
-          <p>Please cross check your <span className='badge bg-dark'>{match.teamcount}</span> Team performance here!</p>
-          <div className='row'>
-            <div className='col'>
-              <Link to={`/result?matchid=${match.matchid}&team1=${match.team1}&team2=${match.team2}`}
-                className='btn btn-sm btn-primary'>
-                <i class="fa-solid fa-street-view"></i></Link>
-            </div>
-            <div className='col'>
-              <Link to={`/points?matchid=${match.matchid}&team1=${match.team1}&team2=${match.team2}`} className='btn btn-sm btn-primary'><i class="fa-solid fa-edit"></i></Link>
-            </div>
-            <div className='col'>
-              <button className='btn btn-sm btn-primary' onClick={() => { Toggle(); setmodalData(match) }}><i class="fa-solid fa-chart-simple"></i></button>
-            </div>
-            <div className='col'>
-              <button className='btn btn-sm btn-primary'>{match.status}</button>
-            </div>
-            <div className='col'>
-              <button className='btn btn-sm btn-danger' onClick={() => handlerDelete(match.matchid)}><i class="fa-solid fa-trash"></i></button>
+          <div className="card-body">
+            <p>Please cross check your <span className='badge bg-dark'>{match.teamcount}</span> Team performance here!</p>
+            <div className='row'>
+              <div className='col'>
+                <Link to={`/result?matchid=${match.matchid}&team1=${match.team1}&team2=${match.team2}`}
+                  className='btn btn-sm btn-primary'>
+                  <i class="fa-solid fa-street-view"></i></Link>
+              </div>
+              <div className='col'>
+                <Link to={`/points?matchid=${match.matchid}&team1=${match.team1}&team2=${match.team2}`} className='btn btn-sm btn-primary'><i class="fa-solid fa-edit"></i></Link>
+              </div>
+              <div className='col'>
+                <button className='btn btn-sm btn-primary' onClick={() => { Toggle(); setmodalData(match) }}><i class="fa-solid fa-chart-simple"></i></button>
+              </div>
+              <div className='col'>
+                <button className='btn btn-sm btn-primary'>{match.status}</button>
+              </div>
+              <div className='col'>
+                <button className='btn btn-sm btn-danger' onClick={() => handlerDelete(match.matchid)}><i class="fa-solid fa-trash"></i></button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  ));
+    ));
 
   return (
     <div className='row'>

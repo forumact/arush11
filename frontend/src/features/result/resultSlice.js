@@ -15,6 +15,12 @@ export const getResult = createAsyncThunk('result/fetchResult', async (matchid) 
   const dreamTeam = await FetchCreatedDreamTeam(matchid);
   let result = [];
   let mockresult = [];
+  let combo = {};
+
+  for (let inc = 0; inc < dreamTeam.data.data.length; inc++) {
+    let num = dreamTeam.data.data[inc].combo.join('_');
+    combo[num] = combo[num] ? combo[num] + 1 : 1;
+  }
 
   for (let inc = 0; inc < dreamTeam.data.data.length; inc++) {
     mockresult.push(
@@ -27,7 +33,7 @@ export const getResult = createAsyncThunk('result/fetchResult', async (matchid) 
   });
 
   //  console.log(result);
-  return result
+  return {result, combo}
 })
 
 const resultSlice = createSlice({
